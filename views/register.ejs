@@ -1,4 +1,11 @@
-<%- include('partials/header') %>
+<%- include('partials/header.ejs') %> 
+<link href="/stylesheets/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+<link href="/stylesheets/font-awesome.min.css" rel="stylesheet" media="all">
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+
+<link href="/stylesheets/select2.min.css" rel="stylesheet" media="all">
+<link href="/stylesheets/daterangepicker.css" rel="stylesheet" media="all">
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
@@ -82,4 +89,14 @@
             </div>
         </div>
     </div>
-<%- include('partials/footer') %>
+
+    <!-- Jquery JS-->
+    <script src="/scripts/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="/scripts/select2.min.js"></script>
+    <script src="/scripts/moment.min.js"></script>
+    <script src="/scripts/daterangepicker.js"></script>
+
+    <!-- Main JS-->
+    <script src="/scripts/global.js"></script>>
+<%- include('partials/footer') %> 
