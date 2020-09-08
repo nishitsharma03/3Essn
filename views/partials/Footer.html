@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>BTP</title>
-  <style type="text/css" href=".css"></style>
+  <style type="text/css" href="feedback_form.css"></style>
   <!--- Bootstrap main file !---> 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!--- Fontawesome main file !--->
@@ -14,20 +14,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-  <footer class="page-footer font-small blue pt-4">
- <div class="container-fluid text-center text-md-left">
-
-    <div class="row">
-
-
-      <div class="col-md-6 mt-md-0 mt-3">
-<hr>
-      </div>
-  
-<p style="text-align:left;">
+<footer class="page-footer font-small blue pt-4">
+ <div class="container">
+	<div class="row">
+	  
+ <p style="text-align:left;">
     <hr class="clearfix w-100 d-md-none pb-3">
 
-      <div class="col-md-3 mb-md-0 mb-3">
+      <div class="col-md-4 mb-md-0 mb-3">
     
         <h5 class="text-uppercase">Links</h5>
 
@@ -45,28 +39,48 @@
             <a href="https://www.instagram.com/infinitesoul_6125/">Soham</a>
           </li>
         </ul>
+	  </div>
+ </p>
+ 
+ <div class="col-md-4">
+ 	<!-- Logo !--->	
+ </div>
 
-      </div>
-  
-    <span style="float:right;">
-       
-  <form>
-    <div class="feedback">
-      <label>Email address:</label>
-      <input type="email" class="form-control" placeholder="Enter your email" size="85">
-    </div>
-    <div class="feedback">
-      <label>Your feedback:</label>
-      <input type="textarea" class="form-control" placeholder="Message"  size=85">
-    <br>
+<div class="col-md-4">
+ <form style="float:right;">
+    <div >
+      <label for="email">Email address:</label>
+      <input type="email" id="email" class="form-control" placeholder="Enter your email" size="85">
+    </div><br>
+    <div >
+      <label for="comment">Your feedback:</label>
+      <input type="textarea" id="comment" class="form-control" placeholder="Message">
+    </div><br>
   <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+ </form>
 </div>
-    </span>
-</p>
+
+</div>
+</div>
 </footer>
   <div class="footer-copyright text-center py-3">© 2020 Copyright:
     <a href="https://www.instagram.com/sakshammahajan_/"> Saksham Mahajan</a>
   </div>
+  <br>
+<div class="container">
+© 2020 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Help
+Contact GitHub
+Pricing
+API
+Training
+Blog
+About
+</div>
+
 </body>
 </html>
