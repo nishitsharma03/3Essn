@@ -21,6 +21,10 @@ app.get("/login", function (req, res) {
     res.render("login");
 });
 
+app.post("/login", function (req, res) {
+   res.send("Login request recieved will add processing after sometime");     
+});
+
 app.get("*", function (req, res) {
     res.send("Webpage does not exist!!");
 });
