@@ -1,0 +1,21 @@
+body {
+	color: white;
+}
+
+.login_form {
+height: 380px;
+margin-top: 200px;
+padding: 35px;
+width: 400px;
+border-radius: 5px;
+background-color: rgba(0,0,0,0.5);
+}
+
+.container{
+height: 100%;
+align-content: center;
+}
+
+.alter_signup {
+padding-left: 50px;
+}
