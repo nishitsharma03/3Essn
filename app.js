@@ -1,9 +1,13 @@
-var bodyParser        = require("body-parser"),
+var express           = require("express"),
+bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
-express               = require("express");
+passport              = require("passport"),
+localStrategy         = require("passport-local"),
+passportLocalMongoose = require("passport-local-mongoose");
+
 
 var app = express();
-// mongoose.connect("mongodb://127.0.0.1:27017/");
+// mongoose.connect("mongodb://127.0.0.1:27017/btpptoj_2020");
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -11,6 +15,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 app.get("/", function (req, res) {
     res.render("home");
+});
+
+app.get("/user", function (req, res) {
+    res.send("this is the users page");
 });
 
 app.get("/register", function (req, res) {
