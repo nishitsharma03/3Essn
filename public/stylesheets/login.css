@@ -1,49 +1,52 @@
-
-
-.login_form { 
-	background: -webkit-gradient(linear, left bottom, left top, from(#fbc2eb), to(#a18cd1));
-  background: -webkit-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-  background: -moz-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-  background: -o-linear-gradient(bottom, #fbc2eb 0%, #a18cd1 100%);
-  background: linear-gradient(to top, #fbc2eb 0%, #a18cd1 100%);
-	height: 450px;
-	margin-top: 150px;
-	margin-left: 400px;
-	margin-bottom: 100px;;
-	padding: 40px;
-	width: 400px;
-	border-radius: 5px;
-}
-
-.container {
-	height: 100%;
-	align-content: center;
-}
-
-.alter_signup {
-	padding-left: 50px;
-}
-
-.form-group {
-	font-size: 14px;
-}
-
-button { 
-  background: transparent;
-  color: #F0F0F0;
-  border: 2px solid #F0F0F0;
-  border-radius: 10px;
-  font-size: 17px;
-  letter-spacing: 2px;
-  padding: 20px 75px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 15px 47px;
-  -webkit-transition: all 0.4s;
-   -moz-transition: all 0.4s;
-   transition: all 0.4s;
-}
-button:hover, button:focus {
-  background-color: white;
-  color: #333333;
-}
+body{
+  background-image: url('https://www.njea.org/wp-content/uploads/2014/10/Coding.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  
+  }
+  
+  .login_form { 
+    color: white;
+    background-color: rgba(0,0,0,0.5) !important;
+    height: 450px;
+    margin-top: 150px;
+    margin-left: 400px;
+    margin-bottom: 100px;;
+    padding: 40px;
+    width: 400px;
+    border-radius: 5px;
+  }
+  
+  .container {
+    height: 100%;
+    align-content: center;
+  }
+  
+  .alter_signup {
+    padding-left: 50px;
+  }
+  
+  .form-group {
+    font-size: 14px;
+  }
+  
+  button { 
+    background: transparent;
+    color: #F0F0F0;
+    border: 2px solid #F0F0F0;
+    border-radius: 10px;
+    font-size: 17px;
+    letter-spacing: 2px;
+    padding: 20px 75px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 15px 47px;
+    -webkit-transition: all 0.4s;
+     -moz-transition: all 0.4s;
+     transition: all 0.4s;
+  }
+  button:hover, button:focus {
+    background-color: white;
+    color: #333333;
+  }

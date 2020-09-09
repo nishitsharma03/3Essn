@@ -1,86 +1,52 @@
 <%- include('../register/header.ejs') %> 
-    <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
-        <div class="wrapper wrapper--w680">
-            <div class="card card-4">
-                <div class="card-body">
-                    <h2 class="title">Registration Form</h2>
-                    <form method="POST">
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">first name</label>
-                                    <input class="input--style-4" type="text" name="first_name">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">last name</label>
-                                    <input class="input--style-4" type="text" name="last_name">
-                                </div>
-                            </div>
+    <div class="container">
+        <form class="form-horizontal" role="form">  
+                <div class="login_form">
+                    <div class="heading">
+                        Registration Form
+                    </div>
+                    <div class="form-group">
+                        <label for="firstName" class="col-sm-3 control-label">First Name*</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="firstName" placeholder="First Name" class="form-control" autofocus>
                         </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Birthday</label>
-                                    <div class="input-group-icon">
-                                        <input class="input--style-4 js-datepicker" type="text" name="birthday">
-                                        <i class="zmdi zmdi-calendar-note input-icon js-btn-calendar"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Gender</label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container m-r-45">Male
-                                            <input type="radio" checked="checked" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container">Female
-                                            <input type="radio" name="gender">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-sm-3 control-label">Last Name*</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="lastname" placeholder="Last Name" class="form-control" autofocus>
                         </div>
-                        <div class="row row-space">
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Email</label>
-                                    <input class="input--style-4" type="email" name="email">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="input-group">
-                                    <label class="label">Password</label>
-                                    <input class="input--style-4" type="text" name="password">
-                                </div>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">Email*</label>
+                        <div class="col-sm-9">
+                            <input type="email" id="email" placeholder="Email" class="form-control">
                         </div>
-                        <div class="input-group">
-                            <label class="label">Place</label>
-                            <div class="rs-select2 js-select-simple select--no-search">
-                                <select name="Place">
-                                    <option disabled="disabled" selected="selected">Choose option</option>
-                                    <option>Jammu</option>
-                                    <option>Delhi</option>
-                                    <option>Ludhiana</option>
-                                    <option>Nashik</option>
-                                    <option>Pune</option>
-                                    <option>Other</option>
-                                </select>
-                                <div class="select-dropdown"></div>
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="col-sm-3 control-label">Mobile Number*</label>
+                        <div class="col-sm-9">
+                            <input type="email" id="mobile" placeholder="Mobile Number" class="form-control">
                         </div>
-                        <div class="p-t-15">
-                            <button class="btn btn--radius-2 btn--blue" type="submit">Submit</button>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">Password*</label>
+                        <div class="col-sm-9">
+                            <input type="email" id="password" placeholder="Password" class="form-control">
                         </div>
-                    </form>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpassword" class="col-sm-3 control-label">Confirm Password*</label>
+                        <div class="col-sm-9">
+                            <input type="email" id="cpassword" placeholder="Re-Enter Password" class="form-control">
+                        </div>
+                    </div>
+                    <button type="submit" class="raise">Submit</button><br><br>
+                    <div class="alter_login">
+                        Already have an account? <a href="#">Sign Up</a>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
 
+            </form>
+    </div>
 <%- include('../register/footer') %> 
