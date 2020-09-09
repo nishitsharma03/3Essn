@@ -5,5 +5,6 @@ var mongoose = require("mongoose");
      lastName : String,
      email    : String,
      phoneNo  : String,
+     username : String,
      password : String
  });
