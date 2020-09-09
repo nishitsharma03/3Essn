@@ -9,19 +9,32 @@
             <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="username">Username*</label>
-                    <input type="text" class="form-control" id="username" placeholder="Username">
+                    <input type="text" class="form-control" id="username" placeholder="Username" name="username" autofocus required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password*</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+                    <input type="checkbox" onclick="Toggle()"> 
+                            <b>Show Password</b> 
+                            <script> 
+                                function Toggle() { 
+                                    var temp = document.getElementById("password"); 
+                                    if (temp.type === "password") { 
+                                        temp.type = "text"; 
+                                    } 
+                                    else { 
+                                        temp.type = "password"; 
+                                    } 
+                                } 
+                            </script> 
+                </div>
+                <div>
+                    <div class="alter_signup">
+                        Don't have an account? <a href="/register">Sign Up</a>
+                    </div>
                 </div>
                 <button type="submit" class="raise">Submit</button>
             </form>
-            </div><br><br>
-            <div>
-                <div class="alter_signup">
-                    Don't have an account?<a href="#">Sign Up</a>
-                </div>
             </div>
         </div>
     </div>

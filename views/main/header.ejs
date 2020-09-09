@@ -2,11 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <meta name="description" content="Colorlib Templates">
-    <meta name="author" content="Colorlib">
-    <meta name="keywords" content="Colorlib Templates">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
     <title>Our Website</title>
 
 <%# Footer links %>
@@ -31,7 +28,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
 <%# Custom file links %>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/stylesheets/login.css"> -->
     <link rel="stylesheet" type="text/css" media="all" href="/stylesheets/main.css">
 
 <%# Navbar lnks %>
@@ -58,16 +55,36 @@
           </div>
           
           <div class="collapse navbar-collapse" id="navbar-content">
-              <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
                     <li><a class="nav-font" href="/">Home</a></li>
-                    <li><a class="nav-font" href="/">Resources</a></li>
+                    <li><a class="nav-font" href="/resources">Resources</a></li>
                     <li><a class="nav-font" href="/about">About Us</a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                    <li><a class="nav-font" href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a class="nav-font" href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                    <li><a class="nav-font" href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-              </ul>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                <% if(!currentUser){ %>   
+                    <li>
+                        <a class="nav-font" href="/login">
+                            <span class="glyphicon glyphicon-log-in"></span> Login
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-font" href="/register">
+                            <span class="glyphicon glyphicon-user"></span> Sign Up
+                        </a>
+                    </li>
+                <% } else{ %>
+                    <li>
+                        <a class="nav-font" href="/user">
+                            </span> Welcome <%= currentUser.firstName %> <%= currentUser.lastName %> <span class="glyphicon glyphicon-user"></span> 
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-font" href="/logout">
+                            <span class="glyphicon glyphicon-log-out"></span> Logout
+                        </a>
+                    </li>
+                <% } %>
+                </ul>
         </div>
       </div>
       </nav>

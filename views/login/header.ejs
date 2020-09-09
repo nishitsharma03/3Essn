@@ -2,11 +2,8 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Colorlib Templates">
-    <meta name="author" content="Colorlib">
-    <meta name="keywords" content="Colorlib Templates">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    
     <title>Our Website</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -16,3 +13,49 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
 </head>
 <body>
+    <nav class="navbar navbar-inverse" style="background-color: rgb(14,14,14);">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand nav-font" href="#"><b>Company</b></a>
+        </div>
+        
+        <div class="collapse navbar-collapse" id="navbar-content">
+            <ul class="nav navbar-nav">
+                <li><a class="nav-font" href="/">Home</a></li>
+                <li><a class="nav-font" href="/resources">Resources</a></li>
+                <li><a class="nav-font" href="/about">About Us</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            <% if(!currentUser){ %>   
+                <li>
+                    <a class="nav-font" href="/login">
+                        <span class="glyphicon glyphicon-log-in"></span> Login
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-font" href="/register">
+                        <span class="glyphicon glyphicon-user"></span> Sign Up
+                    </a>
+                </li>
+            <% } else{ %>
+                <li>
+                    <a class="nav-font" href="/user">
+                        </span> Welcome <%= currentUser.firstName %> <%= currentUser.lastName %> <span class="glyphicon glyphicon-user"></span> 
+                    </a>
+                </li>
+                <li>
+                    <a class="nav-font" href="/logout">
+                        <span class="glyphicon glyphicon-log-out"></span> Logout
+                    </a>
+                </li>
+            <% } %>
+            </ul>
+    </div>
+    </div>
+    </nav>
