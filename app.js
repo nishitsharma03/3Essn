@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get("/", function (req, res) {
-    res.render("home");
+    res.render("main/index");
 });
 
 app.get("/user", function (req, res) {
@@ -22,7 +22,7 @@ app.get("/user", function (req, res) {
 });
 
 app.get("/register", function (req, res) {
-    res.render("register");
+    res.render("register/form");
 })
 
 app.post("/register", function (req, res) {
@@ -30,7 +30,7 @@ app.post("/register", function (req, res) {
 })
 
 app.get("/login", function (req, res) {
-    res.render("login");
+    res.render("login/form");
 });
 
 app.post("/login", function (req, res) {
