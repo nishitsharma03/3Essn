@@ -32,7 +32,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     next();
-})
+});
 
 // =============
 // Basic ROUTES
@@ -44,11 +44,15 @@ app.get("/", function (req, res) {
 
 app.get("/resources", function (req, res) {
     res.send("Resources");
-})
+});
 
 app.get("/aboutus", function (req, res) {
     res.send("About Us!!");
-})
+});
+
+app.get("/calender", function (req, res) {
+    res.render("calender");
+});
 
 // ============
 // AUTH ROUTES

@@ -13,13 +13,11 @@
                 </div>
                 <div class="form-group">
                     <label for="password"></label>Password*</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
-                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                    <input type="checkbox" onclick="Toggle()"> 
-                            <b>Show Password</b> 
+                    <input type="password" class="form-control" id="togglepassword" placeholder="Password" name="password" required>
+                    <span toggle="#password-field" class=" field-icon toggle-password"><input type="checkbox" onclick="Toggle()"></span>
                             <script> 
                                 function Toggle() { 
-                                    var temp = document.getElementById("password"); 
+                                    var temp = document.getElementById("togglepassword"); 
                                     if (temp.type === "password") { 
                                         temp.type = "text"; 
                                     } 
