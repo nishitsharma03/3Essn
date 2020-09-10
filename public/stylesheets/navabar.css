@@ -1,0 +1,9 @@
+.navbar {
+	border-radius: 0px;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+a,i,span {
+	transition: all .3s;
+}
