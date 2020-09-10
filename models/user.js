@@ -7,8 +7,8 @@ passportLocalMongoose = require("passport-local-mongoose");
      lastName : String,
      username : String,
      email    : String,
+     password : String,
      phoneNo  : String,
-     password : String
  });
 
 UserSchema.plugin(passportLocalMongoose);

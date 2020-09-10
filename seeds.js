@@ -11,7 +11,7 @@ var users =[
 ];
 
 function SeedDB() {
-    User.remove({}, function (err) {
+    User.deleteMany({}, function (err) {
        if(err){
            console.log(err);
        }

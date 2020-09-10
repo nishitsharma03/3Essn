@@ -44,15 +44,15 @@
 <body>
     <nav class="navbar navbar-inverse" style="background-color: rgb(14,14,14);">
         <div class="container">
-          <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand nav-font" href="#"><b>Company</b></a>
-          </div>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand nav-font" href="#"><b>Company</b></a>
+            </div>
           
           <div class="collapse navbar-collapse" id="navbar-content">
                 <ul class="nav navbar-nav">
@@ -85,6 +85,18 @@
                     </li>
                 <% } %>
                 </ul>
+            </div>
         </div>
-      </div>
-      </nav>
+    </nav>
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+    </div>
