@@ -5,7 +5,7 @@ passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
 passportLocalMongoose = require("passport-local-mongoose"),
 User                  = require("./models/user"),
-seedDB                = require("./seeds"),
+// seedDB                = require("./seeds"),
 app                   = express();
 
 // ============
@@ -16,7 +16,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/btpproj_2020");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-seedDB();
+// seedDB();
 
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
