@@ -1,37 +1,47 @@
 body{
-    background-image: url('https://www.njea.org/wp-content/uploads/2014/10/Coding.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;  
-}
-
-.login_form { 
+  background-image: url('https://www.njea.org/wp-content/uploads/2014/10/Coding.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  
+  }
+  
+  .login_form { 
     color: white;
-    background-color: rgba(0,0,0,0.6) !important;
-    height: 420px;
-    margin-top: 80px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 80px;
+    background-color: rgba(0,0,0,0.5) !important;
+    height: 450px;
+    margin-top: 130px;
+    margin-left: 400px;
+    margin-bottom: 100px;;
     padding: 40px;
-    width: 380px;
+    width: 400px;
     border-radius: 5px;
-}
-
-.container {
+  }
+  
+  .container {
     height: 100%;
     align-content: center;
-}
-
-.alter_signup {
+  }
+  
+  .alter_signup {
     padding-left: 50px;
-}
-
-.form-group {
+  }
+  
+  .form-group {
     font-size: 14px;
-}
+  }
+  
+  .field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    margin-right: 10px;
+    position: relative;
+    z-index: 2;
+    color: black;
+  }
 
-button { 
+  button { 
     background: transparent;
     color: #F0F0F0;
     border: 2px solid #F0F0F0;
@@ -41,12 +51,12 @@ button {
     padding: 8px 35px;
     cursor: pointer;
     display: inline-block;
-    margin: 15px 90px;
+    margin: 10px 90px;
     -webkit-transition: all 0.4s;
-        -moz-transition: all 0.4s;
-        transition: all 0.4s;
-}
-button:hover, button:focus {
+     -moz-transition: all 0.4s;
+     transition: all 0.4s;
+  }
+  button:hover, button:focus {
     background-color: white;
     color: #333333;
-}
+  }
