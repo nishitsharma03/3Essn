@@ -5,7 +5,7 @@ passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
 passportLocalMongoose = require("passport-local-mongoose"),
 User                  = require("./models/user"),
-// seedDB                = require("./seeds"),
+seedDB                = require("./seeds"),
 app                   = express();
 
 // ============
@@ -16,7 +16,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/btpproj_2020");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-// seedDB();
+seedDB();
 
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
@@ -62,7 +62,7 @@ app.get("/user", function (req, res) {
     res.send("this is the users page");
 });
 
-app.get("/register", function (req, res) {
+app.get("/register", isLoggedOut, function (req, res) {
     res.render("register/form");
 });
 
@@ -85,7 +85,7 @@ app.post("/register", function (req, res) {
     });
 });
 
-app.get("/login", function (req, res) {
+app.get("/login", isLoggedOut, function (req, res) {
     res.render("login/form");
 });
 
@@ -96,7 +96,7 @@ app.post("/login",passport.authenticate("local",
     }), function (req, res) {
 });
 
-app.get("/logout", function (req, res) {
+app.get("/logout", isLoggedIn,function (req, res) {
     req.logOut();
     res.redirect("/");
 });
@@ -104,9 +104,10 @@ app.get("/logout", function (req, res) {
 // DEFAULT ROUTE
 
 app.get("*", function (req, res) {
-    res.send("Webpage does not exist!!");
+    res.render("null");
 });
 
+// Middlewares
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()){
         return next();
@@ -114,6 +115,14 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
+function isLoggedOut(req, res, next) {
+    if(!req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/");
+}
+
+//PORT
 app.listen("3000", function () {
     console.log("Server is running!");
 });
