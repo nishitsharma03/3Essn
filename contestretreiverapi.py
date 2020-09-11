@@ -9,10 +9,10 @@ if result.status_code!=200:
 
 res=json.loads(result.content.decode('utf-8'));
 
-for i in res:
-    print(res)
+# for i in res["objects"]:
+#     print(i)
 
-'''
+
 contests=res['objects']
 
 names=['codechef.com','hackerearth.com','codeforces.com','leetcode.com','atcoder.com']
@@ -25,4 +25,4 @@ for i in contests:
 
 for i in finallist:
     print(i['resource']['name'],i['event'],i['duration'])
-'''
+

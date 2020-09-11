@@ -8,6 +8,9 @@ passportLocalMongoose = require("passport-local-mongoose"),
 User                  = require("./models/user"),
 seedDB                = require("./seeds"),
 app                   = express(),
+buffer = require("buffer"),
+names=['codechef.com','hackerearth.com','codeforces.com','leetcode.com','atcoder.com'],
+nishit={}
 // spawn = require("child_process").spawn,
 largeDataSet =[]; 
 
@@ -70,17 +73,27 @@ app.get("/resources", function (req, res) {
 app.get("/nishit", function (req, res) { 
     var spawn = require("child_process").spawn; 
       
-    var process = spawn('python',["contestretreiverapi.py", "greedy", 1100] ); 
+    var process = spawn('python',["contestretreiverapi.py"] ); 
   
     process.stdout.on('data', function (data) {
     console.log('Pipe data from python script ...');
         largeDataSet.push(data);
     });
+    // console.log(largeDataSet[0].toJSON());
+    // console.log(typeof(largeDataSet));
+    // nishit = JSON.parse(largeDataSet[0]);
+    // console.log(typeof(nishit));
     process.on('close', (code) => {
-    console.log(`child process close all stdio with code ${code}`);
+    console.log('child process close all stdio with code ${code}');
     // send data to browser
-    res.send(largeDataSet.join(""));
-    console.log(largeDataSet)
+    // for (let i = 0; i < nishit.length; i++) {
+    //     // // var element = nishit[i];
+    //     // if largeDataSet["resource"]["name"] in names{
+    //     //     console.log(nishit[i]["resource"]);
+    //     // }
+    // }
+    res.send(largeDataSet);
+    // console.log(largeDataSet)
     });
 } );
 
