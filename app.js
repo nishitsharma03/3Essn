@@ -62,10 +62,6 @@ app.get("/calender", function (req, res) {
 // AUTH ROUTES
 // ============
 
-app.get("/user", function (req, res) {
-    res.send("this is the users page");
-});
-
 app.get("/register", isLoggedOut, function (req, res) {
     res.render("register/form");
 });
@@ -110,6 +106,19 @@ app.get("/logout", isLoggedIn,function (req, res) {
     req.flash("success", "Logged Out!");
     res.redirect("/");
 });
+
+// =============
+// USER ROUTES
+// =============
+
+app.get("/user", function (req, res) {
+    res.send("this is the users page");
+});
+
+app.get("/problems", function (req, res) {
+    res.render("problems/problem");
+})
+
 
 // DEFAULT ROUTE
 
