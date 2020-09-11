@@ -9,6 +9,7 @@ User                  = require("./models/user"),
 seedDB                = require("./seeds"),
 app                   = express(),
 buffer = require("buffer"),
+fs = require("fs")
 names=['codechef.com','hackerearth.com','codeforces.com','leetcode.com','atcoder.com'],
 nishit={}
 // spawn = require("child_process").spawn,
@@ -75,10 +76,13 @@ app.get("/nishit", function (req, res) {
       
     var process = spawn('python',["contestretreiverapi.py"] ); 
   
-    process.stdout.on('data', function (data) {
-    console.log('Pipe data from python script ...');
-        largeDataSet.push(data);
-    });
+    // process.stdout.on('data', function (data) {
+    // console.log('Pipe data from python script ...');
+    //     largeDataSet.push(data);
+    // });
+    // var dataset = require("./data.json");
+
+
     // console.log(largeDataSet[0].toJSON());
     // console.log(typeof(largeDataSet));
     // nishit = JSON.parse(largeDataSet[0]);
@@ -92,8 +96,22 @@ app.get("/nishit", function (req, res) {
     //     //     console.log(nishit[i]["resource"]);
     //     // }
     // }
-    res.send(largeDataSet);
-    // console.log(largeDataSet)
+    fs.readFile("data.json", function (err, data) {
+        if(err) throw err;
+        const contest = JSON.parse(data);
+        // console.log(contest);
+        for (let i = 0; i < contest["objects"].length; i++) {
+            if (contest["objects"][i]["resource"]["name"] in names){
+                // console.log(contest["objects"][i]["resource"]["name"]);
+                console.log("hello");
+                
+                // largeDataSet.push(contest["objects"][i]);
+            }
+        }
+        // res.send(largeDataSet);
+    })
+    // res.send(dataset);
+    // console.log(dataset);
     });
 } );
 
