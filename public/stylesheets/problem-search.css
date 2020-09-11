@@ -1,0 +1,37 @@
+
+.form-control {
+	border : none;
+	border-bottom: 2px solid #D3D3D3;
+	box-shadow: none;
+
+}
+
+input[type='text']:focus {
+  border-bottom: 2px solid #9e0ced;
+  box-shadow: none;
+  transition: 0.7s all;
+}
+
+input[type="text"]::-webkit-input-placeholder {
+  font-size: 16px;
+}
+
+input[type='text']:hover {
+  	
+}
+
+.btn {
+	color: #9e0ced;
+	background-color: white;
+	border: 2px solid #9e0ced;
+	height: 34px;
+	transition: 0.3s all;
+}
+
+.btn:hover {
+	color: white;
+	background-color: #9e0ced;
+	border: 2px solid #9e0ced;
+	height: 34px;
+}
+
