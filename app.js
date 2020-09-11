@@ -7,7 +7,9 @@ LocalStrategy         = require("passport-local"),
 passportLocalMongoose = require("passport-local-mongoose"),
 User                  = require("./models/user"),
 seedDB                = require("./seeds"),
-app                   = express();
+app                   = express(),
+// spawn = require("child_process").spawn,
+largeDataSet =[]; 
 
 // ============
 // APP CONGIG
@@ -38,6 +40,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+
 // =============
 // Basic ROUTES
 // =============
@@ -50,9 +53,36 @@ app.get("/resources", function (req, res) {
     res.send("Resources");
 });
 
-app.get("/aboutus", function (req, res) {
-    res.send("About Us!!");
-});
+// app.get("/aboutus", function (req, res) {
+//     res.send("About Us!!");
+//     var process = spawn('python',["contestretrievalapi.py", "greedy", 1100] ); 
+//     process.stdout.on('data', function (data) {
+//     console.log('Pipe data from python script ...');
+//     largeDataSet.push(data);
+//    });;
+//     process.on('close', (code) => {
+//     console.log(`child process close all stdio with code ${code}`);
+//     // send data to browser
+//     res.send(largeDataSet.join(""));
+//     });
+// });
+
+app.get("/nishit", function (req, res) { 
+    var spawn = require("child_process").spawn; 
+      
+    var process = spawn('python',["contestretreiverapi.py", "greedy", 1100] ); 
+  
+    process.stdout.on('data', function (data) {
+    console.log('Pipe data from python script ...');
+        largeDataSet.push(data);
+    });
+    process.on('close', (code) => {
+    console.log(`child process close all stdio with code ${code}`);
+    // send data to browser
+    res.send(largeDataSet.join(""));
+    console.log(largeDataSet)
+    });
+} );
 
 app.get("/calender", function (req, res) {
     res.render("calender");

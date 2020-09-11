@@ -18,6 +18,7 @@
   "homepage": "https://github.com/nishitsharma03/btpproj2020#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "child_process": "^1.0.2",
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
