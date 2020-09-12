@@ -23,13 +23,13 @@ body {
 	overflow: hidden;
 	transition: 0.5s all;
 	padding: 14px 1px;
-	margin: 0px 19px;
+	margin: 0px 10px;
 	padding-bottom: 4px;
 
 }
 #menu li a:before{
 	content: '';
-	width : 60px;
+	width : 100px;
 	position: absolute;
 	color: #acb6e5;
 	/*border-bottom: 3px solid white;*/
