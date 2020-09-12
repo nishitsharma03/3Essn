@@ -17,13 +17,21 @@ with open('data.json','w') as outfile:
 
 
 
-'''
+
 contests=res['objects']
+print(type(contests))
 names=['codechef.com','hackerearth.com','codeforces.com','leetcode.com','atcoder.com']
-finallist=[]
+finallist={}
+cnt=0
 for i in contests:
     if i['resource']['name'] in names:
-        finallist.append(i)
+        print(i, type(i))
+        finallist[cnt]=i
+        cnt+=1;
+
 for i in finallist:
-    print(i['resource']['name'],i['event'],i['duration'])
-'''
+    print(i)
+with open('data.json','w') as outfile:
+
+    # for i in res:
+    json.dump(finallist,outfile)
