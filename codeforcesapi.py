@@ -1,10 +1,18 @@
 import requests
 import json
 import random
-tag=input('enter problem tag')
-rated=int( input('enter problem rating'))
+tag=sys.args[1]
 
-result=requests.get("https://codeforces.com/api/problemset.problems?tags="+tag)
+ratedlow=sys.args[2]
+ratedhigh = sys.args[3]
+
+callurl=""
+for i in range(len(alltags)):
+    if(i==0):
+        callurl=callurl + "tags="+alltags[i]
+    else:
+        callurl=callurl + "&tags="+alltags[i]
+result=requests.get("https://codeforces.com/api/problemset.problems?"+tag)
 #print(result.headers['status'])
 if( result.status_code!=200):
     exit();
@@ -18,7 +26,7 @@ j = res['result']['problems']
 for  i in j:
     #print(i)
     if 'rating' in i:
-        if i['rating']==rated:
+        if i['rating']>=ratedlow and i['rating']<=ratedhigh:
             allprob.append(i)
 
 random.shuffle(allprob)
