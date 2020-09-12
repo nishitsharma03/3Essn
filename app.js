@@ -142,8 +142,17 @@ app.get("/user", isLoggedIn, function (req, res) {
 });
 
 app.get("/problems", function (req, res) {
-    res.render("problems/problem", {data: parsedData});
-})
+    // res.render("problems/problem", {data: parsedData});
+    var tag = "greedy";
+    var rating = 1100;
+
+    request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
+        if(!error && response.statusCode == 200){
+            parsedData = JSON.parse(body);
+            res.send(parsedData);
+        }
+    });
+});
 
 app.post("/problems", function (req, res) {
     var tag = req.body.tag;
@@ -154,8 +163,8 @@ app.post("/problems", function (req, res) {
             parsedData = JSON.parse(body);
             res.redirect("/problems")
         }
-    })
-})
+    });
+});
 
 
 // DEFAULT ROUTE
