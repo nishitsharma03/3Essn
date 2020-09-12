@@ -5,14 +5,11 @@ flash                 = require("connect-flash"),
 passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
 passportLocalMongoose = require("passport-local-mongoose"),
+spawn                 = require("child_process").spawn,
+fs                    = require("fs"),
 User                  = require("./models/user"),
 seedDB                = require("./seeds"),
 app                   = express(),
-buffer = require("buffer"),
-fs = require("fs")
-names=['codechef.com','hackerearth.com','codeforces.com','leetcode.com','atcoder.com'],
-nishit={}
-// spawn = require("child_process").spawn,
 largeDataSet =[]; 
 
 // ============
@@ -45,6 +42,15 @@ app.use(function (req, res, next) {
 });
 
 
+var process = spawn('python',["contestretreiverapi.py"] ); 
+    // process.stdout.on('data', function (data) {
+    // console.log('Pipe data from python script ...');
+    //     largeDataSet.push(data);
+    // });
+    process.on('close', (code) => {
+        console.log(`child process close all stdio with code ${code}`);
+    });
+
 // =============
 // Basic ROUTES
 // =============
@@ -57,63 +63,22 @@ app.get("/resources", function (req, res) {
     res.send("Resources");
 });
 
-// app.get("/aboutus", function (req, res) {
-//     res.send("About Us!!");
-//     var process = spawn('python',["contestretrievalapi.py", "greedy", 1100] ); 
-//     process.stdout.on('data', function (data) {
-//     console.log('Pipe data from python script ...');
-//     largeDataSet.push(data);
-//    });;
-//     process.on('close', (code) => {
-//     console.log(`child process close all stdio with code ${code}`);
-//     // send data to browser
-//     res.send(largeDataSet.join(""));
-//     });
-// });
+app.get("/aboutus", function (req, res) {
+    res.send("About Us!!");
+});
 
-app.get("/nishit", function (req, res) { 
-    var spawn = require("child_process").spawn; 
+app.get("/contest", function (req, res) { 
+    fs.readFile("data.json", function(err, data) { 
       
-    var process = spawn('python',["contestretreiverapi.py"] ); 
-  
-    // process.stdout.on('data', function (data) {
-    // console.log('Pipe data from python script ...');
-    //     largeDataSet.push(data);
-    // });
-    // var dataset = require("./data.json");
-
-
-    // console.log(largeDataSet[0].toJSON());
-    // console.log(typeof(largeDataSet));
-    // nishit = JSON.parse(largeDataSet[0]);
-    // console.log(typeof(nishit));
-    process.on('close', (code) => {
-    console.log('child process close all stdio with code ${code}');
-    // send data to browser
-    // for (let i = 0; i < nishit.length; i++) {
-    //     // // var element = nishit[i];
-    //     // if largeDataSet["resource"]["name"] in names{
-    //     //     console.log(nishit[i]["resource"]);
-    //     // }
-    // }
-    fs.readFile("data.json", function (err, data) {
-        if(err) throw err;
-        const contest = JSON.parse(data);
-        // console.log(contest);
-        for (let i = 0; i < contest["objects"].length; i++) {
-            if (contest["objects"][i]["resource"]["name"] in names){
-                // console.log(contest["objects"][i]["resource"]["name"]);
-                console.log("hello");
-                
-                // largeDataSet.push(contest["objects"][i]);
-            }
-        }
-        // res.send(largeDataSet);
-    })
-    // res.send(dataset);
-    // console.log(dataset);
+        // Check for errors 
+        if (err) throw err; 
+        // Converting to JSON 
+        largeDataSet = JSON.parse(data); 
+        
     });
-} );
+    res.send(largeDataSet);
+});
+
 
 app.get("/calender", function (req, res) {
     res.render("calender");
@@ -203,6 +168,7 @@ function isLoggedOut(req, res, next) {
     req.flash("error", "Please Logout First!");
     res.redirect("/");
 }
+
 
 //PORT
 app.listen("3000", function () {
