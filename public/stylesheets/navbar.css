@@ -16,26 +16,31 @@ body {
 	text-decoration: none;
 	color: #999ba1;
 	position: relative; 
-	font-size: 14px;
-	font-weight: 500;
-	font-family: sans-serif;
+	font-size: 16px;
+	font-weight: 600;
+	font-family: Ubuntu, sans-serif;
 	display: block;
 	overflow: hidden;
 	transition: 0.5s all;
 	padding: 14px 1px;
 	margin: 0px 19px;
-	padding-bottom: 10px;
+	padding-bottom: 4px;
+
 }
 #menu li a:before{
 	content: '';
 	width : 60px;
 	position: absolute;
-	color: white;
-	border-bottom: 3px solid white;
-	bottom : 0;
+	color: #acb6e5;
+	/*border-bottom: 3px solid white;*/
+	border: 2px solid;
+  	border-image-source: linear-gradient(45deg, #acb6e5, #86fde8);
+  	border-image-slice: 1;
+  	bottom : 0;
 	right: 350px;
 	transition: 0.5s all;
 }
+
 #menu li a:hover:before{
 	right: 0;
 }
@@ -46,6 +51,7 @@ body {
 	background-color: rgb(14,14,14);
 	border-radius: 0px;
 }
+
 .navbar-brand{
 	color: white;
 	padding-right: 30px;
