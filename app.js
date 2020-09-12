@@ -1,6 +1,7 @@
 var express           = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
+request               = require("request"),
 flash                 = require("connect-flash"),
 passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
@@ -8,9 +9,10 @@ passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
-seedDB                = require("./seeds"),
-app                   = express(),
-largeDataSet =[]; 
+parsedData =[],
+// seedDB                = require("./seeds"),
+app                   = express();
+// largeDataSet =[]; 
 
 // ============
 // APP CONGIG
@@ -20,7 +22,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/btpproj_2020", {useNewUrlParser: tru
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-seedDB();
+// seedDB();
 
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
@@ -69,12 +71,10 @@ app.get("/aboutus", function (req, res) {
 
 app.get("/contest", function (req, res) { 
     fs.readFile("data.json", function(err, data) { 
-      
         // Check for errors 
         if (err) throw err; 
         // Converting to JSON 
         largeDataSet = JSON.parse(data); 
-        
     });
     res.send(largeDataSet);
 });
@@ -141,8 +141,20 @@ app.get("/user", isLoggedIn, function (req, res) {
     res.send("this is the users page");
 });
 
-app.get("/problems", isLoggedIn, function (req, res) {
-    res.render("problems/problem");
+app.get("/problems", function (req, res) {
+    res.render("problems/problem", {data: parsedData});
+})
+
+app.post("/problems", function (req, res) {
+    var tag = req.body.tag;
+    var rating = req.body.rating;
+
+    request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
+        if(!error && response.statusCode == 200){
+            parsedData = JSON.parse(body);
+            res.redirect("/problems")
+        }
+    })
 })
 
 
