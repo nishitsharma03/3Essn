@@ -45,19 +45,19 @@ app.use(function (req, res, next) {
 // ===========
 // API Script
 // ===========
-// function contestRefresh() {
-//     var process = spawn('python',["contestretreiverapi.py"] );
+function contestRefresh() {
+    var process = spawn('python',["contestretreiverapi.py"] );
     
-//     process.stderr.on('data', (data) => {
-//         console.log(`error:${data}`);
-//     }); 
-//     process.on('close', (code) => {
-//         console.log(`child process (contest) close all stdio with code ${code}`);
-//     })
-// }
-// contestRefresh();
-// var timeGap = 12*60*60*1000; //hours
-// setInterval(contestRefresh, timeGap); //for deployement
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
+    process.on('close', (code) => {
+        console.log(`child process (contest) close all stdio with code ${code}`);
+    })
+}
+contestRefresh();
+var timeGap = 12*60*60*1000; //hours
+setInterval(contestRefresh, timeGap); //for deployement
 
 // =============
 // Basic ROUTES
@@ -143,7 +143,7 @@ app.get("/user", isLoggedIn, function (req, res) {
     res.send("this is the users page");
 });
 
-app.get("/problems", function (req, res) {
+// app.get("/problems", function (req, res) {
     // res.render("problems/problem", {data: parsedData});
     // var tag = "greedy,sortings";
     // tag.replace(",","&tags=");
@@ -157,20 +157,23 @@ app.get("/problems", function (req, res) {
     //         console.log("Error");
     //     }
     // });
-});
-
-app.post("/problems", function (req, res) {
-    var process = spawn('python',["codeforcesapi.py", req.body.tag, req.body.lrating, req.body.urating] );
-    // process.stderr.on('data', (data) => {
-        // console.log(`error:${data}`);
-    // }); 
+// });
+var dataToSend;
+app.get("/problems", function (req, res) {
+    // req.body.tag, req.body.lrating, req.body.urating
+    var process = spawn('python',["codeforcesapi.py", "greedy", 1100, 2000] );
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
     process.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
-        dataToSend = data.toString();
+        // dataToSend = data;
+        console.log(data);
     });
     process.on('close', (code) => {
-        console.log(`child process (contest) close all stdio with code ${code}`);
-        console.log(dataToSend);
+        console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
+        // console.log(dataToSend);
+        res.send("completed");
     })
    
 });
