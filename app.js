@@ -160,15 +160,17 @@ app.get("/problems", function (req, res) {
 });
 
 app.post("/problems", function (req, res) {
-    var tag = req.body.tag;
-    var rating = req.body.rating;
-    var process = spawn('python',["codeforcesapi.py",] );
-    
-    process.stderr.on('data', (data) => {
-        console.log(`error:${data}`);
-    }); 
+    var process = spawn('python',["codeforcesapi.py", req.body.tag, req.body.lrating, req.body.urating] );
+    // process.stderr.on('data', (data) => {
+        // console.log(`error:${data}`);
+    // }); 
+    process.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        dataToSend = data.toString();
+    });
     process.on('close', (code) => {
         console.log(`child process (contest) close all stdio with code ${code}`);
+        console.log(dataToSend);
     })
    
 });
