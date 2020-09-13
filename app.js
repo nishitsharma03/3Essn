@@ -55,9 +55,9 @@ function contestRefresh() {
         console.log(`child process (contest) close all stdio with code ${code}`);
     })
 }
-contestRefresh();
-var timeGap = 12*60*60*1000; //hours
-setInterval(contestRefresh, timeGap); //for deployement
+// contestRefresh();
+// var timeGap = 12*60*60*1000; //hours
+// setInterval(contestRefresh, timeGap); //for deployement
 
 // =============
 // Basic ROUTES
