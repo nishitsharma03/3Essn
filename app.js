@@ -45,16 +45,16 @@ app.use(function (req, res, next) {
 // ===========
 // API Script
 // ===========
-function contestRefresh() {
-    var process = spawn('python',["contestretreiverapi.py"] );
+// function contestRefresh() {
+//     var process = spawn('python',["contestretreiverapi.py"] );
     
-    process.stderr.on('data', (data) => {
-        console.log(`error:${data}`);
-    }); 
-    process.on('close', (code) => {
-        console.log(`child process (contest) close all stdio with code ${code}`);
-    })
-}
+//     process.stderr.on('data', (data) => {
+//         console.log(`error:${data}`);
+//     }); 
+//     process.on('close', (code) => {
+//         console.log(`child process (contest) close all stdio with code ${code}`);
+//     })
+// }
 // contestRefresh();
 // var timeGap = 12*60*60*1000; //hours
 // setInterval(contestRefresh, timeGap); //for deployement
@@ -162,13 +162,15 @@ app.get("/problems", function (req, res) {
 app.post("/problems", function (req, res) {
     var tag = req.body.tag;
     var rating = req.body.rating;
-
-    request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
-        if(!error && response.statusCode == 200){
-            parsedData = JSON.parse(body);
-            res.redirect("/problems")
-        }
-    });
+    var process = spawn('python',["codeforcesapi.py",] );
+    
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
+    process.on('close', (code) => {
+        console.log(`child process (contest) close all stdio with code ${code}`);
+    })
+   
 });
 
 
