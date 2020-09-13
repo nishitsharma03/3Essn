@@ -44,19 +44,19 @@ app.use(function (req, res, next) {
 });
 
 
-window.setInterval(function contestRefresh() {
-    var process = spawn('python',["contestretreiverapi.py"] ); 
-    process.on('close', (code) => {
-        console.log(`child process (contest) close all stdio with code ${code}`);
-    }, function read() {
-        fs.readFile("data.json", function(err, data) { 
-            // Check for errors 
-            if (err) throw err; 
-            // Converting to JSON 
-            largeDataSet = JSON.parse(data); 
-        });
-    });
-}, 480000); // Repeat every 8 hours
+// window.setInterval(function contestRefresh() {
+//     var process = spawn('python',["contestretreiverapi.py"] ); 
+//     process.on('close', (code) => {
+//         console.log(`child process (contest) close all stdio with code ${code}`);
+//     }, function read() {
+//         fs.readFile("data.json", function(err, data) { 
+//             // Check for errors 
+//             if (err) throw err; 
+//             // Converting to JSON 
+//             largeDataSet = JSON.parse(data); 
+//         });
+//     });
+// }, 480000); // Repeat every 8 hours
 
 
 // =============
