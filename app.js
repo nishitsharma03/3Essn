@@ -52,8 +52,8 @@ function contestRefresh() {
     })
 }
 contestRefresh();
-var timeGap = 12*60*1000; //hours
-setInterval(contestRefresh, timeGap);
+// var timeGap = 12*60*60*1000; //hours
+// setInterval(contestRefresh, timeGap); //for deployement
 
 // =============
 // Basic ROUTES
