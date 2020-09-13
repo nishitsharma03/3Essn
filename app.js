@@ -9,7 +9,6 @@ passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
-// parsedData =[],
 // seedDB                = require("./seeds"),
 app                   = express();
 
@@ -43,28 +42,28 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-// window.setInterval(function contestRefresh() {
-//     var process = spawn('python',["contestretreiverapi.py"] ); 
-//     process.on('close', (code) => {
-//         console.log(`child process (contest) close all stdio with code ${code}`);
-//     }, function read() {
-//         fs.readFile("data.json", function(err, data) { 
-//             // Check for errors 
-//             if (err) throw err; 
-//             // Converting to JSON 
-//             largeDataSet = JSON.parse(data); 
-//         });
-//     });
-// }, 480000); // Repeat every 8 hours
-
+// ===========
+// API Script
+// ===========
+function contestRefresh() {
+    var process = spawn('python',["contestretreiverapi.py"] ); 
+    process.on('close', (code) => {
+        console.log(`child process (contest) close all stdio with code ${code}`);
+    })
+}
+contestRefresh();
+var timeGap = 12*60*1000; //hours
+setInterval(contestRefresh, timeGap);
 
 // =============
 // Basic ROUTES
 // =============
 
 app.get("/", function (req, res) {
-    res.render("main/index");
+    fs.readFile("data.json", function(err, data) { 
+        if (err) throw err; 
+        res.render("main/index", {data:JSON.parse(data)});  
+    });
 });
 
 app.get("/resources", function (req, res) {
@@ -76,8 +75,6 @@ app.get("/aboutus", function (req, res) {
 });
 
 app.get("/contest", function (req, res) { 
-    
-    res.send(largeDataSet);
 });
 
 
