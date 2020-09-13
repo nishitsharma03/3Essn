@@ -9,7 +9,7 @@ passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
-parsedData =[],
+// parsedData =[],
 // seedDB                = require("./seeds"),
 app                   = express();
 // largeDataSet =[]; 
@@ -44,14 +44,10 @@ app.use(function (req, res, next) {
 });
 
 
-var process = spawn('python',["contestretreiverapi.py"] ); 
-    // process.stdout.on('data', function (data) {
-    // console.log('Pipe data from python script ...');
-    //     largeDataSet.push(data);
-    // });
-    process.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
-    });
+// var process = spawn('python',["contestretreiverapi.py"] ); 
+//     process.on('close', (code) => {
+//         console.log(`child process close all stdio with code ${code}`);
+//     });
 
 // =============
 // Basic ROUTES
@@ -143,13 +139,16 @@ app.get("/user", isLoggedIn, function (req, res) {
 
 app.get("/problems", function (req, res) {
     // res.render("problems/problem", {data: parsedData});
-    var tag = "greedy";
+    var tag = "greedy,sortings";
+    tag.replace(",","&tags=");
     var rating = 1100;
 
     request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
         if(!error && response.statusCode == 200){
             parsedData = JSON.parse(body);
             res.send(parsedData);
+        }else{
+            console.log("Error");
         }
     });
 });
