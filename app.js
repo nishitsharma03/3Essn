@@ -1,4 +1,4 @@
-const express           = require("express"),
+const express         = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
 request               = require("request"),
@@ -143,8 +143,8 @@ app.get("/user", isLoggedIn, function (req, res) {
     res.send("this is the users page");
 });
 
-// app.get("/problems", function (req, res) {
-    // res.render("problems/problem", {data: parsedData});
+app.get("/problems", function (req, res) {
+    res.render("problems/problem");
     // var tag = "greedy,sortings";
     // tag.replace(",","&tags=");
     // var rating = 1100;
@@ -157,27 +157,25 @@ app.get("/user", isLoggedIn, function (req, res) {
     //         console.log("Error");
     //     }
     // });
-// });
-var dataToSend;
-app.get("/problems", function (req, res) {
-    // req.body.tag, req.body.lrating, req.body.urating
-    var process = spawn('python',["codeforcesapi.py", "greedy", 1100, 2000] );
-    process.stderr.on('data', (data) => {
-        console.log(`error:${data}`);
-    }); 
-    process.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
-        // dataToSend = data;
-        console.log(data);
-    });
-    process.on('close', (code) => {
-        console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
-        // console.log(dataToSend);
-        res.send("completed");
-    })
-   
 });
-
+// var dataToSend;
+// app.get("/problems", function (req, res) {
+//     // req.body.tag, req.body.lrating, req.body.urating
+//     var process = spawn('python',["codeforcesapi.py", "greedy,sortings,implementation", 1100, 2000] );
+//     process.stderr.on('data', (data) => {
+//         console.log(`error:${data}`);
+//     }); 
+//     process.stdout.on('data', function (data) {
+//         console.log('Pipe data from python script ...');
+//         // dataToSend = data;
+//         console.log(data.toString());
+//     });
+//     process.on('close', (code) => {
+//         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
+//         // console.log(dataToSend);
+//         res.send("complete");
+//     });
+// });
 
 // DEFAULT ROUTE
 
