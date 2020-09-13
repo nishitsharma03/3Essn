@@ -1,4 +1,4 @@
-var express           = require("express"),
+const express         = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
 request               = require("request"),
@@ -9,10 +9,9 @@ passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
-parsedData =[],
 // seedDB                = require("./seeds"),
 app                   = express();
-// largeDataSet =[]; 
+
 
 // ============
 // APP CONGIG
@@ -43,22 +42,32 @@ app.use(function (req, res, next) {
     next();
 });
 
-
-var process = spawn('python',["contestretreiverapi.py"] ); 
-    // process.stdout.on('data', function (data) {
-    // console.log('Pipe data from python script ...');
-    //     largeDataSet.push(data);
-    // });
+// ===========
+// API Script
+// ===========
+function contestRefresh() {
+    var process = spawn('python',["contestretreiverapi.py"] );
+    
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
     process.on('close', (code) => {
-        console.log(`child process close all stdio with code ${code}`);
-    });
+        console.log(`child process (contest) close all stdio with code ${code}`);
+    })
+}
+contestRefresh();
+var timeGap = 1*60*60*1000; //hours
+setInterval(contestRefresh, timeGap); //for deployement
 
 // =============
 // Basic ROUTES
 // =============
 
 app.get("/", function (req, res) {
-    res.render("main/index");
+    fs.readFile("data.json", function(err, data) { 
+        if (err) throw err; 
+        res.render("main/index", {data:JSON.parse(data)});  
+    });
 });
 
 app.get("/resources", function (req, res) {
@@ -70,13 +79,6 @@ app.get("/aboutus", function (req, res) {
 });
 
 app.get("/contest", function (req, res) { 
-    fs.readFile("data.json", function(err, data) { 
-        // Check for errors 
-        if (err) throw err; 
-        // Converting to JSON 
-        largeDataSet = JSON.parse(data); 
-    });
-    res.send(largeDataSet);
 });
 
 
@@ -142,30 +144,38 @@ app.get("/user", isLoggedIn, function (req, res) {
 });
 
 app.get("/problems", function (req, res) {
-    // res.render("problems/problem", {data: parsedData});
-    var tag = "greedy";
-    var rating = 1100;
+    res.render("problems/problem");
+    // var tag = "greedy,sortings";
+    // tag.replace(",","&tags=");
+    // var rating = 1100;
 
-    request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
-        if(!error && response.statusCode == 200){
-            parsedData = JSON.parse(body);
-            res.send(parsedData);
-        }
-    });
+    // request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
+    //     if(!error && response.statusCode == 200){
+    //         parsedData = JSON.parse(body);
+    //         res.send(parsedData);
+    //     }else{
+    //         console.log("Error");
+    //     }
+    // });
 });
-
-app.post("/problems", function (req, res) {
-    var tag = req.body.tag;
-    var rating = req.body.rating;
-
-    request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
-        if(!error && response.statusCode == 200){
-            parsedData = JSON.parse(body);
-            res.redirect("/problems")
-        }
-    });
-});
-
+// var dataToSend;
+// app.get("/problems", function (req, res) {
+//     // req.body.tag, req.body.lrating, req.body.urating
+//     var process = spawn('python',["codeforcesapi.py", "greedy,sortings,implementation", 1100, 2000] );
+//     process.stderr.on('data', (data) => {
+//         console.log(`error:${data}`);
+//     }); 
+//     process.stdout.on('data', function (data) {
+//         console.log('Pipe data from python script ...');
+//         // dataToSend = data;
+//         console.log(data.toString());
+//     });
+//     process.on('close', (code) => {
+//         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
+//         // console.log(dataToSend);
+//         res.send("complete");
+//     });
+// });
 
 // DEFAULT ROUTE
 

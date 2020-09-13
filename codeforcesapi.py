@@ -1,10 +1,20 @@
 import requests
 import json
 import random
-tag=input('enter problem tag')
-rated=int( input('enter problem rating'))
+import sys
+tag=sys.argv[1]
 
-result=requests.get("https://codeforces.com/api/problemset.problems?tags="+tag)
+ratedlow=int(sys.argv[2])
+ratedhigh = int(sys.argv[3])
+alltags=list(tag.split(","))
+callurl=""
+print(alltags)
+for i in range(len(alltags)):
+    if(i==0):
+        callurl=callurl + "tags="+alltags[i]
+    else:
+        callurl=callurl + ";"+alltags[i]
+result=requests.get("https://codeforces.com/api/problemset.problems?"+callurl)
 #print(result.headers['status'])
 if( result.status_code!=200):
     exit();
@@ -18,7 +28,7 @@ j = res['result']['problems']
 for  i in j:
     #print(i)
     if 'rating' in i:
-        if i['rating']==rated:
+        if i['rating']>=ratedlow and i['rating']<=ratedhigh:
             allprob.append(i)
 
 random.shuffle(allprob)
@@ -29,7 +39,8 @@ for i in allprob:
         selectedprob = i;
         break;
 if(len(selectedprob)):
-    print( selectedprob)
-    print('link to the problem:','https://codeforces.com/contest/'+ str(selectedprob['contestId'])+'/problem/'+str(selectedprob['index']))
+    print( selectedprob["name"])
+    print( selectedprob["rating"])
+    print('https://codeforces.com/contest/'+ str(selectedprob['contestId'])+'/problem/'+str(selectedprob['index']))
 else:
     print('No such problem found')

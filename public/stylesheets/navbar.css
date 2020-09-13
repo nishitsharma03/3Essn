@@ -16,20 +16,20 @@ body {
 	text-decoration: none;
 	color: #999ba1;
 	position: relative; 
-	font-size: 16px;
-	font-weight: 600;
+	font-size: 17px;
+	font-weight: 500;
 	font-family: Ubuntu, sans-serif;
 	display: block;
 	overflow: hidden;
 	transition: 0.5s all;
-	padding: 14px 1px;
+	padding: 22px 3px;
 	margin: 0px 10px;
 	padding-bottom: 4px;
 
 }
 #menu li a:before{
 	content: '';
-	width : 100px;
+	width : 300px;
 	position: absolute;
 	color: #acb6e5;
 	/*border-bottom: 3px solid white;*/
@@ -47,14 +47,17 @@ body {
 
 .navbar {
 	padding-left: 100px;
-	padding-right: 100px;
+	padding-right: 80px;
 	background-color: rgb(14,14,14);
 	border-radius: 0px;
+	height: 70px;
 }
 
 .navbar-brand{
 	color: white;
 	padding-right: 30px;
+	padding-top: 22px;
+	font-size: 25px;
 }
 
 #menu li a:hover{

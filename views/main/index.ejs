@@ -1,7 +1,19 @@
 <%- include('../main/header') %>
-    <h1>This is the homepage.</h1>
-    <br><br><br>
-    <br><br>
+<div class="container">
+    <h1 style="text-align: center;">This is the homepage.</h1> 
+    <h3>List of the contests:</h3>
+    <% for (let i = 0; i < Object.keys(data).length; i++) { %>
+        <a href=" <%= data[i]["href"] %>"> <%= data[i]["event"]%> </a>
+        <br> 
+    <% } %> 
+    <style>
+        img{
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+    <img src="C:\Web Dev\BTP-2020\btpProject\views\icons\A.png" alt="hello">
     <a href="/calender">View trial calender</a>
     <br>
+</div>
 <%- include('../main/footer') %>
