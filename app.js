@@ -1,4 +1,4 @@
-var express           = require("express"),
+const express           = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
 request               = require("request"),
@@ -12,7 +12,7 @@ User                  = require("./models/user"),
 // parsedData =[],
 // seedDB                = require("./seeds"),
 app                   = express();
-// largeDataSet =[]; 
+
 
 // ============
 // APP CONGIG
@@ -44,10 +44,20 @@ app.use(function (req, res, next) {
 });
 
 
-// var process = spawn('python',["contestretreiverapi.py"] ); 
-//     process.on('close', (code) => {
-//         console.log(`child process close all stdio with code ${code}`);
-//     });
+window.setInterval(function contestRefresh() {
+    var process = spawn('python',["contestretreiverapi.py"] ); 
+    process.on('close', (code) => {
+        console.log(`child process (contest) close all stdio with code ${code}`);
+    }, function read() {
+        fs.readFile("data.json", function(err, data) { 
+            // Check for errors 
+            if (err) throw err; 
+            // Converting to JSON 
+            largeDataSet = JSON.parse(data); 
+        });
+    });
+}, 480000); // Repeat every 8 hours
+
 
 // =============
 // Basic ROUTES
@@ -66,12 +76,7 @@ app.get("/aboutus", function (req, res) {
 });
 
 app.get("/contest", function (req, res) { 
-    fs.readFile("data.json", function(err, data) { 
-        // Check for errors 
-        if (err) throw err; 
-        // Converting to JSON 
-        largeDataSet = JSON.parse(data); 
-    });
+    
     res.send(largeDataSet);
 });
 
@@ -139,18 +144,18 @@ app.get("/user", isLoggedIn, function (req, res) {
 
 app.get("/problems", function (req, res) {
     // res.render("problems/problem", {data: parsedData});
-    var tag = "greedy,sortings";
-    tag.replace(",","&tags=");
-    var rating = 1100;
+    // var tag = "greedy,sortings";
+    // tag.replace(",","&tags=");
+    // var rating = 1100;
 
-    request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
-        if(!error && response.statusCode == 200){
-            parsedData = JSON.parse(body);
-            res.send(parsedData);
-        }else{
-            console.log("Error");
-        }
-    });
+    // request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
+    //     if(!error && response.statusCode == 200){
+    //         parsedData = JSON.parse(body);
+    //         res.send(parsedData);
+    //     }else{
+    //         console.log("Error");
+    //     }
+    // });
 });
 
 app.post("/problems", function (req, res) {
