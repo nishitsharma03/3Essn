@@ -1,5 +1,11 @@
-ToDo -
-Saksham -footer - path- views/partials/
-Nishit - header - path- views/partials/
-Soham - Navbar - integrate with header
-Shubham - Dance karega
+# Run - node app.js in terminal
+
+*public/stylesheets* - to edit existing css but add new files to frontend folder
+
+
+*public/scripts* - to edit existing js but add new files to frontend folder
+
+
+*views* - to edit html dont add new files here
+
+

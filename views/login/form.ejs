@@ -1,0 +1,31 @@
+<%- include('../login/header') %>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="login_form">
+                <div>
+                    <h1>Sign In</h1><br>
+                </div><br>
+                <div>
+                    <form action="/login" method="POST">
+                        <div class="form-group ">
+                            <input type="text" class="form-control" id="username" placeholder="Username">
+                        </div><br>
+                        <div class="form-group">
+                            
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <span toggle="#password-field" id="eye-icon" class="fa fa-eye" onmouseover="mouseover();"
+                            onmouseout="mouseout();"></span>
+                        </div><br>
+                        <button type="submit" class="raise">Submit</button>
+                    </form>
+                </div><br><br><br>
+                <div>
+                    <div class="alter_signup">
+                        Don't have an account?<a href="/register"> Sign Up</a>
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+<%- include('../login/footer') %> 
