@@ -46,14 +46,18 @@ app.use(function (req, res, next) {
 // API Script
 // ===========
 function contestRefresh() {
-    var process = spawn('python',["contestretreiverapi.py"] ); 
+    var process = spawn('python',["contestretreiverapi.py"] );
+    
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
     process.on('close', (code) => {
         console.log(`child process (contest) close all stdio with code ${code}`);
     })
 }
 contestRefresh();
-// var timeGap = 12*60*60*1000; //hours
-// setInterval(contestRefresh, timeGap); //for deployement
+var timeGap = 12*60*60*1000; //hours
+setInterval(contestRefresh, timeGap); //for deployement
 
 // =============
 // Basic ROUTES
