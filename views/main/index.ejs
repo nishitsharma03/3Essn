@@ -1,5 +1,6 @@
 <%- include('../main/header') %>
-    <h1>This is the homepage.</h1> 
+<div class="container">
+    <h1 style="text-align: center;">This is the homepage.</h1> 
     <h3>List of the contests:</h3>
     <% for (let i = 0; i < Object.keys(data).length; i++) { %>
         <a href=" <%= data[i]["href"] %> </a>"><%= data[i]["event"]%></a>
@@ -7,4 +8,5 @@
     <% } %> 
     <a href="/calender">View trial calender</a>
     <br>
+</div>
 <%- include('../main/footer') %>
