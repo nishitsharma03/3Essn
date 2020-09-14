@@ -1,24 +1,39 @@
 <%- include('../problems/header') %>
     <div class="container">
         <h1 class="problems-heading" style="text-align: center; font-size: 50px;">Codeforces Problem Recommender</h1><br>
-        <form>
+        <form action="/problems" method="POST">
             <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-1">
                 
             </div>
-            <form action="/problems" method="post">
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" placeholder="Enter comma separated tags" name="tag">
-                </div>
-                <div class="col-sm-2">
-                    <input type="text" class="form-control" placeholder="Ratings" name="rating">
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </form>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="Enter comma separated tags" name="tags">
+            </div>
+            <div class="col-sm-1">
+                
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Upperbound" name="urating">
+            </div>
             
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Lowerbound" name="lrating">
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
             </div>
         </form>
+
+        <div class="container">
+            <% if(data){ %>
+                <h4>Try out this Problem</h4>
+                <p>Name: <%= data[0] %> </p>
+                <p>Rating: <%= data[1] %> </p>
+                <a href="<%= data[2] %> ">Click here to Start Solving!</a>
+            <% } else{ %>
+                <p>Let's Solve a problem</p>
+            <% } %>
+        </div>
     </div>
 <%- include('../problems/footer') %>

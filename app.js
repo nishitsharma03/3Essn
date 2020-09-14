@@ -146,7 +146,7 @@ app.get("/problems", function (req, res) {
 
 app.post("/problems", function (req, res) {
 
-    var process = spawn('python',["codeforcesapi.py", req.body.tag, req.body.lrating, req.body.urating] );
+    var process = spawn('python',["codeforcesapi.py", req.body.tags, req.body.lrating, req.body.urating] );
     
     process.stderr.on('data', (data) => {
         console.log(`error:${data}`);
