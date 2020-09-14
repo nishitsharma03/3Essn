@@ -26,8 +26,11 @@ finallist={}
 cnt=0
 for i in contests:
     if i['resource']['name'] in names:
-        #print(i, type(i))
+
+        i['duration']//=60
+        print(i, type(i))
         finallist[cnt]=i
+
         cnt+=1;
 
 
