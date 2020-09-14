@@ -3,7 +3,13 @@
     <h1 style="text-align: center;">This is the homepage.</h1> 
     <h3>List of the contests:</h3>
     <% for (let i = 0; i < Object.keys(data).length; i++) { %>
-        <a href=" <%= data[i]["href"] %>"> <%= data[i]["event"]%> </a>
+        <% var start = data[i]["start"].split("T") %> 
+        <% var end = data[i]["end"].split("T") %> 
+        <a href=" <%= data[i]["href"] %>"> Name: <%= data[i]["event"]%></a>
+        <p>Start</p>
+        <p>Date: <%= start[0] %> Time: <%= start[1] %> </p>
+        <p>End</p>
+        <p>Date: <%= end[0] %> Time: <%= end[1] %> </p>
         <br> 
     <% } %> 
     <style>

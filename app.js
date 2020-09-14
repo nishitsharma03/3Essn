@@ -193,4 +193,5 @@ function isLoggedOut(req, res, next) {
 
 app.listen("3000", function () {
     console.log("Server is running!");
+    console.log("http://localhost:3000/");
 });
