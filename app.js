@@ -135,8 +135,8 @@ app.get("/logout", isLoggedIn, function (req, res) {
 //            USER ROUTES
 // =========================================
 
-app.get("/user", isLoggedIn, function (req, res) {
-    res.send("this is the users page");
+app.get("/user", function (req, res) {
+    res.render("user/profile");
 });
 
 app.get("/problems", function (req, res) {
