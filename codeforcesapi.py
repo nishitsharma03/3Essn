@@ -8,7 +8,6 @@ ratedlow=int(sys.argv[2])
 ratedhigh = int(sys.argv[3])
 alltags=list(tag.split(","))
 callurl=""
-print(alltags)
 for i in range(len(alltags)):
     if(i==0):
         callurl=callurl + "tags="+alltags[i]
@@ -39,8 +38,9 @@ for i in allprob:
         selectedprob = i;
         break;
 if(len(selectedprob)):
-    print( selectedprob["name"])
-    print( selectedprob["rating"])
+    # print(selectedprob)
+    print( selectedprob["name"], end="|")
+    print( selectedprob["rating"], end="|")
     print('https://codeforces.com/contest/'+ str(selectedprob['contestId'])+'/problem/'+str(selectedprob['index']))
 else:
     print('No such problem found')

@@ -58,7 +58,7 @@ function contestRefresh() {
 contestRefresh();
 var timeGap = 1*60*60*1000; //hours
 setInterval(contestRefresh, timeGap); //for deployement
-
+var dataToSend;
 // =============
 // Basic ROUTES
 // =============
@@ -143,39 +143,26 @@ app.get("/user", isLoggedIn, function (req, res) {
     res.send("this is the users page");
 });
 
-app.get("/problems", function (req, res) {
-    res.render("problems/problem");
-    // var tag = "greedy,sortings";
-    // tag.replace(",","&tags=");
-    // var rating = 1100;
-
-    // request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
-    //     if(!error && response.statusCode == 200){
-    //         parsedData = JSON.parse(body);
-    //         res.send(parsedData);
-    //     }else{
-    //         console.log("Error");
-    //     }
-    // });
-});
-// var dataToSend;
 // app.get("/problems", function (req, res) {
-//     // req.body.tag, req.body.lrating, req.body.urating
-//     var process = spawn('python',["codeforcesapi.py", "greedy,sortings,implementation", 1100, 2000] );
-//     process.stderr.on('data', (data) => {
-//         console.log(`error:${data}`);
-//     }); 
-//     process.stdout.on('data', function (data) {
-//         console.log('Pipe data from python script ...');
-//         // dataToSend = data;
-//         console.log(data.toString());
-//     });
-//     process.on('close', (code) => {
-//         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
-//         // console.log(dataToSend);
-//         res.send("complete");
-//     });
+    // res.render("problems/problem");
 // });
+app.get("/problems", function (req, res) {
+    // req.body.tag, req.body.lrating, req.body.urating
+    var process = spawn('python',["codeforcesapi.py", "greedy,sortings,implementation", 1100, 2000] );
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
+    process.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        dataToSend = data.toString()
+    });
+    process.on('close', (code) => {
+        console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
+        dataToSend = dataToSend.split("|");
+        res.send(dataToSend);
+        dataToSend = [];
+    });
+});
 
 // DEFAULT ROUTE
 
