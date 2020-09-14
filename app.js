@@ -12,17 +12,15 @@ User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
 app                   = express();
 
-
-// ============
-// APP CONGIG
-// ============
+// ==================================
+//            APP CONGIG
+// ==================================
 
 mongoose.connect("mongodb://127.0.0.1:27017/btpproj_2020", {useNewUrlParser: true,useUnifiedTopology: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 // seedDB();
-
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -42,9 +40,10 @@ app.use(function (req, res, next) {
     next();
 });
 
-// ===========
-// API Script
-// ===========
+// ====================================
+//            API Script
+// ====================================
+
 function contestRefresh() {
     var process = spawn('python',["contestretreiverapi.py"] );
     
@@ -58,10 +57,11 @@ function contestRefresh() {
 contestRefresh();
 var timeGap = 1*60*60*1000; //hours
 setInterval(contestRefresh, timeGap); //for deployement
-var dataToSend;
-// =============
-// Basic ROUTES
-// =============
+var dataToSend = null;
+
+// =====================================
+//            Basic ROUTES
+// =====================================
 
 app.get("/", function (req, res) {
     fs.readFile("data.json", function(err, data) { 
@@ -78,17 +78,13 @@ app.get("/aboutus", function (req, res) {
     res.send("About Us!!");
 });
 
-app.get("/contest", function (req, res) { 
-});
-
-
 app.get("/calender", function (req, res) {
     res.render("calender");
 });
 
-// ============
-// AUTH ROUTES
-// ============
+// =======================================
+//            AUTH ROUTES
+// =======================================
 
 app.get("/register", isLoggedOut, function (req, res) {
     res.render("register/form");
@@ -126,8 +122,8 @@ app.post("/login",passport.authenticate("local",
         failureFlash: true,
         successFlash: 'Successfully Logged in',
         failureFlash: 'Invalid username or passwerd.'
-    }), function (req, res) {
-});
+    }), function (req, res) {}
+);
 
 app.get("/logout", isLoggedIn, function (req, res) {
     req.logOut();
@@ -135,42 +131,47 @@ app.get("/logout", isLoggedIn, function (req, res) {
     res.redirect("/");
 });
 
-// =============
-// USER ROUTES
-// =============
+// =========================================
+//            USER ROUTES
+// =========================================
 
 app.get("/user", isLoggedIn, function (req, res) {
     res.send("this is the users page");
 });
 
-// app.get("/problems", function (req, res) {
-    // res.render("problems/problem");
-// });
 app.get("/problems", function (req, res) {
-    // req.body.tag, req.body.lrating, req.body.urating
-    var process = spawn('python',["codeforcesapi.py", "greedy,sortings,implementation", 1100, 2000] );
+    res.render("problems/problem",{data:dataToSend});
+    dataToSend = null;
+});
+
+app.post("/problems", function (req, res) {
+
+    var process = spawn('python',["codeforcesapi.py", req.body.tag, req.body.lrating, req.body.urating] );
+    
     process.stderr.on('data', (data) => {
         console.log(`error:${data}`);
-    }); 
+    });
+
     process.stdout.on('data', function (data) {
         console.log('Pipe data from python script ...');
         dataToSend = data.toString()
     });
+
     process.on('close', (code) => {
         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
         dataToSend = dataToSend.split("|");
-        res.send(dataToSend);
-        dataToSend = [];
+        res.redirect("/problems");
     });
 });
 
-// DEFAULT ROUTE
+//**********DEFAULT ROUTE**************
 
 app.get("*", function (req, res) {
     res.render("null");
 });
 
-// Middlewares
+// ***********Middlewares**************
+
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()){
         return next();
@@ -184,11 +185,12 @@ function isLoggedOut(req, res, next) {
         return next();
     }
     req.flash("error", "Please Logout First!");
-    res.redirect("/");
+    res.redirect("/");  
 }
 
 
-//PORT
+//************PORT*******************
+
 app.listen("3000", function () {
     console.log("Server is running!");
 });
