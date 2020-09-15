@@ -8,7 +8,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 <body>
 
-
+<!-- Side Navigation -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
+  <h1 class="w3-xxxlarge w3-text-theme">Side Navigation</h1>
+  <button class="w3-bar-item w3-button" onclick="w3_close()">Close <i class="fa fa-remove"></i></button>
+  <a href="#" class="w3-bar-item w3-button">Link 1</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  <a href="#" class="w3-bar-item w3-button">Link 4</a>
+</nav>
 
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
@@ -46,18 +54,18 @@
 <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3>User Profile</h3><br>
-  <img src="https://icons-for-free.com/iconfiles/png/512/person+user+icon-1320166085409390336.png" style="width:168px;height:168px; "></i>
+  <img src="https://icons-for-free.com/iconfiles/png/512/person+user+icon-1320166085409390336.png" style="width:114px;height:114px; "></i>
   <p>Easy to analyze ownself.</p><br>
   <p>Get Problems according to you.</p><br>
   <p>Login from Mobile/PC/Tablet.</p><br>
-  
+  <p>Get Automated E-mail for your Contest.</p>
   </div>
 </div>
 
 <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3>Problem Searcher</h3><br>
-  <img src="https://www.greymatter.com/corporate/wp-content/themes/gm/showcases/bing-search-api/api-search-web.jpg" style="width:168px;height:168px;">
+  <img src="https://www.greymatter.com/corporate/wp-content/themes/gm/showcases/bing-search-api/api-search-web.jpg" style="width:188px;height:188px;">
  
   <p>Improve Your Weak Topics</p><br>
   <p>Get Relevent Problems</p><br>
@@ -68,10 +76,11 @@
 <div class="w3-third">
   <div class="w3-card w3-container" style="min-height:460px">
   <h3>Contest Calendar</h3><br>
-  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAclBMVEX///8AAADu7u4RERHX19coKCj4+PglJSUODg7Jycn19fVUVFQ0NDR1dXU/Pz/s7OyoqKiFhYUXFxdMTEzNzc0gICDj4+MtLS23t7fU1NSwsLA6Ojqenp5dXV17e3u9vb2Ojo5qampaWlqWlpZsbGxHR0eSpnHwAAADs0lEQVR4nO2dbVuqQBCGWRFErBRNM63UOv3/v3hYOCToWpydl7V67i+4czns3MnbZF0bRQAAAAAAAAAAAAAAfEqqPJKiMPOx5kiKqTHmTnEkxrCcJlEciQGRKxLJByXjcprRoEF2JHD1mj49Pxh94u3tmtPmfhJAomH+MmXSWL0G1LBke5ZPZR1/7DEuyZoXsfgo+5h4u6J7vNW7Gt3uVtXPRfOqlQ9nr7XN/JHHI9kolX4+yov6EyKabCqPonWM6t9Hpne2hiXplF/Z8yPbtEMBbojpwZq8U0Sqy27HI8rLT3qhOKp4tnXM/D3G1XF1Epwld0PNkSXd2oPL/yK8KNMfvLM5sYebefLNXtnsdTeW63RvZ/PY02Tru7P96QeSFstyd+tL72fDMU/1kfjeFhcnZ0j6Xt8c974F9sQ5zwPh2JqXufet8YuZb9JB0Q0K4JznpSzmj9/+cvtTyVuBudnZzcE8+xfZB+c8M/9biT3Xs844rrY7c+NZYd95XfPsymo857Xn16gzQa219r989MI9z+Pp/b4/Z48Ky/rmOvE9VvvinIfQyZ+lvpmsGI5fTcbQHXyGcx5OkequdPoQKYFrHlaRaLNYjg5D99s5cczDKxIQiEBECIhARAiI/DCR47cWupTTp+1t/a0JQSQUk2gQt7c1FJE4DLdRftPe1r+axzkCEQEgAhEhIAIRISACESEgAhEhIPJbRZoO++N1q/umxjRFmg77+PrYfVNjqiK2s87+vXvY+Ws4ekxVpH5/0tlyxfyqIaRC5IuYXzX/m9r5I8FvLDKIj1eWby3CXTREPi8SIqyx/tVcLLKPSPv/PhKRmJJIm0QkpiLSfHvRfKshEVMR0QMiEBECIo5U7l48VM/O3YsH69m5e/FgPbvGc5XKsxZEIAIRiEAEIjQR+f5cpWfX6M9VenaN/hw9u1CqABCBiBDo2c9T0bMTYwIiP+ZZCyIQgQhEIAIRigh6dlKMXQQ9OwsQgYgQEHGkivTiAURkevEAIjK9eBARiWco32oIqRC5EKNVQ0iFyIUYrRpCKkQuxGjVEFK5RPKbdp/hWw0hlUuEpxpCKlcvfgUiPL24z5PWVfbsPmcI+hFiqgAQgYgQEIGIEBCBiBAQgYgQRJElbzUECCLVahee/Rw/a+O9SESUlLkH1moI2AWcfJcLKarGdDcdhGdcLZznuxZCvjRXhf8CTvfZ13vXIyYs6vAYYlnKCyS0ZetmkyS+AkaLJ6UFtAAAAAAAAAAAAAB+NH8BgchS3y7tLSEAAAAASUVORK5CYII=" style="width:168px;height:168px;">
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAMAAACahl6sAAAAclBMVEX///8AAADu7u4RERHX19coKCj4+PglJSUODg7Jycn19fVUVFQ0NDR1dXU/Pz/s7OyoqKiFhYUXFxdMTEzNzc0gICDj4+MtLS23t7fU1NSwsLA6Ojqenp5dXV17e3u9vb2Ojo5qampaWlqWlpZsbGxHR0eSpnHwAAADs0lEQVR4nO2dbVuqQBCGWRFErBRNM63UOv3/v3hYOCToWpydl7V67i+4czns3MnbZF0bRQAAAAAAAAAAAAAAfEqqPJKiMPOx5kiKqTHmTnEkxrCcJlEciQGRKxLJByXjcprRoEF2JHD1mj49Pxh94u3tmtPmfhJAomH+MmXSWL0G1LBke5ZPZR1/7DEuyZoXsfgo+5h4u6J7vNW7Gt3uVtXPRfOqlQ9nr7XN/JHHI9kolX4+yov6EyKabCqPonWM6t9Hpne2hiXplF/Z8yPbtEMBbojpwZq8U0Sqy27HI8rLT3qhOKp4tnXM/D3G1XF1Epwld0PNkSXd2oPL/yK8KNMfvLM5sYebefLNXtnsdTeW63RvZ/PY02Tru7P96QeSFstyd+tL72fDMU/1kfjeFhcnZ0j6Xt8c974F9sQ5zwPh2JqXufet8YuZb9JB0Q0K4JznpSzmj9/+cvtTyVuBudnZzcE8+xfZB+c8M/9biT3Xs844rrY7c+NZYd95XfPsymo857Xn16gzQa219r989MI9z+Pp/b4/Z48Ky/rmOvE9VvvinIfQyZ+lvpmsGI5fTcbQHXyGcx5OkequdPoQKYFrHlaRaLNYjg5D99s5cczDKxIQiEBECIhARAiI/DCR47cWupTTp+1t/a0JQSQUk2gQt7c1FJE4DLdRftPe1r+axzkCEQEgAhEhIAIRISACESEgAhEhIPJbRZoO++N1q/umxjRFmg77+PrYfVNjqiK2s87+vXvY+Ws4ekxVpH5/0tlyxfyqIaRC5IuYXzX/m9r5I8FvLDKIj1eWby3CXTREPi8SIqyx/tVcLLKPSPv/PhKRmJJIm0QkpiLSfHvRfKshEVMR0QMiEBECIo5U7l48VM/O3YsH69m5e/FgPbvGc5XKsxZEIAIRiEAEIjQR+f5cpWfX6M9VenaN/hw9u1CqABCBiBDo2c9T0bMTYwIiP+ZZCyIQgQhEIAIRigh6dlKMXQQ9OwsQgYgQEHGkivTiAURkevEAIjK9eBARiWco32oIqRC5EKNVQ0iFyIUYrRpCKkQuxGjVEFK5RPKbdp/hWw0hlUuEpxpCKlcvfgUiPL24z5PWVfbsPmcI+hFiqgAQgYgQEIGIEBCBiBAQgYgQRJElbzUECCLVahee/Rw/a+O9SESUlLkH1moI2AWcfJcLKarGdDcdhGdcLZznuxZCvjRXhf8CTvfZ13vXIyYs6vAYYlnKCyS0ZetmkyS+AkaLJ6UFtAAAAAAAAAAAAAB+NH8BgchS3y7tLSEAAAAASUVORK5CYII=" style="width:188px;height:188px;">
   <p>See which Contests are LIVE</p><br>
   <p>Check Which Contests are Up-Next?</p><br>
-  <p>Countdown feature for your contest.</p><br>
+  <p>Countdown feature for your contest.</p>
+ 
   </div>
 </div>
 </div>
