@@ -154,8 +154,8 @@ app.get("/problems", function (req, res) {
     fs.readFile("pastcont.json", function(err, data) { 
         if (err) throw err; 
         res.render("problems/problem",{data:dataToSend, contest:JSON.parse(data)});
+        dataToSend = null;
     });
-    dataToSend = null;
 });
 
 app.post("/problems", function (req, res) {
