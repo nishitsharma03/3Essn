@@ -85,8 +85,8 @@ app.get("/resources", function (req, res) {
     res.render("resources");
 });
 
-app.get("/aboutus", function (req, res) {
-    res.send("About Us!!");
+app.get("/about", function (req, res) {
+    res.render("aboutus");
 });
 
 app.get("/calender", function (req, res) {
