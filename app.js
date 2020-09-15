@@ -65,7 +65,7 @@ function pastContestRefresh() {
         console.log(`child process (pastContest) close all stdio with code ${code}`);
     })
 }
-contestRefresh();
+// contestRefresh();
 var timeGap = 1*60*60*1000; //hours
 setInterval(contestRefresh, timeGap); //for deployement
 var dataToSend = null;

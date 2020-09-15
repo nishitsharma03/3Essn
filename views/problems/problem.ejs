@@ -4,18 +4,18 @@
         <form action="/problems" method="POST">
             <div class="row">
             <div class="col-sm-1">
-                
+ 
             </div>
             <div class="col-sm-4">
                 <input type="text" class="form-control" placeholder="Enter comma separated tags" name="tags">
             </div>
             <div class="col-sm-1">
-                
+ 
             </div>
             <div class="col-sm-2">
                 <input type="text" class="form-control" placeholder="Upperbound" name="urating">
             </div>
-            
+ 
             <div class="col-sm-2">
                 <input type="text" class="form-control" placeholder="Lowerbound" name="lrating">
             </div>
@@ -24,32 +24,16 @@
             </div>
             </div>
         </form>
-
+ 
         <div class="container">
             <% if(data){ %>
-                <% if(data.length==3){ %> 
-                    <h4>Try out this Problem</h4>
-                    <p>Name: <%= data[0] %> </p>
-                    <p>Rating: <%= data[1] %> </p>
-                    <a href="<%= data[2] %> ">Click here to Start Solving!</a>
-                <% } else { %>
-                    <p><%= data[0] %> </p>
-                <% } %> 
-            <% } else { %> 
+                <h4>Try out this Problem</h4>
+                <p>Name: <%= data[0] %> </p>
+                <p>Rating: <%= data[1] %> </p>
+                <a href="<%= data[2] %> ">Click here to Start Solving!</a>
+            <% } else{ %>
                 <p>Let's Solve a problem</p>
             <% } %>
         </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <h3>Try out questions from these recent competitions: </h3>
-    <div class="container">
-        <!-- this container is for problems -->
-        <% for (let i = 0; i < Object.keys(contest).length; i++) { %>
-            <p>
-                <a href=" <%= contest[i]["href"] %>"><%= contest[i]["event"]%></a>
-            </p>
-        <% } %>
     </div>
 <%- include('../problems/footer') %>
