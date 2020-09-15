@@ -2,23 +2,32 @@
 <div class="container">
     <h1 style="text-align: center;">This is the homepage.</h1> 
     <h3>List of the contests:</h3>
-    <% for (let i = 0; i < Object.keys(data).length; i++) { %>
-        <% var start = data[i]["start"].split("T") %> 
-        <% var end = data[i]["end"].split("T") %> 
-        <a href=" <%= data[i]["href"] %>"> Name: <%= data[i]["event"]%></a>
-        <p>Start</p>
-        <p>Date: <%= start[0] %> Time: <%= start[1] %> </p>
-        <p>End</p>
-        <p>Date: <%= end[0] %> Time: <%= end[1] %> </p>
-        <br> 
-    <% } %> 
-    <style>
-        img{
-            height: 100px;
-            width: 100px;
-        }
-    </style>
-    <img src="C:\Web Dev\BTP-2020\btpProject\views\icons\A.png" alt="hello">
+     
+    
+    <div class="container">	
+    <table id="contest">
+        <tr>
+            <th style="width: 250px;">Start/End Time</th>
+            <th style="width: 150px;">Duration</th>
+            <th style="width: 150px;">Time Left</th>
+            <th id="contest-name">Contests</th>
+        </tr> 
+        
+        <% for (let i = 0; i < Object.keys(data).length; i++) { %>
+            <% var start = data[i]["start"].split("T") %> 
+            <% var end = data[i]["end"].split("T") %>
+        <tr>
+            <td><%= start[0] %>  <%= start[1] %></td>
+            <td>02:00</td>
+            <td>01:54:54</td>
+            <td><a href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a></td>
+        </tr>
+        <% } %>
+
+    </table>
+    </div>
+    
+
     <a href="/calender">View trial calender</a>
     <br>
 </div>
