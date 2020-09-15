@@ -15,9 +15,10 @@
         <% for (let i = 0; i < Object.keys(data).length; i++) { %>
             <% var start = data[i]["start"].split("T") %> 
             <% var end = data[i]["end"].split("T") %>
+            <% var duration = Math.round(data[i]["duration"]/60) %> 
         <tr>
             <td><%= start[0] %>  <%= start[1] %></td>
-            <td>02:00</td>
+            <td><%= duration %> hours </td>
             <td>01:54:54</td>
             <td><a href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a></td>
         </tr>

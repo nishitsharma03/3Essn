@@ -54,6 +54,17 @@ function contestRefresh() {
         console.log(`child process (contest) close all stdio with code ${code}`);
     })
 }
+
+function pastContestRefresh() {
+    var process = spawn('python',["pastcontests.py"] );
+    
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
+    process.on('close', (code) => {
+        console.log(`child process (pastContest) close all stdio with code ${code}`);
+    })
+}
 contestRefresh();
 var timeGap = 1*60*60*1000; //hours
 setInterval(contestRefresh, timeGap); //for deployement
@@ -140,7 +151,10 @@ app.get("/user", function (req, res) {
 });
 
 app.get("/problems", function (req, res) {
-    res.render("problems/problem",{data:dataToSend});
+    fs.readFile("pastcont.json", function(err, data) { 
+        if (err) throw err; 
+        res.render("problems/problem",{data:dataToSend, contest:JSON.parse(data)});
+    });
     dataToSend = null;
 });
 

@@ -43,4 +43,4 @@ if(len(selectedprob)):
     print( selectedprob["rating"], end="|")
     print('https://codeforces.com/contest/'+ str(selectedprob['contestId'])+'/problem/'+str(selectedprob['index']))
 else:
-    print('No such problem found')
+    print('No such problem found Please retry')

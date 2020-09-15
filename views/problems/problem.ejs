@@ -27,13 +27,29 @@
 
         <div class="container">
             <% if(data){ %>
-                <h4>Try out this Problem</h4>
-                <p>Name: <%= data[0] %> </p>
-                <p>Rating: <%= data[1] %> </p>
-                <a href="<%= data[2] %> ">Click here to Start Solving!</a>
-            <% } else{ %>
+                <% if(data.length==3){ %> 
+                    <h4>Try out this Problem</h4>
+                    <p>Name: <%= data[0] %> </p>
+                    <p>Rating: <%= data[1] %> </p>
+                    <a href="<%= data[2] %> ">Click here to Start Solving!</a>
+                <% } else { %>
+                    <p><%= data[0] %> </p>
+                <% } %> 
+            <% } else { %> 
                 <p>Let's Solve a problem</p>
             <% } %>
         </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <h3>Try out questions from these recent competitions: </h3>
+    <div class="container">
+        <!-- this container is for problems -->
+        <% for (let i = 0; i < Object.keys(contest).length; i++) { %>
+            <p>
+                <a href=" <%= contest[i]["href"] %>"><%= contest[i]["event"]%></a>
+            </p>
+        <% } %>
     </div>
 <%- include('../problems/footer') %>
