@@ -1,0 +1,26 @@
+
+.res-circle {
+  width: 4%;
+  border-radius: 50%;
+  line-height: 0;
+  background: #1965e0;
+  position: relative;
+  margin-top: 40px;
+  margin-left: 800px;
+}
+
+.res-circle:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.circle-txt {
+  position: absolute;
+  bottom: 35%;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-family: arial, sans-serif;
+  font-size: 40px;
+}
