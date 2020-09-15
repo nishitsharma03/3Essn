@@ -1,12 +1,12 @@
 
 .res-circle {
-  width: 4%;
+  width: 20px;
   border-radius: 50%;
   line-height: 0;
   background: #1965e0;
   position: relative;
-  margin-top: 40px;
-  margin-left: 800px;
+  /* margin-top: 40px; */
+  /* margin-left: 800px; */
 }
 
 .res-circle:after {

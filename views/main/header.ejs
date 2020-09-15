@@ -39,7 +39,7 @@
 
     <link rel="stylesheet" type="text/css" href="/stylesheets/navbar.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/table.css">
-
+    <link rel="stylesheet" href="/stylesheets/icon.css">
 
 </head>
 <body>
@@ -77,7 +77,7 @@
                 <% } else{ %>
                     <li>
                         <a class="nav-font" href="/user">
-                            </span> <%= currentUser.firstName %> <%= currentUser.lastName %> <span class="glyphicon glyphicon-user"></span> 
+                            </span><div class="res-circle"><p class="circle-txt"><%= currentUser.firstName[0] %> </p></div> <%= currentUser.firstName %> <%= currentUser.lastName %></span> 
                         </a>
                     </li>
                     <li>
