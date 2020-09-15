@@ -82,7 +82,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/resources", function (req, res) {
-    res.send("Resources");
+    res.render("resources");
 });
 
 app.get("/aboutus", function (req, res) {
