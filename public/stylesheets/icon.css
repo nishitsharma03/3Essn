@@ -1,12 +1,13 @@
 
 .res-circle {
-  width: 20px;
+  width: 40px;
   border-radius: 50%;
   line-height: 0;
   background: #1965e0;
   position: relative;
   /* margin-top: 40px; */
   /* margin-left: 800px; */
+  margin-top: 12px;
 }
 
 .res-circle:after {
@@ -17,10 +18,10 @@
 
 .circle-txt {
   position: absolute;
-  bottom: 35%;
+  bottom: 28%;
   width: 100%;
   text-align: center;
   color: white;
   font-family: arial, sans-serif;
-  font-size: 40px;
+  font-size: 32px;
 }
