@@ -76,8 +76,13 @@
                     </li>
                 <% } else{ %>
                     <li>
+                        <div class="res-circle">
+                            <p class="circle-txt"><%= currentUser.firstName[0] %> </p>
+                        </div>
+                    </li>
+                    <li>
                         <a class="nav-font" href="/user">
-                            </span><div class="res-circle"><p class="circle-txt"><%= currentUser.firstName[0] %> </p></div> <%= currentUser.firstName %> <%= currentUser.lastName %></span> 
+                            </span> <%= currentUser.firstName %> <%= currentUser.lastName %></span> 
                         </a>
                     </li>
                     <li>
