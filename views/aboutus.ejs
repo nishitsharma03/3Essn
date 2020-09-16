@@ -15,10 +15,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     
     <link rel="stylesheet" type="text/css" href="/stylesheets/navbar.css">
+    <link rel="stylesheet" href="/stylesheets/icon.css">
+
 </head>
 <body>
     <nav class="navbar navbar-inverse" style="background-color: rgb(14,14,14);">
-        <div class="container">
+        <div>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-content" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
@@ -36,7 +38,7 @@
                     <li><a class="nav-font" href="/resources">Resources</a></li>
                     <li><a class="nav-font" href="/about">About Us</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right ">
+                <ul class="nav navbar-nav navbar-right" id="menu">
                 <% if(!currentUser){ %>   
                     <li>
                         <a class="nav-font" href="/login">
@@ -50,8 +52,13 @@
                     </li>
                 <% } else{ %>
                     <li>
+                        <div class="res-circle">
+                            <p class="circle-txt"><%= currentUser.firstName[0] %> </p>
+                        </div>
+                    </li>
+                    <li>
                         <a class="nav-font" href="/user">
-                            </span> <%= currentUser.firstName %> <%= currentUser.lastName %> <span class="glyphicon glyphicon-user"></span> 
+                            </span> <%= currentUser.firstName %> <%= currentUser.lastName %></span> 
                         </a>
                     </li>
                     <li>
