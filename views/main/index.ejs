@@ -9,7 +9,7 @@
             <th style="width: 250px;">Start/End Time</th>
             <th style="width: 150px;">Duration</th>
             <th style="width: 150px;">Time Left</th>
-            <th id="contest-name">Contests</th>
+            <th id="contest-name" style="text-align: left; padding-left: 60px;">Contests</th>
         </tr> 
         
         <% for (let i = 0; i < Object.keys(data).length; i++) { %>
@@ -25,16 +25,22 @@
                 <td>
                     <iframe src="http://free.timeanddate.com/countdown/i7gmclc8/n54/cf12/cm0/cu4/ct1/cs1/ca0/co0/cr0/ss0/cac000/cpc090/pct/tcfff/fn3/fs100/szw320/szh135/iso<%= data[i]["start"]; %> " allowTransparency="true" frameborder="0" width="100" height="18"></iframe>
                 </td>
-                <td><a href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a></td>
+                <td style="text-align: left; padding-left: 60px;"> 
+                    <img style="height: 15px; width: 15px;" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png" style="width:168px;height:168px; "></i>
+                    <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
+                </td>
             </tr>
             <% } else{ %> 
-            <tr class="active-green">
+            <tr style="background-color: #71f5a7;">
                 <td><%= end[0] %>  <%= end[1] %></td>
                 <td><%= duration %> hours </td>
                 <td>
                     <iframe src="http://free.timeanddate.com/countdown/i7gmclc8/n54/cf12/cm0/cu4/ct1/cs1/ca0/co0/cr0/ss0/cac000/cpc090/pct/tcfff/fn3/fs100/szw320/szh135/iso<%= data[i]["end"] %> " allowTransparency="true" frameborder="0" width="100" height="18"></iframe>
                 </td>
-                <td><a href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a></td>
+                <td style="text-align: left; padding-left: 60px;">
+                    <img style="height: 15px; width: 15px;" src="https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png" style="width:168px;height:168px; "></i>
+                    <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
+                </td>
             </tr>
             <% } %> 
         <% } %>
