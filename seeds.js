@@ -1,15 +1,6 @@
 var mongoose = require("mongoose"),
 User         = require("./models/user");
 
-var users =[
-    {
-        firstName: "Shubham",
-        lastName : "Mehra",
-        username : "shubhammehra01",
-        password : "password"
-    }
-];
-
 function SeedDB() {
     User.deleteMany({}, function (err) {
        if(err){
