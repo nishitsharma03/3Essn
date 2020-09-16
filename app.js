@@ -1,7 +1,6 @@
-const express         = require("express"),
+var express         = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
-request               = require("request"),
 flash                 = require("connect-flash"),
 passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
@@ -9,18 +8,18 @@ passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
-// seedDB                = require("./seeds"),
+seedDB                = require("./seeds"),
 app                   = express();
 
 // ==================================
 //            APP CONGIG
 // ==================================
 
-mongoose.connect("mongodb://127.0.0.1:27017/btpproj_2020", {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true,useUnifiedTopology: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-// seedDB();
+seedDB();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -112,7 +111,7 @@ app.post("/register", function (req, res) {
     User.register(newUser, req.body.password, function (err, user) {
         if(err){
             req.flash("error", err.message);           
-            res.redirect("/register");
+            return res.render("register/form");
         }
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
@@ -132,9 +131,9 @@ app.post("/login",passport.authenticate("local",
         successFlash: true,            
         failureFlash: true,
         successFlash: 'Successfully Logged in',
-        failureFlash: 'Invalid username or passwerd.'
-    }), function (req, res) {}
-);
+        failureFlash: 'Invalid username or password.'
+    }), function (req, res) {
+});
 
 app.get("/logout", isLoggedIn, function (req, res) {
     req.logOut();
