@@ -84,7 +84,7 @@ var logos = {
 app.get("/", function (req, res) {
     fs.readFile("data.json", function(err, data) { 
         if (err) throw err; 
-        res.render("main/index", {data:JSON.parse(data)});  
+        res.render("main/index", {data:JSON.parse(data), logo:logos});  
     });
 });
 
