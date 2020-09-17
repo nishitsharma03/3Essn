@@ -65,7 +65,7 @@ function pastContestRefresh() {
     })
 }
 // pastContestRefresh();
-// contestRefresh();
+contestRefresh();
 // var timeGap = 3*60*60*1000; //hours
 // setInterval(contestRefresh, timeGap); //for deployement
 // setInterval(pastContestRefresh, 8*timeGap); //for deployement
@@ -74,7 +74,13 @@ var dataToSend = null;
 // =====================================
 //            Basic ROUTES
 // =====================================
-
+var logos = {
+    "codechef.com": "https://www.codechef.com/misc/fb-image-icon.png" ,  
+    "hackerearth.com": "https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png" ,  
+    "leetcode.com": "https://leetcode.com/static/images/LeetCode_logo.png" ,  
+    "codeforces.com": "https://image.winudf.com/v2/image/Y29tLlNvZnRUZWNocy5Db2RlRm9yY2VzX2ljb25fMF9jOTA3NjNhMA/icon.png?w=170&fakeurl=1" ,  
+    "atcoder.com": "https://img.atcoder.jp/assets/atcoder.png"
+}; 
 app.get("/", function (req, res) {
     fs.readFile("data.json", function(err, data) { 
         if (err) throw err; 
@@ -147,7 +153,7 @@ app.get("/logout", isLoggedIn, function (req, res) {
 //            USER ROUTES
 // =========================================
 
-app.get("/user", function (req, res) {
+app.get("/userprofile", function (req, res) {
     res.render("user/profile");
 });
 

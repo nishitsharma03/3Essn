@@ -31,19 +31,19 @@
                     <h4 style="text-align: center;">Try out this Problem</h4>
                     <table id="problems">
                         <tr>
-                            <th style="width: 300px;">Contset Name/th>
+                            <th style="width: 300px;">Problem</th>
                             <th>Rating</th>
                         </tr>
                         <tr>
-                            <td><%= data[0] %> </td>
+                            <td><a href="<%= data[2] %> "><%= data[0] %></a></td>
                             <td><%= data[1] %></td>
                         </tr>
                     </table>
-                    <a href="<%= data[2] %> ">Click here to Start Solving!</a>
-                    <input type="button" value="Reset" onClick="window.location.reload();">
+                    <input class="btn btn-primary" type="button" value="Reset" onClick="window.location.reload();">
                 <% } else { %>
-                    <p><%= data[0] %> </p>
-                    <input type="button" value="Reset" onClick="window.location.reload();">
+                    <br>
+                    <p style="text-align: center;"><%= data[0] %> </p>
+                    <input class="btn btn-primary" type="button" value="Reset" onClick="window.location.reload();">
                 <% } %>
             <% } %>
         </div>
