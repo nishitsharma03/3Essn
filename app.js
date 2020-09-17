@@ -8,7 +8,7 @@ passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
-seedDB                = require("./seeds"),
+// seedDB                = require("./seeds"),
 app                   = express();
 
 // ==================================
@@ -19,7 +19,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-seedDB();
+// seedDB();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -65,7 +65,7 @@ function pastContestRefresh() {
     })
 }
 // pastContestRefresh();
-// contestRefresh();
+contestRefresh();
 // var timeGap = 3*60*60*1000; //hours
 // setInterval(contestRefresh, timeGap); //for deployement
 // setInterval(pastContestRefresh, 8*timeGap); //for deployement
@@ -153,7 +153,7 @@ app.get("/logout", isLoggedIn, function (req, res) {
 //            USER ROUTES
 // =========================================
 
-app.get("/userprofile", function (req, res) {
+app.get("/userprofile", isLoggedIn, function (req, res) {
     res.render("user/profile");
 });
 
