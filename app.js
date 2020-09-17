@@ -1,7 +1,6 @@
-const express         = require("express"),
+var express         = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
-request               = require("request"),
 flash                 = require("connect-flash"),
 passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
@@ -9,20 +8,18 @@ passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
-// seedDB                = require("./seeds"),
+seedDB                = require("./seeds"),
 app                   = express();
 
+// ==================================
+//            APP CONGIG
+// ==================================
 
-// ============
-// APP CONGIG
-// ============
-
-mongoose.connect("mongodb://127.0.0.1:27017/btpproj_2020", {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true,useUnifiedTopology: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-// seedDB();
-
+seedDB();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -42,9 +39,10 @@ app.use(function (req, res, next) {
     next();
 });
 
-// ===========
-// API Script
-// ===========
+// ====================================
+//            API Script
+// ====================================
+
 function contestRefresh() {
     var process = spawn('python',["contestretreiverapi.py"] );
     
@@ -55,40 +53,56 @@ function contestRefresh() {
         console.log(`child process (contest) close all stdio with code ${code}`);
     })
 }
-contestRefresh();
-var timeGap = 1*60*60*1000; //hours
-setInterval(contestRefresh, timeGap); //for deployement
 
-// =============
-// Basic ROUTES
-// =============
+function pastContestRefresh() {
+    var process = spawn('python',["pastcontests.py"] );
+    
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    }); 
+    process.on('close', (code) => {
+        console.log(`child process (pastContest) close all stdio with code ${code}`);
+    })
+}
+// pastContestRefresh();
+// contestRefresh();
+// var timeGap = 3*60*60*1000; //hours
+// setInterval(contestRefresh, timeGap); //for deployement
+// setInterval(pastContestRefresh, 8*timeGap); //for deployement
+var dataToSend = null;
 
+// =====================================
+//            Basic ROUTES
+// =====================================
+var logos = {
+    "codechef.com": "https://www.codechef.com/misc/fb-image-icon.png" ,  
+    "hackerearth.com": "https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png" ,  
+    "leetcode.com": "https://leetcode.com/static/images/LeetCode_logo.png" ,  
+    "codeforces.com": "https://image.winudf.com/v2/image/Y29tLlNvZnRUZWNocy5Db2RlRm9yY2VzX2ljb25fMF9jOTA3NjNhMA/icon.png?w=170&fakeurl=1" ,  
+    "atcoder.com": "https://img.atcoder.jp/assets/atcoder.png"
+}; 
 app.get("/", function (req, res) {
     fs.readFile("data.json", function(err, data) { 
         if (err) throw err; 
-        res.render("main/index", {data:JSON.parse(data)});  
+        res.render("main/index", {data:JSON.parse(data), logo:logos});  
     });
 });
 
 app.get("/resources", function (req, res) {
-    res.send("Resources");
+    res.render("resources");
 });
 
-app.get("/aboutus", function (req, res) {
-    res.send("About Us!!");
+app.get("/about", function (req, res) {
+    res.render("aboutus");
 });
-
-app.get("/contest", function (req, res) { 
-});
-
 
 app.get("/calender", function (req, res) {
     res.render("calender");
 });
 
-// ============
-// AUTH ROUTES
-// ============
+// =======================================
+//            AUTH ROUTES
+// =======================================
 
 app.get("/register", isLoggedOut, function (req, res) {
     res.render("register/form");
@@ -105,7 +119,7 @@ app.post("/register", function (req, res) {
     User.register(newUser, req.body.password, function (err, user) {
         if(err){
             req.flash("error", err.message);           
-            res.redirect("/register");
+            return res.render("register/form");
         }
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
@@ -125,7 +139,7 @@ app.post("/login",passport.authenticate("local",
         successFlash: true,            
         failureFlash: true,
         successFlash: 'Successfully Logged in',
-        failureFlash: 'Invalid username or passwerd.'
+        failureFlash: 'Invalid username or password.'
     }), function (req, res) {
 });
 
@@ -135,55 +149,50 @@ app.get("/logout", isLoggedIn, function (req, res) {
     res.redirect("/");
 });
 
-// =============
-// USER ROUTES
-// =============
+// =========================================
+//            USER ROUTES
+// =========================================
 
-app.get("/user", isLoggedIn, function (req, res) {
-    res.send("this is the users page");
+app.get("/userprofile", function (req, res) {
+    res.render("user/profile");
 });
 
 app.get("/problems", function (req, res) {
-    res.render("problems/problem");
-    // var tag = "greedy,sortings";
-    // tag.replace(",","&tags=");
-    // var rating = 1100;
-
-    // request("https://codeforces.com/api/problemset.problems?tags="+tag, function (error, response, body) {
-    //     if(!error && response.statusCode == 200){
-    //         parsedData = JSON.parse(body);
-    //         res.send(parsedData);
-    //     }else{
-    //         console.log("Error");
-    //     }
-    // });
+    fs.readFile("pastcont.json", function(err, data) { 
+        if (err) throw err; 
+        res.render("problems/problem",{data:dataToSend, contest:JSON.parse(data)});
+        dataToSend = null;
+    });
 });
-// var dataToSend;
-// app.get("/problems", function (req, res) {
-//     // req.body.tag, req.body.lrating, req.body.urating
-//     var process = spawn('python',["codeforcesapi.py", "greedy,sortings,implementation", 1100, 2000] );
-//     process.stderr.on('data', (data) => {
-//         console.log(`error:${data}`);
-//     }); 
-//     process.stdout.on('data', function (data) {
-//         console.log('Pipe data from python script ...');
-//         // dataToSend = data;
-//         console.log(data.toString());
-//     });
-//     process.on('close', (code) => {
-//         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
-//         // console.log(dataToSend);
-//         res.send("complete");
-//     });
-// });
 
-// DEFAULT ROUTE
+app.post("/problems", function (req, res) {
+
+    var process = spawn('python',["codeforcesapi.py", req.body.tags, req.body.lrating, req.body.urating] );
+    
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    });
+
+    process.stdout.on('data', function (data) {
+        console.log('Pipe data from python script ...');
+        dataToSend = data.toString()
+    });
+
+    process.on('close', (code) => {
+        console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
+        dataToSend = dataToSend.split("|");
+        res.redirect("/problems");
+    });
+});
+
+//**********DEFAULT ROUTE**************
 
 app.get("*", function (req, res) {
     res.render("null");
 });
 
-// Middlewares
+// ***********Middlewares**************
+
 function isLoggedIn(req, res, next) {
     if(req.isAuthenticated()){
         return next();
@@ -197,11 +206,13 @@ function isLoggedOut(req, res, next) {
         return next();
     }
     req.flash("error", "Please Logout First!");
-    res.redirect("/");
+    res.redirect("/");  
 }
 
 
-//PORT
+//************PORT*******************
+
 app.listen("3000", function () {
     console.log("Server is running!");
+    console.log("http://localhost:3000/");
 });

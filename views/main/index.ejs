@@ -1,19 +1,94 @@
 <%- include('../main/header') %>
 <div class="container">
-    <h1 style="text-align: center;">This is the homepage.</h1> 
-    <h3>List of the contests:</h3>
-    <% for (let i = 0; i < Object.keys(data).length; i++) { %>
-        <a href=" <%= data[i]["href"] %>"> <%= data[i]["event"]%> </a>
-        <br> 
-    <% } %> 
-    <style>
-        img{
-            height: 100px;
-            width: 100px;
-        }
-    </style>
-    <img src="C:\Web Dev\BTP-2020\btpProject\views\icons\A.png" alt="hello">
-    <a href="/calender">View trial calender</a>
-    <br>
+    <div style="text-align: center;">
+        <a href="/calender" style="color: white;">View trial calender</a>
+    </div>
+    <div class="container">	
+    <table id="contest">
+        <tr>
+            <th style="width: 250px;">Start/End Time</th>
+            <th style="width: 120px;">Duration</th>
+            <th style="width: 120px;">Time Left</th>
+            <th id="contest-name" style="text-align: left; padding-left: 60px;">Contests</th>
+        </tr> 
+        
+        <% for (let i = 0; i < Object.keys(data).length; i++) { %>
+            <% var start = data[i]["start"].split("T"); %> 
+            <% var end = data[i]["end"].split("T"); %> 
+            <% var startDate = new Date(data[i]["start"]); %>
+            <% var endDate = new Date(data[i]["end"]); %>
+            <% var now = new Date(); %>  
+            <% var duration = Math.round(data[i]["duration"]/60) %> 
+            <% if(now<startDate){ %> 
+            <tr>
+                <td><%= start[0] %>  <%= start[1] %></td>
+                <td><%= duration %> hours </td>
+                <td>
+                    <% var diff_time = startDate.getTime() - now.getTime() %>
+                    <% var diff_days = diff_time/(1000 * 3600 * 24) %>
+                    <% if(diff_days>1){ %>
+                        <%= Math.floor(diff_days) %> days
+                    <% } else{ %>
+                        <% var diff_hours = diff_days*24 %>
+                        <% if(diff_hours>1){ %> 
+                            <%= Math.floor(diff_hours) %> hours 
+                        <% } else{ %>
+                            <% var diff_minutes = diff_hours*60 %>
+                            <% if(diff_minutes>1){ %> 
+                                <%= Math.floor(diff_minutes) %> minutes 
+                            <% } else{ %>
+                                Ongoing!
+                            <% } %>                              
+                        <% } %>  
+                    <% } %> 
+                    <!-- <iframe src="http://free.timeanddate.com/countdown/i7gmclc8/n54/cf12/cm0/cu4/ct1/cs1/ca0/co0/cr0/ss0/cac000/cpc090/pct/tcfff/fn3/fs100/szw320/szh135/iso<%= data[i]["start"]; %> " allowTransparency="true" frameborder="0" width="100" height="18"></iframe> -->
+                </td>
+                <td style="text-align: left; padding-left: 60px;">
+                    <% for(var key in logo){ %>
+                        <% if( key == data[i]["resource"]["name"]){ %>
+                            <img style="height: 22px; width: 22px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
+                        <% } %>
+                    <% } %>
+                    <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
+                </td>
+            </tr>
+            <% } else{ %> 
+            <tr style="background-color: #71f5a7;">
+                <td><%= end[0] %>  <%= end[1] %></td>
+                <td><%= duration %> hours </td>
+                <td>
+                    <% var diff_time = now.getTime() - endDate.getTime() %>
+                    <% var diff_days = diff_time/(1000 * 3600 * 24) %>
+                    <% if(diff_days>1){ %>
+                        <%= Math.floor(diff_days) %> days
+                    <% } else{ %>
+                        <% var diff_hours = diff_days*24 %>
+                        <% if(diff_hours>1){ %> 
+                            <%= Math.floor(diff_hours) %> hours 
+                        <% } else{ %>
+                            <% var diff_minutes = diff_hours*60 %>
+                            <% if(diff_minutes>1){ %> 
+                                <%= Math.floor(diff_minutes) %> minutes 
+                            <% } else{ %>
+                                Completed!
+                            <% } %>                              
+                        <% } %>  
+                    <% } %>
+                    <!-- <iframe src="http://free.timeanddate.com/countdown/i7gmclc8/n54/cf12/cm0/cu4/ct1/cs1/ca0/co0/cr0/ss0/cac000/cpc090/pct/tcfff/fn3/fs100/szw320/szh135/iso<%= data[i]["end"] %> " allowTransparency="true" frameborder="0" width="100" height="18"></iframe> -->
+                </td>
+                <td style="text-align: left; padding-left: 60px;">
+                    <% for(var key in logo){ %>
+                        <% if( key == data[i]["resource"]["name"]){ %>
+                            <img style="height: 22px; width: 22px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
+                        <% } %>
+                    <% } %>
+                    <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
+                </td>
+            </tr>
+            <% } %> 
+        <% } %>
+    </table>
+    </div><br>
 </div>
+
 <%- include('../main/footer') %>

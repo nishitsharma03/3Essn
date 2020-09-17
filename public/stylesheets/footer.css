@@ -22,7 +22,16 @@
 .list-unstyled {
     font-size: 16px;
     font-family: "Open sans",sans-serif;
-    
+}
+ 
+#footlink li a{
+    color: white;
+    text-decoration: none;
+    transition: 1s all ease;
+    padding: 4px;
+    border: none;
 }
 
-
+#footlink li a:hover {
+    text-decoration: underline;
+}
