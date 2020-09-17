@@ -28,9 +28,17 @@
         <div class="container">
             <% if(data){ %>
                 <%  if(data.length ==3){ %> 
-                    <h4>Try out this Problem</h4>
-                    <p>Name: <%= data[0] %> </p>
-                    <p>Rating: <%= data[1] %> </p>
+                    <h4 style="text-align: center;">Try out this Problem</h4>
+                    <table id="problems">
+                        <tr>
+                            <th style="width: 300px;">Contset Name/th>
+                            <th>Rating</th>
+                        </tr>
+                        <tr>
+                            <td><%= data[0] %> </td>
+                            <td><%= data[1] %></td>
+                        </tr>
+                    </table>
                     <a href="<%= data[2] %> ">Click here to Start Solving!</a>
                     <input type="button" value="Reset" onClick="window.location.reload();">
                 <% } else { %>
