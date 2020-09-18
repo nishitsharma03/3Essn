@@ -3,6 +3,7 @@
     <!-- <h1 style="text-align:center">User Profile</h1> -->
 
     <div class="left">
+        <h1 style="text-align:center; margin-bottom:0px;">User</h1>
         <div class="card">
             <div class="circle">
                 <p class="circle-text"><%= currentUser.firstName[0] %></p>
@@ -27,7 +28,7 @@
                         <% if(currentUser.phoneNo){ %> 
                             <%= currentUser.phoneNo %>
                         <% } else{ %>
-                            - 
+                            ----
                         <% } %>  
                     </td>
                 </tr>
@@ -40,24 +41,24 @@
                         <% if(currentUser.email){ %> 
                             <%= currentUser.email %>
                         <% } else{ %>
-                            - 
+                            ---- 
                         <% } %> 
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align: left;"><img style="width: 20px; padding-bottom: 5px;" src="https://www.codechef.com/misc/fb-image-icon.png" alt="">
-                        <strong>Codechef Username:</strong> 
+                        <strong>Codechef:</strong> 
                     </td>
                     <td class="detail">
-                        -
+                        ----
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align: left;"><img style="width: 20px; padding-bottom: 5px;" src="https://image.winudf.com/v2/image/Y29tLlNvZnRUZWNocy5Db2RlRm9yY2VzX2ljb25fMF9jOTA3NjNhMA/icon.png?w=170&fakeurl=1" alt="">
-                        <strong>Codeforces Username:</strong> 
+                        <strong>Codeforces:</strong> 
                     </td>
                     <td class="detail">
-                        -
+                        ----
                     </td>
                 </tr>
             </table>
