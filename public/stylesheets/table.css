@@ -36,6 +36,13 @@ tr:nth-child(odd){
 
 }
 
+#contest i {
+	display: none;
+  }
+
+  #contest tr:hover i {
+	display: inline-block;
+}
 
 
 
