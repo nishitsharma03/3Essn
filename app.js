@@ -88,16 +88,16 @@ app.get("/", function (req, res) {
     });
 });
 
+app.get("/calender", function (req, res) {
+    res.render("calender");
+});
+
 app.get("/resources", function (req, res) {
     res.render("resources");
 });
 
 app.get("/about", function (req, res) {
     res.render("aboutus");
-});
-
-app.get("/calender", function (req, res) {
-    res.render("calender");
 });
 
 // =======================================
@@ -108,7 +108,7 @@ app.get("/register", isLoggedOut, function (req, res) {
     res.render("register/form");
 });
 
-app.post("/register", function (req, res) {
+app.post("/register",isLoggedOut, function (req, res) {
     var newUser = new User({
         firstName: req.body.firstName,
         lastName : req.body.lastName,
@@ -132,7 +132,7 @@ app.get("/login", isLoggedOut, function (req, res) {
     res.render("login/form");
 });
 
-app.post("/login",passport.authenticate("local",
+app.post("/login", isLoggedOut, passport.authenticate("local",
     {
         successRedirect: "/",
         failureRedirect: "/login",
@@ -157,7 +157,7 @@ app.get("/userprofile", isLoggedIn, function (req, res) {
     res.render("user/profile");
 });
 
-app.get("/problems", function (req, res) {
+app.get("/problems", isLoggedIn, function (req, res) {
     fs.readFile("pastcont.json", function(err, data) { 
         if (err) throw err; 
         res.render("problems/problem",{data:dataToSend, contest:JSON.parse(data)});
@@ -165,7 +165,7 @@ app.get("/problems", function (req, res) {
     });
 });
 
-app.post("/problems", function (req, res) {
+app.post("/problems", isLoggedIn, function (req, res) {
 
     var process = spawn('python',["codeforcesapi.py", req.body.tags, req.body.lrating, req.body.urating] );
     
