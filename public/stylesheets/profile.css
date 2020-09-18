@@ -6,13 +6,15 @@
     font-family: arial;
     padding: 20px;
     padding-bottom: 30px;
+    height: 530px;
+    margin-top: 40px;
   }
 
   .left {
-    margin-left: 10px;
+    margin-left: 20px;
     float: left;
     width: 500px;
-    height:400px;
+    height:430px;
     padding: 10px;
   }
 
@@ -36,8 +38,9 @@
     border-radius: 30px;
     border: none;
     /* transition: all 0.4s ease 0s; */
-    margin-top: 20px;
+    margin-top: 30px;
     margin-right: 40px;
+    margin-bottom: 30px;
  }
 
  .button:hover { 
@@ -52,7 +55,7 @@
 
  .button-2 {
   color: #fff;
-  padding: 10px 20px;
+  padding: 10px 25px;
   text-decoration: none;
   background: #161616;
   border-radius: 30px;
@@ -130,14 +133,14 @@
 }
 
 #profile-content {
-  width: 70%; 
-  margin-left: 80px;
+  width: 80%; 
+  margin-left: 40px;
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
 td {
-  padding: 5px;
+  padding: 7px;
 }
 
 .detail {

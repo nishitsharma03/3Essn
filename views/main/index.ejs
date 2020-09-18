@@ -46,10 +46,11 @@
                 <td style="text-align: left; padding-left: 60px;">
                     <% for(var key in logo){ %>
                         <% if( key == data[i]["resource"]["name"]){ %>
-                            <img style="height: 22px; width: 22px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
+                            <img style="height: 16px; width: 16px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
                         <% } %>
                     <% } %>
                     <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
+                    <a href="#"><i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i></a> 
                 </td>
             </tr>
             <% } else{ %> 
@@ -79,10 +80,11 @@
                 <td style="text-align: left; padding-left: 60px;">
                     <% for(var key in logo){ %>
                         <% if( key == data[i]["resource"]["name"]){ %>
-                            <img style="height: 22px; width: 22px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
+                            <img style="height: 16px; width: 16px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
                         <% } %>
                     <% } %>
                     <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
+                    
                 </td>
             </tr>
             <% } %> 
@@ -90,5 +92,6 @@
     </table>
     </div><br>
 </div>
+
 
 <%- include('../main/footer') %>

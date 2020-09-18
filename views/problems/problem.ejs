@@ -1,5 +1,5 @@
 <%- include('../problems/header') %>
-    <div class="container">
+    <div class="container" style="padding-left: 0px;">
         <h1 class="problems-heading" style="text-align: center; font-size: 50px;">Codeforces Problem Recommender</h1><br>
         <form action="/problems" method="POST">
             <div class="row">
@@ -23,12 +23,12 @@
                 <button type="submit" class="btn btn-primary">Search</button>
             </div>
             </div>
-        </form>
- 
+        </form><br>
+        </div>
         <div class="container">
             <% if(data){ %>
                 <%  if(data.length ==3){ %> 
-                    <h4 style="text-align: center;">Try out this Problem</h4>
+                    <h4 style="text-align: center;"> <b>Try out this Problem</b>   </h4>
                     <table id="problems">
                         <tr>
                             <th style="width: 300px;">Problem</th>
@@ -47,9 +47,9 @@
                 <% } %>
             <% } %>
         </div>
-    </div>
+    <!-- </div> -->
 
-    <h3 style="text-align: center;">Try out questions from these recent competitions: </h3>
+    <h3 style="text-align: center;"> <b>Try out questions from these recent competitions:</b>  </h3>
     <div class="container">
         <table id="problems">
             <tr>

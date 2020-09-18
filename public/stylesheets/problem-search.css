@@ -1,4 +1,13 @@
 
+body {
+	margin: 0px;
+	height: 100%;
+	width: 100%;
+	/* background: linear-gradient(45deg, #4158d0, #c850c0); */
+	background-color: #4158D0;
+	background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+}
+
 .form-control {
 	border : none;
 	border-bottom: 2px solid #D3D3D3;
@@ -37,10 +46,13 @@ input[type="text"]::-webkit-input-placeholder {
 
 .problems-heading {
 	padding-left: 20px;
+	text-shadow: 0px 15px 5px rgba(0,0,0,0.1),
+                 10px 20px 5px rgba(0,0,0,0.05),
+                 -10px 20px 5px rgba(0,0,0,0.05);
 }
 
 #problems {
-	margin: 30px 0px;
+	margin: 20px 0px;
 	border-collapse: collapse;
   	width: 100%;
   	border: 1px solid #ddd;
