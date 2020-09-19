@@ -69,12 +69,12 @@
                     <a href="#"><i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i></a> 
                 </td>
             </tr>
-            <% } else{ %> 
+            <% } else if (now<endDate){ %> 
             <tr style="background-color: #71f5a7;">
                 <td><%= endD[2] %>/<%= endD[1] %>  <%= end[1] %></td>
                 <td><%= duration %> </td>
                 <td>
-                    <% var diff_time = now.getTime() - endDate.getTime() %>
+                    <% var diff_time = endDate.getTime() - now.getTime() %>
                     <% var diff_days = diff_time/(1000 * 3600 * 24) %>
                     <% if(diff_days>1){ %>
                         <%= Math.floor(diff_days) %> days
@@ -87,7 +87,7 @@
                             <% if(diff_minutes>1){ %> 
                                 <%= Math.floor(diff_minutes) %> minutes 
                             <% } else{ %>
-                                Completed!
+                                Ongoing!
                             <% } %>                              
                         <% } %>  
                     <% } %>
