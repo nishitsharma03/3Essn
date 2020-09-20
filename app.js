@@ -15,8 +15,8 @@ app                   = express();
 //            APP CONGIG
 // ==================================
 
-mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true,useUnifiedTopology: true});
 // mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -221,3 +221,5 @@ function isLoggedOut(req, res, next) {
 app.listen(process.env.PORT, process.env.IP, function () {
     console.log("Server is running!");
 });
+// admin01
+// 97QnGxY9Au6eUDSc
