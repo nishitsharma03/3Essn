@@ -65,11 +65,11 @@ function pastContestRefresh() {
         console.log(`child process (pastContest) close all stdio with code ${code}`);
     })
 }
-// pastContestRefresh();
+pastContestRefresh();
 contestRefresh();
-// var timeGap = 3*60*60*1000; //hours
-// setInterval(contestRefresh, timeGap); //for deployement
-// setInterval(pastContestRefresh, 8*timeGap); //for deployement
+var timeGap = 3*60*60*1000; //hours
+setInterval(contestRefresh, timeGap); //for deployement
+setInterval(pastContestRefresh, 8*timeGap); //for deployement
 var dataToSend = null;
 
 // =====================================
@@ -213,7 +213,11 @@ function isLoggedOut(req, res, next) {
 
 //************PORT*******************
 
-app.listen("3000", function () {
+// app.listen("3000", function () {
+//     console.log("Server is running!");
+//     console.log("http://localhost:3000/");
+// });
+
+app.listen(process.env.PORT, process.env.IP, function () {
     console.log("Server is running!");
-    console.log("http://localhost:3000/");
 });
