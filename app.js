@@ -15,7 +15,7 @@ app                   = express();
 //            APP CONGIG
 // ==================================
 
-mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
 // mongoose.connect("mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority", {useNewUrlParser: true,useUnifiedTopology: true});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -158,6 +158,22 @@ app.get("/userprofile", isLoggedIn, function (req, res) {
     res.render("user/profile");
 });
 
+app.get("/user/:id/:name", isLoggedIn, function (req, res) {
+    var ID = req.params.id;
+    var saveEvent = req.params.name;
+    User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: saveEvent}}, function (err, user) {
+        if (err) {
+            console.log(err);
+            req.flash("error", "Error please try again");
+            res.redirect("/");
+        } else{
+            console.log("Update Saved Events!");
+            req.flash("success", "Successfully Saved Event!");
+            res.redirect("/");
+        }
+    });
+});
+
 app.get("/problems", isLoggedIn, function (req, res) {
     fs.readFile("pastcont.json", function(err, data) { 
         if (err) throw err; 
@@ -186,9 +202,6 @@ app.post("/problems", isLoggedIn, function (req, res) {
     });
 });
 
-app.post("/saveevent/:event", function (req, res) {
-    res.send(req.body);
-})
 
 //**********DEFAULT ROUTE**************
 

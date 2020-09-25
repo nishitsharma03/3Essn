@@ -66,7 +66,11 @@
                         <% } %>
                     <% } %>
                     <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
-                    <a href="/saveevent/<% data[i] %>?_method=POST"><i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i></a> 
+                    <% if(currentUser){ %> 
+                        <a href="/user/<%= currentUser._id %>/<%= data[i]["href"] %>">
+                            <i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                        </a> 
+                    <% } %> 
                 </td>
             </tr>
             <% } else { %> 
