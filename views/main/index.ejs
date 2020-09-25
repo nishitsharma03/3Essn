@@ -66,7 +66,7 @@
                         <% } %>
                     <% } %>
                     <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
-                    <a href="#"><i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i></a> 
+                    <a href="/saveevent/<% data[i] %>?_method=POST"><i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i></a> 
                 </td>
             </tr>
             <% } else { %> 
