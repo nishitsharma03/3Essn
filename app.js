@@ -9,6 +9,7 @@ spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
+// seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
@@ -21,6 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 // seedDB();
+// seedContest();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -140,7 +142,6 @@ app.post("/login", isLoggedOut, passport.authenticate("local",
         successFlash: true,            
         failureFlash: true,
         successFlash: 'Successfully Logged in',
-        failureFlash: 'Invalid username or password.'
     }), function (req, res) {
 });
 
