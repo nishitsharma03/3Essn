@@ -3,7 +3,8 @@
     <div style="text-align: center;">
         <!-- <a href="/calender" style="color: white;">View trial calender</a> -->
     </div>
-    <div class="container">	
+    <div class="container">
+        <p style="color:white"><%= new Date() %> </p>
     <table id="contest">
         <tr>
             <th style="width: 250px;">Start/End Time</th>
@@ -13,10 +14,12 @@
         </tr> 
         
         <% for (let i = 0; i < Object.keys(data).length; i++) { %>
+            <%# let intlDateObj = new Intl.DateTimeFormat(undefined, { timeZone: "Asia/Kolkata" }) %>
+            <%# data[i]["start"] = intlDateobj.format(data[i]["start"]) %> 
             <% var start = data[i]["start"].split("T"); %>
             <% var startD = start[0].split("-") %>  
             <% var end = data[i]["end"].split("T"); %>
-            <% var endD = end[0].split("-") %>  
+            <% var endD = end[0].split("-") %>
             <% var startDate = new Date(data[i]["start"]); %>
             <% var endDate = new Date(data[i]["end"]); %>
             <% var now = new Date(); %>  
@@ -46,17 +49,25 @@
                     <% var diff_time = startDate.getTime() - now.getTime() %>
                     <% var diff_days = diff_time/(1000 * 3600 * 24) %>
                     <% if(diff_days>1){ %>
+                        <% if(Math.floor(diff_days)==1){ %>
+                            <%= Math.floor(diff_days) %> day
+                        <% } else { %>     
                         <%= Math.floor(diff_days) %> days
+                        <% } %> 
                     <% } else{ %>
                         <% var diff_hours = diff_days*24 %>
-                        <% if(diff_hours>1){ %> 
-                            <%= Math.floor(diff_hours) %> hours 
+                        <% if(diff_hours>1){ %>
+                            <% if(Math.floor(diff_hours)==1){ %>
+                                <%= Math.floor(diff_hours) %> hour
+                            <% } else{ %>   
+                                <%= Math.floor(diff_hours) %> hours
+                            <% } %>  
                         <% } else{ %>
                             <% var diff_minutes = diff_hours*60 %>
-                            <% if(diff_minutes>1){ %> 
+                            <% if(diff_minutes>2){ %> 
                                 <%= Math.floor(diff_minutes) %> minutes 
                             <% } else{ %>
-                                Ongoing!
+                                Contest Active!
                             <% } %>                              
                         <% } %>  
                     <% } %> 
@@ -77,24 +88,32 @@
                 </td>
             </tr>
             <% } else { %> 
-            <tr style="background-color: #71f5a7;">
+            <tr style="background-color: #6effab;">
                 <td><%= endD[2] %>/<%= endD[1] %>  <%= end[1] %></td>
                 <td><%= duration %> </td>
                 <td>
                     <% var diff_time = endDate.getTime() - now.getTime() %>
                     <% var diff_days = diff_time/(1000 * 3600 * 24) %>
                     <% if(diff_days>1){ %>
+                        <% if(Math.floor(diff_days)==1){ %>
+                            <%= Math.floor(diff_days) %> day
+                        <% } else { %>     
                         <%= Math.floor(diff_days) %> days
+                        <% } %> 
                     <% } else{ %>
                         <% var diff_hours = diff_days*24 %>
-                        <% if(diff_hours>1){ %> 
-                            <%= Math.floor(diff_hours) %> hours 
+                        <% if(diff_hours>1){ %>
+                            <% if(Math.floor(diff_hours)==1){ %>
+                                <%= Math.floor(diff_hours) %> hour
+                            <% } else{ %>   
+                                <%= Math.floor(diff_hours) %> hours
+                            <% } %>  
                         <% } else{ %>
                             <% var diff_minutes = diff_hours*60 %>
-                            <% if(diff_minutes>1){ %> 
+                            <% if(diff_minutes>2){ %> 
                                 <%= Math.floor(diff_minutes) %> minutes 
                             <% } else{ %>
-                                Ongoing!
+                                Contest Ended!
                             <% } %>                              
                         <% } %>  
                     <% } %>

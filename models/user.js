@@ -7,11 +7,13 @@ passportLocalMongoose = require("passport-local-mongoose");
     lastName          : String,
     username          : String,
     email             : String,
+    company           : String,
     phoneNo           : String,
     password          : String,
     codechefUsername  : String,
     codeforcesUsername: String,
-    savedEvents       : []
+    savedEvents       : [],
+    savedProblems     : []
  });
 
 UserSchema.plugin(passportLocalMongoose);

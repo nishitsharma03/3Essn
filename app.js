@@ -201,7 +201,7 @@ app.post("/problems", isLoggedIn, function (req, res) {
     });
 
     process.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
+        console.log('Pipe data from python script');
         dataToSend = data.toString()
     });
 
