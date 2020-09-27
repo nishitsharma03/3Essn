@@ -20,20 +20,23 @@
             <% var startDate = new Date(data[i]["start"]); %>
             <% var endDate = new Date(data[i]["end"]); %>
             <% var now = new Date(); %>  
-            <% var dur = Math.round(data[i]["duration"]/60) %>
-            <% if(dur % 24 == 0){ %>
-                <% dur = dur/24 %>
+            <% var dur = data[i]["duration"] %>
+            <% if(dur % 1440 == 0 || dur/1440>1){ %>
+                <% dur = Math.round(dur/1440) %>
                 <% if(dur>1){ %>  
                     <% var duration = dur.toString()+" days" %>
                 <% } else{ %>
                     <% var duration = dur.toString()+" day" %>
                 <% } %>  
-            <% } else{ %>
+            <% } else if(dur%60 == 0) { %>
+                <% dur = dur/60 %> 
                 <% if(dur>1){ %>
                     <% var duration = dur.toString()+" hours" %>
                 <% } else{ %>
                     <% var duration = dur.toString()+" hour" %>
                 <% } %> 
+            <% } else{ %>
+                <% var duration = dur.toString()+" minutes" %> 
             <% } %>    
             <% if(now<startDate){ %> 
             <tr>
