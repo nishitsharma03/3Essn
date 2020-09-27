@@ -67,7 +67,7 @@
                     <% } %>
                     <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
                     <% if(currentUser){ %> 
-                        <a href="/user/<%= currentUser._id %>/<%= data[i]["href"] %>">
+                        <a href="/user/<%= currentUser._id %>/<%= data[i]["id"] %>">
                             <i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i>
                         </a> 
                     <% } %> 

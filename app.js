@@ -159,19 +159,28 @@ app.get("/userprofile", isLoggedIn, function (req, res) {
     res.render("user/profile");
 });
 
-app.get("/user/:id/:name", isLoggedIn, function (req, res) {
+app.get("/user/:id/:contestid", isLoggedIn, function (req, res) {
     var ID = req.params.id;
-    var saveEvent = req.params.name;
-    User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: saveEvent}}, function (err, user) {
-        if (err) {
-            console.log(err);
-            req.flash("error", "Error please try again");
-            res.redirect("/");
-        } else{
-            console.log("Update Saved Events!");
-            req.flash("success", "Successfully Saved Event!");
-            res.redirect("/");
-        }
+    var idEvent = req.params.contestid;
+    fs.readFile("data.json", function(err, data) { 
+        if (err) throw err;
+        data = JSON.parse(data);
+        for (let i = 0; i < Object.keys(data).length; i++) {
+            if(data[i]["id"] == idEvent){
+                // console.log(data[i]);
+                User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: data[i]}}, function (err, user) {
+                    if (err) {
+                        console.log(err);
+                        req.flash("error", "Error please try again");
+                        res.redirect("/");
+                    } else{
+                        console.log("Updated Saved Events!");
+                        req.flash("success", "Successfully Saved Event!");
+                        res.redirect("/");
+                    }
+                });
+            }
+        };
     });
 });
 
