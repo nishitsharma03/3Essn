@@ -72,6 +72,13 @@
     
     <div class="left">
         <h2>Under Construction*</h2>
+        <br>
+        <br>
+        
+        <h4>Saves Events</h4>
+        <% currentUser.savedEvents.forEach(function (item) { %>
+            <p><%= item["event"] %> </p>            
+        <% }) %>
         
     </div>
 

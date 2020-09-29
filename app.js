@@ -9,19 +9,22 @@ spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
+// seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
 //**           APP CONGIG
 // ==================================
 
+
 var url = process.env.DATABASEURL;
 //! "mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority"
-mongoose.connect(url, {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.connect(url, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 // seedDB();
+// seedContest();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -66,8 +69,6 @@ function pastContestRefresh() {
         console.log(`child process (pastContest) close all stdio with code ${code}`);
     })
 }
-
-// TODO: Passing dependencies
 // pastContestRefresh();
 // contestRefresh();
 var timeGap = 3*60*60*1000; //hours
@@ -143,7 +144,6 @@ app.post("/login", isLoggedOut, passport.authenticate("local",
         successFlash: true,            
         failureFlash: true,
         successFlash: 'Successfully Logged in',
-        failureFlash: 'Invalid username or password.'
     }), function (req, res) {
 });
 
@@ -159,6 +159,31 @@ app.get("/logout", isLoggedIn, function (req, res) {
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
     res.render("user/profile");
+});
+
+app.get("/user/:id/:contestid", isLoggedIn, function (req, res) {
+    var ID = req.params.id;
+    var idEvent = req.params.contestid;
+    fs.readFile("data.json", function(err, data) { 
+        if (err) throw err;
+        data = JSON.parse(data);
+        for (let i = 0; i < Object.keys(data).length; i++) {
+            if(data[i]["id"] == idEvent){
+                // console.log(data[i]);
+                User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: data[i]}}, function (err, user) {
+                    if (err) {
+                        console.log(err);
+                        req.flash("error", "Error please try again");
+                        res.redirect("/");
+                    } else{
+                        console.log("Updated Saved Events!");
+                        req.flash("success", "Successfully Saved Event!");
+                        res.redirect("/");
+                    }
+                });
+            }
+        };
+    });
 });
 
 app.get("/problems", isLoggedIn, function (req, res) {
@@ -178,7 +203,7 @@ app.post("/problems", function (req, res) {
     });
 
     process.stdout.on('data', function (data) {
-        console.log('Pipe data from python script ...');
+        console.log('Pipe data from python script');
         dataToSend = data.toString()
     });
 
@@ -188,6 +213,7 @@ app.post("/problems", function (req, res) {
         res.redirect("/problems");
     });
 });
+
 
 //**********DEFAULT ROUTE**************
 
