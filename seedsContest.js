@@ -7,7 +7,9 @@ function seedDBContest() {
             console.log(err);
         } else {
             users.map(user => {
-                user.savedEvents.forEach(element => console.log(element))
+                user.savedEvents.forEach(function (event,index) {
+                    console.log(event);
+                })
             });
         }
     });

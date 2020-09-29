@@ -9,7 +9,7 @@ spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
-// seedContest           = require("./seedsContest");
+seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 // seedDB();
-// seedContest();
+seedContest();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -43,7 +43,7 @@ app.use(function (req, res, next) {
 });
 
 // ====================================
-//            API Script
+//**          API Script
 // ====================================
 
 function contestRefresh() {
@@ -75,7 +75,7 @@ setInterval(pastContestRefresh, 8*timeGap); //for deployement
 var dataToSend = null;
 
 // =====================================
-//            Basic ROUTES
+//**          Basic ROUTES
 // =====================================
 var logos = {
     "codechef.com": "https://www.codechef.com/misc/fb-image-icon.png" ,  
@@ -104,7 +104,7 @@ app.get("/about", function (req, res) {
 });
 
 // =======================================
-//            AUTH ROUTES
+//**          AUTH ROUTES
 // =======================================
 
 app.get("/register", isLoggedOut, function (req, res) {
@@ -152,7 +152,7 @@ app.get("/logout", isLoggedIn, function (req, res) {
 });
 
 // =========================================
-//            USER ROUTES
+//**           USER ROUTES
 // =========================================
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
