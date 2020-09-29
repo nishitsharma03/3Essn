@@ -7,9 +7,10 @@ LocalStrategy         = require("passport-local"),
 passportLocalMongoose = require("passport-local-mongoose"),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
+nodemailer            = require('nodemailer'),
 User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
-seedContest           = require("./seedsContest");
+// seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
@@ -22,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 // seedDB();
-seedContest();
+// seedContest();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -125,6 +126,26 @@ app.post("/register",isLoggedOut, function (req, res) {
             return res.render("register/form");
         }
         passport.authenticate("local")(req, res, function () {
+            //TODO- Greeting mail to user after registration
+            // var transporter = nodemailer.createTransport({
+            // service: 'gmail',
+            // auth: {
+            //         user: 'youremail@address.com',
+            //         pass: 'yourpassword'
+            //     }
+            // });
+            // const mailOptions = {
+            //     from: 'sender@email.com', 
+            //     to: 'to@email.com',
+            //     subject: 'Subject of your email',
+            //     html: '<p>Welcome to our site</p>'
+            // };
+            // transporter.sendMail(mailOptions, function (err, info) {
+            //     if(err)
+            //     console.log(err)
+            //     else
+            //     console.log('Email sent :',info);
+            // })
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
             res.redirect("/");
         });
