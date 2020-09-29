@@ -1,5 +1,7 @@
-requests
-datetime
-dateutil.relativedelta
-json
-random
+beautifulsoup4==4.9.1
+DateTime==4.3
+lxml==4.5.2
+requests==2.24.0
+soupsieve==2.0.1
+urllib3==1.25.10
+dateutils==0.6.11
