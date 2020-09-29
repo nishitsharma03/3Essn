@@ -1,4 +1,4 @@
-var express           = require("express"),
+const express           = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
 flash                 = require("connect-flash"),
@@ -13,11 +13,13 @@ User                  = require("./models/user"),
 app                   = express();
 
 // ==================================
-//            APP CONGIG
+//**           APP CONGIG
 // ==================================
 
-mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
-// mongoose.connect("mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority", {useNewUrlParser: true,useUnifiedTopology: true});
+
+var url = process.env.DATABASEURL;
+//! "mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority"
+mongoose.connect(url, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -43,7 +45,7 @@ app.use(function (req, res, next) {
 });
 
 // ====================================
-//            API Script
+// **         API Script
 // ====================================
 
 function contestRefresh() {
@@ -70,12 +72,12 @@ function pastContestRefresh() {
 // pastContestRefresh();
 // contestRefresh();
 var timeGap = 3*60*60*1000; //hours
-setInterval(contestRefresh, timeGap); //for deployement
-setInterval(pastContestRefresh, 8*timeGap); //for deployement
+// setInterval(contestRefresh, timeGap); //for deployement
+// setInterval(pastContestRefresh, 8*timeGap); //for deployement
 var dataToSend = null;
 
 // =====================================
-//            Basic ROUTES
+// **         Basic ROUTES
 // =====================================
 var logos = {
     "codechef.com": "https://www.codechef.com/misc/fb-image-icon.png" ,  
@@ -91,9 +93,9 @@ app.get("/", function (req, res) {
     });
 });
 
-app.get("/calender", function (req, res) {
-    res.render("calender");
-});
+// app.get("/calender", function (req, res) {
+//     res.render("calender");
+// });
 
 app.get("/resources", function (req, res) {
     res.render("resources");
@@ -104,7 +106,7 @@ app.get("/about", function (req, res) {
 });
 
 // =======================================
-//            AUTH ROUTES
+//**            AUTH ROUTES
 // =======================================
 
 app.get("/register", isLoggedOut, function (req, res) {
@@ -152,7 +154,7 @@ app.get("/logout", isLoggedIn, function (req, res) {
 });
 
 // =========================================
-//            USER ROUTES
+//**            USER ROUTES
 // =========================================
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
@@ -192,7 +194,7 @@ app.get("/problems", isLoggedIn, function (req, res) {
     });
 });
 
-app.post("/problems", isLoggedIn, function (req, res) {
+app.post("/problems", function (req, res) {
 
     var process = spawn('python',["codeforcesapi.py", req.body.tags, req.body.lrating, req.body.urating] );
     
@@ -240,13 +242,6 @@ function isLoggedOut(req, res, next) {
 
 //************PORT*******************
 
-app.listen("3000", function () {
+app.listen(process.env.PORT, process.env.IP, function () {
     console.log("Server is running!");
-    console.log("http://localhost:3000/");
 });
-
-// app.listen(process.env.PORT, process.env.IP, function () {
-//     console.log("Server is running!");
-// });
-// admin01
-// 97QnGxY9Au6eUDSc
