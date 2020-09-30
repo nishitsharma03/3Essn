@@ -1,6 +1,7 @@
 const nodemailer   = require('nodemailer');
 
 function greetUser(user) {
+    var HTMLTemplate ="<h1>This is the template</h1>";
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {

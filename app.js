@@ -10,7 +10,7 @@ fs                    = require("fs"),
 nodemailer            = require('nodemailer'),
 User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
-// seedContest           = require("./seedsContest");
+seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 // seedDB();
-// seedContest();
+seedContest();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -68,8 +68,8 @@ function pastContestRefresh() {
         console.log(`child process (pastContest) close all stdio with code ${code}`);
     })
 }
-// pastContestRefresh();
-// contestRefresh();
+pastContestRefresh();
+contestRefresh();
 var timeGap = 3*60*60*1000; //hours
 setInterval(contestRefresh, timeGap); //for deployement
 setInterval(pastContestRefresh, 8*timeGap); //for deployement
@@ -126,9 +126,9 @@ app.post("/register",isLoggedOut, function (req, res) {
             return res.render("register/form");
         }
         passport.authenticate("local")(req, res, function () {
-            //TODO- Greeting mail to user after registration
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
             res.redirect("/");
+            //TODO- Greeting mail to user after registration
         });
     });
 });
