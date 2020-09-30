@@ -1,4 +1,4 @@
-const express           = require("express"),
+const express         = require("express"),
 bodyParser            = require("body-parser"),
 mongoose              = require("mongoose"),
 flash                 = require("connect-flash"),
@@ -127,25 +127,6 @@ app.post("/register",isLoggedOut, function (req, res) {
         }
         passport.authenticate("local")(req, res, function () {
             //TODO- Greeting mail to user after registration
-            // var transporter = nodemailer.createTransport({
-            // service: 'gmail',
-            // auth: {
-            //         user: 'youremail@address.com',
-            //         pass: 'yourpassword'
-            //     }
-            // });
-            // const mailOptions = {
-            //     from: 'sender@email.com', 
-            //     to: 'to@email.com',
-            //     subject: 'Subject of your email',
-            //     html: '<p>Welcome to our site</p>'
-            // };
-            // transporter.sendMail(mailOptions, function (err, info) {
-            //     if(err)
-            //     console.log(err)
-            //     else
-            //     console.log('Email sent :',info);
-            // })
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
             res.redirect("/");
         });
@@ -222,7 +203,7 @@ app.post("/problems", isLoggedIn, function (req, res) {
     });
 
     process.stdout.on('data', function (data) {
-        console.log('Pipe data from python script');
+        console.log('Problem retrieved');
         dataToSend = data.toString()
     });
 
@@ -237,7 +218,8 @@ app.post("/problems", isLoggedIn, function (req, res) {
 //**********DEFAULT ROUTE**************
 
 app.get("*", function (req, res) {
-    res.render("null");
+    console.log("page doesn't exist");
+    res.redirect("/");
 });
 
 // ***********Middlewares**************
