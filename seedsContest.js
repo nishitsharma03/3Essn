@@ -1,5 +1,6 @@
-var mongoose = require("mongoose"),
-User         = require("./models/user");
+const mongoose = require("mongoose"),
+User           = require("./models/user"),
+nodemailer     = require('nodemailer');
 
 function seedDBContest() {
     User.find({} , (err, users) => {
@@ -7,10 +8,20 @@ function seedDBContest() {
             console.log(err);
         } else {
             users.map(user => {
-                user.savedEvents.forEach(element => console.log(element))
+                user.savedEvents.forEach(function (event,index) {
+                    var now = new Date();
+                    var startD = new Date(event.start);
+                    var endD = new Date(event.end);
+                    //TODO: remove old contest from db also add automation to send email if 1 day left.
+                    if(now>endD){
+                        //! Delete this event from DB
+                    }else{
+                        console.log(Math.abs(startD.getTime()-now.getTime())/(1000*60*60));
+                    }
+                })
             });
         }
     });
 }
 
-module.exports = seedDBContest
+module.exports = seedDBContest;
