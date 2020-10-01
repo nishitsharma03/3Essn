@@ -10,7 +10,7 @@ fs                    = require("fs"),
 nodemailer            = require('nodemailer'),
 User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
-seedContest           = require("./seedsContest");
+// seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
@@ -23,8 +23,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
-// seedDB();
-seedContest();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -69,11 +67,16 @@ function pastContestRefresh() {
         console.log(`child process (pastContest) close all stdio with code ${code}`);
     })
 }
-pastContestRefresh();
-contestRefresh();
+
+//! Timed Functions
+// seedDB();
+// seedContest();
+// pastContestRefresh();
+// contestRefresh();
 var timeGap = 3*60*60*1000; //hours
-setInterval(contestRefresh, timeGap); //for deployement
-setInterval(pastContestRefresh, 8*timeGap); //for deployement
+// setInterval(contestRefresh, timeGap); //for deployement
+// setInterval(pastContestRefresh, 8*timeGap); //for deployement
+
 var dataToSend = null;
 
 // =====================================
@@ -159,7 +162,7 @@ app.get("/logout", isLoggedIn, function (req, res) {
 // =========================================
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
-    res.render("user/profile");
+    res.render("user/profile", {logo:logos});
 });
 
 app.get("/user/:id/:contestid", isLoggedIn, function (req, res) {

@@ -14,9 +14,9 @@ function seedDBContest() {
                     var endD = new Date(event.end);
                     //TODO: remove old contest from db also add automation to send email if 1 day left.
                     if(now>endD){
-                        //! Delete this event from DB
                     }else{
-                        console.log(Math.abs(startD.getTime()-now.getTime())/(1000*60*60));
+                        // console.log(Math.abs(startD.getTime()-now.getTime())/(1000*60*60));
+                        console.log(user.username, event);                 
                     }
                 })
             });
