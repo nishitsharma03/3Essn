@@ -10,7 +10,7 @@ fs                    = require("fs"),
 nodemailer            = require('nodemailer'),
 User                  = require("./models/user"),
 // seedDB                = require("./seeds"),
-seedContest           = require("./seedsContest");
+// seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 // seedDB();
-seedContest();
+// seedContest();
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -246,13 +246,6 @@ function isLoggedOut(req, res, next) {
 
 //************PORT*******************
 
-app.listen("3000", function () {
+app.listen(process.env.PORT, process.env.IP, function () {
     console.log("Server is running!");
-    console.log("http://localhost:3000/");
 });
-
-// app.listen(process.env.PORT, process.env.IP, function () {
-//     console.log("Server is running!");
-// });
-// admin01
-// 97QnGxY9Au6eUDSc
