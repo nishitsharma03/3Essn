@@ -51,6 +51,8 @@ body {
 	background-color: rgb(14,14,14);
 	border-radius: 0px;
 	height: 70px;
+	margin: 0px;
+	margin-top: 0px;
 }
 
 .navbar-brand{
