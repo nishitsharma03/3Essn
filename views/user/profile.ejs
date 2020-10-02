@@ -71,17 +71,15 @@
     </div>
     
     <div class="left">
-        <h2>Under Construction*</h2>
-        <br>
-        <br>
         
-        <h4>Saves Events</h4>
-        <table id="contest">
+        
+        <h1>Saves Events</h1>
+        <table id="saved">
             <tr>
-                <th style="width: 250px;">Start/End Time</th>
+                <!-- <th style="width: 250px;">Start/End Time</th>
                 <th style="width: 120px;">Duration</th>
-                <th style="width: 120px;">Time Left</th>
-                <th id="contest-name" style="text-align: left; padding-left: 60px;">Contests</th>
+                <th style="width: 120px;">Time Left</th> -->
+                <th id="contest-name" style="text-align: center">Contests</th>
             </tr> 
             
             <% currentUser.savedEvents.forEach(function (item) { %>
@@ -112,10 +110,10 @@
                 <% } %>    
                 <% if(now<startDate){ %> 
                 <tr>
-                    <td><%= startD[2] %>/<%= startD[1] %> <%= start[1] %></td>
-                    <td><%= duration %> </td>
-                    <td>
-                        <% var diff_time = startDate.getTime() - now.getTime() %>
+                    <!-- <td><%= startD[2] %>/<%= startD[1] %> <%= start[1] %></td> -->
+                    <!-- <td><%= duration %> </td> -->
+                    <!-- <td> -->
+                        <!-- <% var diff_time = startDate.getTime() - now.getTime() %>
                         <% var diff_days = diff_time/(1000 * 3600 * 24) %>
                         <% if(diff_days>1){ %>
                             <% if(Math.floor(diff_days)==1){ %>
@@ -139,9 +137,9 @@
                                     Contest Active!
                                 <% } %>                              
                             <% } %>  
-                        <% } %> 
-                    </td>
-                    <td style="text-align: left; padding-left: 60px;">
+                        <% } %>  -->
+                    <!-- </td> -->
+                    <td style="text-align: left; padding-left: 20px;">
                         <% for(var key in logo){ %>
                             <% if( key == item["resource"]["name"]){ %>
                                 <img style="height: 16px; width: 16px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
