@@ -80,9 +80,7 @@
                     <% } %>
                     <a style="margin-left: 5px;" href=" <%= data[i]["href"] %>"><%= data[i]["event"]%></a>
                     <% if(currentUser){ %> 
-                        <a href="/user/<%= currentUser._id %>/<%= data[i]["id"] %>">
-                            <i style="color: black;" class="fa fa-calendar-check-o" aria-hidden="true"></i>
-                        </a> 
+                        <i style="color: black;" userid="<%= currentUser._id %>" contest="<%= data[i]["id"] %>" class="fa fa-calendar-check-o savecontest" aria-hidden="true"></i>
                     <% } %> 
                 </td>
             </tr>
@@ -132,5 +130,21 @@
     </table>
     </div><br>
 </div>
+<script>
+    $('.savecontest').click(function () { 
+        var contestId = $(this).attr('contest');
+        var userId = $(this).attr('userid');
+        console.log(contestId);
+        console.log(userId);
+        $.ajax({
+            method:"POST",
+            url: "/save/contest",
+            data: { userId: userId, contestId : contestId}
+        })
+        .done(function(){
+            alert("Contest Saved");
+        });
+    });
+</script>
 
 <%- include('../main/footer') %>

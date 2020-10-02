@@ -165,9 +165,9 @@ app.get("/userprofile", isLoggedIn, function (req, res) {
     res.render("user/profile", {logo:logos});
 });
 
-app.get("/user/:id/:contestid", isLoggedIn, function (req, res) {
-    var ID = req.params.id;
-    var idEvent = req.params.contestid;
+app.post("/save/contest", function (req, res) {
+    var ID = req.body.userId;
+    var idEvent = req.body.contestId;
     fs.readFile("data.json", function(err, data) { 
         if (err) throw err;
         data = JSON.parse(data);
@@ -177,17 +177,41 @@ app.get("/user/:id/:contestid", isLoggedIn, function (req, res) {
                 User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: data[i]}}, function (err, user) {
                     if (err) {
                         console.log(err);
-                        req.flash("error", "Error please try again");
-                        res.redirect("/");
+                        // req.flash("error", "Error please try again");
+                        // res.redirect("/");
                     } else{
                         console.log("Updated Saved Events!");
-                        req.flash("success", "Successfully Saved Event!");
-                        res.redirect("/");
+                        // req.flash("success", "Successfully Saved Event!");
+                        // res.redirect("/");
                     }
                 });
             }
         };
     });
+})
+
+app.put("/user/:id/update", function (req, res) {
+    var updatedUser = {
+        firstName          : req.body.firstName,
+        lastName           : req.body.lastName,
+        username           : req.body.username,
+        email              : req.body.email,
+        phoneNo            : req.body.phoneNo,
+        codechefUsername   : req.body.codechefUsername,
+        codeforcesUsername : req.body.codeforcesUsername,
+        company            : req.body.company
+    }
+    User.findByIdAndUpdate({_id: req.params.id}, updatedUser, function (err, user) {
+        if (err) {
+            console.log(err);
+            req.flash("error", "Error please try again");
+            res.redirect("/userprofile");
+        } else{
+            console.log("User data updated");
+            req.flash("success", "Profile Updated");
+            res.redirect("/userprofile");
+        }
+    })
 });
 
 app.get("/problems", isLoggedIn, function (req, res) {
