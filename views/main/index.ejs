@@ -1,5 +1,17 @@
 <%- include('../main/header') %>
 <div id="main">
+    <div class="container">
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+    </div>
 <div class="container">
     <div style="text-align: center;">
         <!-- <a href="/calender" style="color: white;">View trial calender</a> -->
