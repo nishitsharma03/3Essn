@@ -22,7 +22,7 @@
     height: 450px;
     border-radius: 50%;
     background: linear-gradient(#9370DB, #BA55D3, #FF00FF);
-    animation: animate 1.4s ease-in infinite;
+    animation: animate 1.6s ease-in infinite;
 }
 
 .loader span {
