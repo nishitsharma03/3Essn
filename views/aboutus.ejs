@@ -72,15 +72,17 @@
             </div>
         </div>
     </nav>
-    <div class="container">
+    <div class="container popup">
         <% if(error && error.length > 0){ %>
             <div class="alert alert-danger" role="alert">
                 <%= error %>
+                <a class = "close">X</a>
             </div>
         <% } %>
         <% if(success && success.length > 0){ %>
             <div class="alert alert-success" role="alert">
                 <%= success %>
+                <a class = "close">X</a>
             </div>
         <% } %>
     </div>
@@ -141,5 +143,10 @@
             </div>
         </div>
     </div>
+    <script>
+    $('.close').click(function () {
+      $('.popup').hide();
+    });
+    </script>
 </body>
 </html>

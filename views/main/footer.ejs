@@ -67,7 +67,11 @@
     // window.addEventListener("load",function(){
     //   loader.style.display="none";
     // });
-    setTimeout('loader.style.display="none"', 1600);
+    setTimeout('loader.style.display="none"', 100);
+    $('.close').click(function () {
+      $('.popup').fadeOut(1000);
+    });
+
   </script>
 
   </body>
