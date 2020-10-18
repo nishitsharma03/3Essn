@@ -14,11 +14,11 @@
     <% } %>
 </div>
     <!-- <h1 style="text-align:center">User Profile</h1> -->
-
-    <div class="left">
+<div class="row">
+    <div class="col col-md-4" style="margin:auto; width: 30%;">
         <h1 style="text-align:center; margin-bottom:0px;">User</h1>
         <div class="card">
-            <div class="circle">
+            <div class="circle" style="margin:auto;">
                 <p class="circle-text"><%= currentUser.firstName[0] %></p>
             </div>
             <!-- <img src="https://akm-img-a-in.tosshub.com/indiatoday/images/story/202007/tweet_0.png?zoxVA2.qIXQf7sSn2dFmWcHhkLoAkH5k&size=770:433" alt="Hello There" style="width:30%; margin-bottom: 10px;"> -->
@@ -78,80 +78,19 @@
             <br>
             <div>
                 <a href="/userprofile/edit/<%= currentUser._id %> " class="button">Edit Profile</a>
-                <a href="#" class="button-2">Form</a>
 			</div>
         </div>
     </div>
     
-    <div class="left">
-        
-        
-        <h1>Saves Events</h1>
+    <div class=" col col-md-8" style="width: 60%; margin: auto;"> 
+        <!-- <h3 class="text-center">Saved Events</h3> -->
         <table id="saved">
             <tr>
-                <!-- <th style="width: 250px;">Start/End Time</th>
-                <th style="width: 120px;">Duration</th>
-                <th style="width: 120px;">Time Left</th> -->
-                <th id="contest-name" style="text-align: center">Contests</th>
+                <th id="contest-name" style="text-align: center">Saved Events</th>
             </tr> 
             
             <% currentUser.savedEvents.forEach(function (item) { %>
-                <% var start = item["start"].split("T"); %>
-                <% var startD = start[0].split("-") %>  
-                <% var end = item["end"].split("T"); %>
-                <% var endD = end[0].split("-") %>
-                <% var startDate = new Date(item["start"]); %>
-                <% var endDate = new Date(item["end"]); %>
-                <% var now = new Date(); %>  
-                <% var dur = item["duration"] %>
-                <% if(dur % 1440 == 0 || dur/1440>1){ %>
-                    <% dur = Math.round(dur/1440) %>
-                    <% if(dur>1){ %>  
-                        <% var duration = dur.toString()+" days" %>
-                    <% } else{ %>
-                        <% var duration = dur.toString()+" day" %>
-                    <% } %>  
-                <% } else if(dur%60 == 0) { %>
-                    <% dur = dur/60 %> 
-                    <% if(dur>1){ %>
-                        <% var duration = dur.toString()+" hours" %>
-                    <% } else{ %>
-                        <% var duration = dur.toString()+" hour" %>
-                    <% } %> 
-                <% } else{ %>
-                    <% var duration = dur.toString()+" minutes" %> 
-                <% } %>    
-                <% if(now<startDate){ %> 
                 <tr>
-                    <!-- <td><%= startD[2] %>/<%= startD[1] %> <%= start[1] %></td> -->
-                    <!-- <td><%= duration %> </td> -->
-                    <!-- <td> -->
-                        <!-- <% var diff_time = startDate.getTime() - now.getTime() %>
-                        <% var diff_days = diff_time/(1000 * 3600 * 24) %>
-                        <% if(diff_days>1){ %>
-                            <% if(Math.floor(diff_days)==1){ %>
-                                <%= Math.floor(diff_days) %> day
-                            <% } else { %>     
-                            <%= Math.floor(diff_days) %> days
-                            <% } %> 
-                        <% } else{ %>
-                            <% var diff_hours = diff_days*24 %>
-                            <% if(diff_hours>1){ %>
-                                <% if(Math.floor(diff_hours)==1){ %>
-                                    <%= Math.floor(diff_hours) %> hour
-                                <% } else{ %>   
-                                    <%= Math.floor(diff_hours) %> hours
-                                <% } %>  
-                            <% } else{ %>
-                                <% var diff_minutes = diff_hours*60 %>
-                                <% if(diff_minutes>2){ %> 
-                                    <%= Math.floor(diff_minutes) %> minutes 
-                                <% } else{ %>
-                                    Contest Active!
-                                <% } %>                              
-                            <% } %>  
-                        <% } %>  -->
-                    <!-- </td> -->
                     <td style="text-align: left; padding-left: 20px;">
                         <% for(var key in logo){ %>
                             <% if( key == item["resource"]["name"]){ %>
@@ -161,51 +100,10 @@
                         <a style="margin-left: 5px;" href=" <%= item["href"] %>"><%= item["event"]%></a>
                     </td>
                 </tr>
-                <% } else { %> 
-                <tr style="background-color: #6effab;">
-                    <td><%= endD[2] %>/<%= endD[1] %>  <%= end[1] %></td>
-                    <td><%= duration %> </td>
-                    <td>
-                        <% var diff_time = endDate.getTime() - now.getTime() %>
-                        <% var diff_days = diff_time/(1000 * 3600 * 24) %>
-                        <% if(diff_days>1){ %>
-                            <% if(Math.floor(diff_days)==1){ %>
-                                <%= Math.floor(diff_days) %> day
-                            <% } else { %>     
-                            <%= Math.floor(diff_days) %> days
-                            <% } %> 
-                        <% } else{ %>
-                            <% var diff_hours = diff_days*24 %>
-                            <% if(diff_hours>1){ %>
-                                <% if(Math.floor(diff_hours)==1){ %>
-                                    <%= Math.floor(diff_hours) %> hour
-                                <% } else{ %>   
-                                    <%= Math.floor(diff_hours) %> hours
-                                <% } %>  
-                            <% } else{ %>
-                                <% var diff_minutes = diff_hours*60 %>
-                                <% if(diff_minutes>2){ %> 
-                                    <%= Math.floor(diff_minutes) %> minutes 
-                                <% } else{ %>
-                                    Contest Ended!
-                                <% } %>                              
-                            <% } %>  
-                        <% } %>
-                    </td>
-                    <td style="text-align: left; padding-left: 60px;">
-                        <% for(var key in logo){ %>
-                            <% if( key == item["resource"]["name"]){ %>
-                                <img style="height: 16px; width: 16px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
-                            <% } %>
-                        <% } %>
-                        <a style="margin-left: 5px;" href=" <%= item["href"] %>"><%= item["item"]%></a>
-                        
-                    </td>
-                </tr>
-                <% } %> 
             <% }) %>            
         </table>
+        <div id="chart_div" style="margin: auto;" ></div>
         
     </div>
-
+</div>
 <%- include('../user/footer') %> 

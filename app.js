@@ -5,6 +5,7 @@ flash                 = require("connect-flash"),
 passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
 passportLocalMongoose = require("passport-local-mongoose"),
+methodOverride        = require('method-override'),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 nodemailer            = require('nodemailer'),
@@ -23,6 +24,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(methodOverride('_method'));
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
