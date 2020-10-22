@@ -150,16 +150,12 @@
     $('.savecontest').click(function () { 
         var contestId = $(this).attr('contest');
         var userId = $(this).attr('userid');
-        // console.log(contestId);
-        // console.log(userId);
         $.ajax({
             method:"POST",
             url: "/save/contest",
             data: { userId: userId, contestId : contestId}
         })
-        .done(function(){
-            alert("Contest Saved");
-        });
+        alert("Contest Saved!");
     });
 </script>
 

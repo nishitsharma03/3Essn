@@ -239,7 +239,14 @@ app.post("/problems", isLoggedIn, function (req, res) {
 
     process.on('close', (code) => {
         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
-        dataToSend = dataToSend.split("|");
+        if(dataToSend){
+            dataToSend = dataToSend.split("|");
+            User.findByIdAndUpdate(req.user._id , {$addToSet:{searchedTags : req.body.tags.split(',')}}, function (err, user) {
+                if(err){
+                    console.log(err);
+                }
+            });
+        }
         res.redirect("/problems");
     });
 });

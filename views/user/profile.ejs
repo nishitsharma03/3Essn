@@ -13,8 +13,7 @@
         </div>
     <% } %>
 </div>
-    <!-- <h1 style="text-align:center">User Profile</h1> -->
-<div class="row">
+<div class="row" style="margin-right:0px;">
     <div class="col col-md-4" style="margin:auto; width: 30%;">
         <h1 style="text-align:center; margin-bottom:0px;">User</h1>
         <div class="card">
@@ -82,28 +81,59 @@
         </div>
     </div>
     
-    <div class=" col col-md-8" style="width: 60%; margin: auto;"> 
-        <!-- <h3 class="text-center">Saved Events</h3> -->
-        <table id="saved">
-            <tr>
-                <th id="contest-name" style="text-align: center">Saved Events</th>
-            </tr> 
-            
-            <% currentUser.savedEvents.forEach(function (item) { %>
+    
+    <div class=" col col-md-8" style="width: 60%; margin: auto; margin-top: 20px;"> 
+        <h4 class="text-center">Contests</h4>
+        <hr>
+        <br>
+        <% if(currentUser.savedEvents.length >0){ %> 
+            <table id="saved">
                 <tr>
-                    <td style="text-align: left; padding-left: 20px;">
-                        <% for(var key in logo){ %>
-                            <% if( key == item["resource"]["name"]){ %>
-                                <img style="height: 16px; width: 16px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
+                    <th id="contest-name" style="text-align: center">Saved Events</th>
+                </tr> 
+                
+                <% currentUser.savedEvents.forEach(function (item) { %>
+                    <tr>
+                        <td style="text-align: left; padding-left: 20px;">
+                            <% for(var key in logo){ %>
+                                <% if( key == item["resource"]["name"]){ %>
+                                    <img style="height: 16px; width: 16px;" src="<%= logo[key]%>" style="width:168px;height:168px; "></i>
+                                <% } %>
                             <% } %>
-                        <% } %>
-                        <a style="margin-left: 5px;" href=" <%= item["href"] %>"><%= item["event"]%></a>
-                    </td>
-                </tr>
-            <% }) %>            
-        </table>
-        <div id="chart_div" style="margin: auto;" ></div>
-        
+                            <a style="margin-left: 5px;" href=" <%= item["href"] %>"><%= item["event"]%></a>
+                        </td>
+                    </tr>
+                <% }) %>            
+            </table>
+        <% } else{ %>
+            <a class="tags" style="margin:auto;" href="/">Save a Contest</a>
+        <% } %> 
+        <div class="container" style="margin-top: 20px; ">
+            <% if(currentUser.searchedTags.length>0){ %>
+                Recently Searched Tags: 
+                <% currentUser.searchedTags.forEach(function (tag, i) { %>
+                    <% if(i<6) {%>
+                        <span class="tags"><%= tag %> </span>
+                    <% } %> 
+                <% }) %>
+            <% } else{ %>
+                <a class="tags" href="/problems">Search a Problem</a>
+            <% } %> 
+        </div>
+        <br>
+        <div class="stats" style="margin: auto; margin-top: 20px;">
+            <% if(currentUser.codeforcesUsername){ %> 
+                <h4 class="text-center">Stats</h4>
+                <hr>
+                <br>
+                <div id="chart_div" style="width: 50%; margin: auto;" ></div>
+            <% } else{%>
+                <p class="text-center">
+                    Add Codechef & Codeforces id for Statistics
+                </p>
+            <% } %>
+        </div>
+          
     </div>
 </div>
 <%- include('../user/footer') %> 
