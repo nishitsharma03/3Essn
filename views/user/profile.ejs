@@ -13,9 +13,10 @@
         </div>
     <% } %>
 </div>
-<div class="row" style="margin-right:0px;">
+<div class="row" style="margin-right:0px; ">
     <div class="col col-md-4" style="margin:auto; width: 30%;">
-        <h1 style="text-align:center; margin-bottom:0px;">User</h1>
+        <h3 style="text-align: center; margin-bottom: 5px;">User</h3>
+        <hr>
         <div class="card">
             <div class="circle" style="margin:auto;">
                 <p class="circle-text"><%= currentUser.firstName[0] %></p>
@@ -82,12 +83,12 @@
     </div>
     
     
-    <div class=" col col-md-8" style="width: 60%; margin: auto; margin-top: 20px;"> 
-        <h4 class="text-center">Contests</h4>
+    <div class=" col col-md-8" style="width: 60%; margin: auto; margin-top: 0px;"> 
+        <h3 class="text-center" style="margin-bottom: 5px;">Contests</h3>
         <hr>
-        <br>
+        
         <% if(currentUser.savedEvents.length >0){ %> 
-            <table id="saved">
+            <table id="saved" style="margin-top: 15px;">
                 <tr>
                     <th id="contest-name" style="text-align: center">Saved Events</th>
                 </tr> 
