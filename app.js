@@ -134,7 +134,6 @@ app.post("/register",isLoggedOut, function (req, res) {
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
             res.redirect("/");
-            //TODO- Greeting mail to user after registration
         });
     });
 });
@@ -164,31 +163,31 @@ app.get("/logout", isLoggedIn, function (req, res) {
 // =========================================
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
-    // if(req.user.codeforcesUsername){
-    var process = spawn('python',["userdatafetchapi.py", 'nishitsharma0']);
+    if(req.user.codeforcesUsername){
+        var process = spawn('python',["userdatafetchapi.py", req.user.codeforcesUsername]);
 
-    process.stderr.on('data', (data) => {
-        console.log(`error:${data}`);
-    });
-
-    process.on('close', (code) => {
-        fs.readFile("submissionStatus.json", function(err, data) { 
-            if (err) 
-            {
-                throw err;
-            } else {
-                data = data.toString();
-                fs.readFile("problemPerTag.json", function (err, data2) {
-                    data2 = data2.toString();
-                    res.render("user/profile", {pieData:JSON.parse(data), histoData: JSON.parse(data2), logo:logos});
-                })
-            }
+        process.stderr.on('data', (data) => {
+            console.log(`error:${data}`);
         });
-        console.log(`child process (Profile) close all stdio with code ${code}`);
-    });
-    // } else {
-        // res.render("user/profile", {logo:logos});
-    // }
+
+        process.on('close', (code) => {
+            fs.readFile("submissionStatus.json", function(err, data) { 
+                if (err) 
+                {
+                    throw err;
+                } else {
+                    data = data.toString();
+                    fs.readFile("problemPerTag.json", function (err, data2) {
+                        data2 = data2.toString();
+                        res.render("user/profile", {pieData:JSON.parse(data), histoData: JSON.parse(data2), logo:logos});
+                    })
+                }
+            });
+            console.log(`child process (Profile) close all stdio with code ${code}`);
+        });
+    } else {
+        res.render("user/profile", {logo:logos});
+    }
 });
 
 app.post("/save/contest", function (req, res) {
