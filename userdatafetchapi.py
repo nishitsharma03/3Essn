@@ -15,7 +15,7 @@ for i in probs:
         verdicts[k]+=1;
     else:
         verdicts[k]=1;
-with open(user+'.json','w') as outfile:
+with open('submissionStatus.json','w') as outfile:
 
     # for i in res:
     json.dump(verdicts,outfile)
