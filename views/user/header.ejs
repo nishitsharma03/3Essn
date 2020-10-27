@@ -56,6 +56,7 @@
 
       // Set a callback to run when the Google Visualization API is loaded.
       google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart2);
 
       // Callback that creates and populates a data table,
       // instantiates the pie chart, passes in the data and
@@ -79,10 +80,29 @@
         // Set chart options
         var options = {'title':'Submission Status',
                        'width':600,
-                       'height':400};
+                       'height':400,
+                        pieHole: 0.4,
+                    };
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+      function drawChart2() {
+        var data = google.visualization.arrayToDataTable([
+            ['Tags', 'Problems'],
+        <% for([key, val] of Object.entries(histoData)){ %>
+            ['<%= key.toString() %>', <%= val %>], 
+        <% } %>
+        ]);
+
+        var options = {
+          title: 'Problems per Tag',
+          legend: { position: 'center'},
+        };
+
+        var chart = new google.visualization.Histogram(document.getElementById('chart_div2'));
         chart.draw(data, options);
       }
     </script>

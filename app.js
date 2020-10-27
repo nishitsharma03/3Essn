@@ -178,7 +178,10 @@ app.get("/userprofile", isLoggedIn, function (req, res) {
                 throw err;
             } else {
                 data = data.toString();
-                res.render("user/profile", {pieData:JSON.parse(data), logo:logos});
+                fs.readFile("problemPerTag.json", function (err, data2) {
+                    data2 = data2.toString();
+                    res.render("user/profile", {pieData:JSON.parse(data), histoData: JSON.parse(data2), logo:logos});
+                })
             }
         });
         console.log(`child process (Profile) close all stdio with code ${code}`);
