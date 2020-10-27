@@ -100,9 +100,18 @@
         var options = {
           title: 'Problems per Tag',
           legend: { position: 'center'},
+          hAxix: {
+              textStyel:{
+                fontSize: 1,
+                italic: true
+              }
+            }
+        //   hAxis: {gridlines: {interval:  [1, 2, .1, 10]}},
+        //   hAxis: { ticks: [10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200] },
+        //   isStacked: false
         };
 
-        var chart = new google.visualization.Histogram(document.getElementById('chart_div2'));
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
         chart.draw(data, options);
       }
     </script>

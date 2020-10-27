@@ -220,12 +220,10 @@ app.put("/user/:id/update", function (req, res) {
     var updatedUser = {
         firstName          : req.body.firstName,
         lastName           : req.body.lastName,
-        username           : req.body.username,
         email              : req.body.email,
         phoneNo            : req.body.phoneNo,
         codechefUsername   : req.body.codechefUsername,
-        codeforcesUsername : req.body.codeforcesUsername,
-        company            : req.body.company
+        codeforcesUsername : req.body.codeforcesUsername
     }
     User.findByIdAndUpdate({_id: req.params.id}, updatedUser, function (err, user) {
         if (err) {
@@ -265,11 +263,13 @@ app.post("/problems", isLoggedIn, function (req, res) {
         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
         if(dataToSend){
             dataToSend = dataToSend.split("|");
-            User.findByIdAndUpdate(req.user._id , {$addToSet:{searchedTags : req.body.tags.split(',')}}, function (err, user) {
-                if(err){
-                    console.log(err);
-                }
-            });
+            if(dataToSend.length == 3){
+                User.findByIdAndUpdate(req.user._id , {$addToSet:{searchedTags : req.body.tags.split(',')}}, function (err, user) {
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            }
         }
         res.redirect("/problems");
     });
