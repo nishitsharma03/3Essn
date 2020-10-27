@@ -164,7 +164,28 @@ app.get("/logout", isLoggedIn, function (req, res) {
 // =========================================
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
-    res.render("user/profile", {logo:logos});
+    // if(req.user.codeforcesUsername){
+    var process = spawn('python',["userdatafetchapi.py", 'nishitsharma0']);
+
+    process.stderr.on('data', (data) => {
+        console.log(`error:${data}`);
+    });
+
+    process.on('close', (code) => {
+        fs.readFile("submissionStatus.json", function(err, data) { 
+            if (err) 
+            {
+                throw err;
+            } else {
+                data = data.toString();
+                res.render("user/profile", {pieData:JSON.parse(data), logo:logos});
+            }
+        });
+        console.log(`child process (Profile) close all stdio with code ${code}`);
+    });
+    // } else {
+        // res.render("user/profile", {logo:logos});
+    // }
 });
 
 app.post("/save/contest", function (req, res) {

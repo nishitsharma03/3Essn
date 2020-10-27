@@ -64,20 +64,22 @@
 
         // Create the data table.
         var data = new google.visualization.DataTable();
-        data.addColumn('string', 'Topping');
-        data.addColumn('number', 'Slices');
+        data.addColumn('string', 'Status');
+        data.addColumn('number', 'Number');
         data.addRows([
-          ['Mushrooms', 3],
-          ['Onions', 1],
-          ['Olives', 1],
-          ['Zucchini', 1],
-          ['Pepperoni', 2]
+          ['WRONG_ANSWER', <%= pieData.WRONG_ANSWER %>],
+          ['OK', <%= pieData.OK %>],
+          ['RUNTIME_ERROR', <%= pieData.RUNTIME_ERROR %>],
+          ['TIME_LIMIT_EXCEEDED', <%= pieData.TIME_LIMIT_EXCEEDED %>],
+          ['COMPILATION_ERROR', <%= pieData.COMPILATION_ERROR %>],
+          ['IDLENESS_LIMIT_EXCEEDED', <%= pieData.IDLENESS_LIMIT_EXCEEDED %>],
+          ['MEMORY_LIMIT_EXCEEDED', <%= pieData.MEMORY_LIMIT_EXCEEDED %>]
         ]);
 
         // Set chart options
-        var options = {'title':'Just an Example',
-                       'width':400,
-                       'height':300};
+        var options = {'title':'Submission Status',
+                       'width':600,
+                       'height':400};
 
         // Instantiate and draw our chart, passing in some options.
         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
