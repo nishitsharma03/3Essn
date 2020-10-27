@@ -24,9 +24,9 @@ function seedDBContest() {
                                 // console.log(msg);
                             }
                         });
-                    } else {
-                        function greetUser() {
-                            var HTMLTemplate ="<h1>This is the template</h1>";
+                    } else if(startD.getTime() - now.getTime() < 24*60*60*1000) {
+                        greetUser(event.event);
+                        function greetUser(name) {
                             var transporter = nodemailer.createTransport({
                                 service: 'gmail',
                                 auth: {
@@ -40,7 +40,7 @@ function seedDBContest() {
                                 from: '3essenn@gmail.com', 
                                 to: user.email,
                                 subject: `Contest Reminder!`,
-                                html: `<h1 style="text-align: center;"> Reminder for:${event.event}</h1>`
+                                html: `<h1 style="text-align: center;"> Reminder for: ${name}</h1>`
                             };
                             transporter.sendMail(mailOptions, function (err, info) {
                                 if(err){
