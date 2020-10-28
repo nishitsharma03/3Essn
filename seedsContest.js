@@ -25,8 +25,8 @@ function seedDBContest() {
                             }
                         });
                     } else if(startD.getTime() - now.getTime() < 24*60*60*1000) {
-                        greetUser(event.event);
-                        function greetUser(name) {
+                        greetUser(event);
+                        function greetUser(contest) {
                             var transporter = nodemailer.createTransport({
                                 service: 'gmail',
                                 auth: {
@@ -36,11 +36,30 @@ function seedDBContest() {
                                         // pass: process.env.COMANYPASS
                                     }
                             });
+                            var start = contest.start.split('T');
+                            // start = new Date(start[0]);
                             const mailOptions = {
                                 from: '3essenn@gmail.com', 
                                 to: user.email,
                                 subject: `Contest Reminder!`,
-                                html: `<h1 style="text-align: center;"> Reminder for: ${name}</h1>`
+                                html: `
+                                <html>
+                                    <body style="color: black;">
+                                        <h1 style="text-align: center;">Contest Reminder!</h1>
+                                        <hr>
+                                        <p>
+                                        Hey <strong> ${user.firstName} ${user.lastName}</strong>,<br>
+                                        Here's your <strong>Reminder</strong> for <strong><a href="${contest.href}"> ${contest.event} </a></strong>. The Contest is scheduled on :- <em> ${start[0]}</em> <em> ${start[1]} </em>.
+                                        <br><br>
+                                        All the Best!!<br>
+                                        <strong>3ESSENN</strong>
+                                        </p>
+                                        <br><br>
+                                        <br><br>
+                                        <hr>
+                                        <p style="text-align: center;">Visit Us: <strong><a href="https://immense-falls-32098.herokuapp.com/">3ESSENN</a></strong></p>
+                                    </body>
+                                </html>`
                             };
                             transporter.sendMail(mailOptions, function (err, info) {
                                 if(err){

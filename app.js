@@ -10,8 +10,7 @@ spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 nodemailer            = require('nodemailer'),
 User                  = require("./models/user"),
-// seedDB                = require("./seeds"),
-// seedContest           = require("./seedsContest");
+seedContest           = require("./seedsContest");
 app                   = express();
 
 // ==================================
@@ -78,6 +77,7 @@ function pastContestRefresh() {
 var timeGap = 3*60*60*1000; //hours
 // setInterval(contestRefresh, timeGap); //for deployement
 // setInterval(pastContestRefresh, 8*timeGap); //for deployement
+// setInterval(seedContest, 4*timeGap); //for deployement
 
 var dataToSend = null;
 
