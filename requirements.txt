@@ -1,5 +1,4 @@
 requests
 datetime
-random
 bs4
 re
