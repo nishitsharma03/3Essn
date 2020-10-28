@@ -1,5 +1,4 @@
 requests
 datetime
-dateutil
 json
 random
