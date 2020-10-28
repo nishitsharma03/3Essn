@@ -1,4 +1,18 @@
 <%- include('../register/header.ejs') %>
+<div class="container popup">
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+            <a class = "close">X</a>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+            <a class = "close">X</a>
+        </div>
+    <% } %>
+</div>
     <div class="container">
         <form class="form-horizontal" role="form" action="/register" method="post">
             <div class="login_form">
@@ -24,9 +38,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="col-sm-3 control-label">Email</label>
+                    <label for="email" class="col-sm-3 control-label">Email*</label>
                     <div class="col-sm-9">
-                        <input type="email" id="email" placeholder="Email" class="form-control" name="email">
+                        <input type="email" id="email" placeholder="Email" class="form-control" name="email" required>
                     </div>
                 </div>
                 <div class="form-group">

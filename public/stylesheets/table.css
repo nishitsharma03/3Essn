@@ -1,6 +1,7 @@
 
 
-body {
+#main {
+	padding-top: 20px;
    margin: 0px;
    height: 100%;
    width: 100%;
@@ -14,7 +15,8 @@ body {
   	border: 1px solid #ddd;
   	border-radius: 5px;
   	overflow: hidden;
-  	background-color: white;
+	  background-color: white;
+	  margin-bottom: 10px;
   }
 
 #contest td {

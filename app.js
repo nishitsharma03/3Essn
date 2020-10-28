@@ -5,12 +5,12 @@ flash                 = require("connect-flash"),
 passport              = require("passport"),
 LocalStrategy         = require("passport-local"),
 passportLocalMongoose = require("passport-local-mongoose"),
+methodOverride        = require('method-override'),
 spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 nodemailer            = require('nodemailer'),
 User                  = require("./models/user"),
-// seedDB                = require("./seeds"),
-// seedContest           = require("./seedsContest");
+seedContest           = require("./seedsContest"),
 app                   = express();
 
 // ==================================
@@ -21,11 +21,7 @@ app                   = express();
 
 //! "mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority"
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
-app.use(bodyParser.urlencoded({extended: true}));
-app.set("view engine", "ejs");
-app.use(express.static("public"));
-// seedDB();
-// seedContest();
+app.use(methodOverride('_method'));
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
     resave: false,
@@ -70,11 +66,17 @@ function pastContestRefresh() {
         console.log(`child process (pastContest) close all stdio with code ${code}`);
     })
 }
-pastContestRefresh();
-contestRefresh();
+
+//! Timed Functions
+// seedDB();
+// seedContest();
+// pastContestRefresh();
+// contestRefresh();
 var timeGap = 3*60*60*1000; //hours
-setInterval(contestRefresh, timeGap); //for deployement
-setInterval(pastContestRefresh, 8*timeGap); //for deployement
+// setInterval(contestRefresh, timeGap); //for deployement
+// setInterval(pastContestRefresh, 8*timeGap); //for deployement
+// setInterval(seedContest, 4*timeGap); //for deployement
+
 var dataToSend = null;
 
 // =====================================
@@ -130,7 +132,6 @@ app.post("/register",isLoggedOut, function (req, res) {
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
             res.redirect("/");
-            //TODO- Greeting mail to user after registration
         });
     });
 });
@@ -160,12 +161,36 @@ app.get("/logout", isLoggedIn, function (req, res) {
 // =========================================
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
-    res.render("user/profile");
+    if(req.user.codeforcesUsername){
+        var process = spawn('python',["userdatafetchapi.py", req.user.codeforcesUsername]);
+
+        process.stderr.on('data', (data) => {
+            console.log(`error:${data}`);
+        });
+
+        process.on('close', (code) => {
+            fs.readFile("submissionStatus.json", function(err, data) { 
+                if (err) 
+                {
+                    throw err;
+                } else {
+                    data = data.toString();
+                    fs.readFile("problemPerTag.json", function (err, data2) {
+                        data2 = data2.toString();
+                        res.render("user/profile", {pieData:JSON.parse(data), histoData: JSON.parse(data2), logo:logos});
+                    })
+                }
+            });
+            console.log(`child process (Profile) close all stdio with code ${code}`);
+        });
+    } else {
+        res.render("user/profile", {logo:logos});
+    }
 });
 
-app.get("/user/:id/:contestid", isLoggedIn, function (req, res) {
-    var ID = req.params.id;
-    var idEvent = req.params.contestid;
+app.post("/save/contest", function (req, res) {
+    var ID = req.body.userId;
+    var idEvent = req.body.contestId;
     fs.readFile("data.json", function(err, data) { 
         if (err) throw err;
         data = JSON.parse(data);
@@ -175,17 +200,39 @@ app.get("/user/:id/:contestid", isLoggedIn, function (req, res) {
                 User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: data[i]}}, function (err, user) {
                     if (err) {
                         console.log(err);
-                        req.flash("error", "Error please try again");
-                        res.redirect("/");
+                        // req.flash("error", "Error please try again");
+                        // res.redirect("/");
                     } else{
                         console.log("Updated Saved Events!");
-                        req.flash("success", "Successfully Saved Event!");
-                        res.redirect("/");
+                        // req.flash("success", "Successfully Saved Event!");
+                        // res.redirect("/");
                     }
                 });
             }
         };
     });
+})
+
+app.put("/user/:id/update", function (req, res) {
+    var updatedUser = {
+        firstName          : req.body.firstName,
+        lastName           : req.body.lastName,
+        email              : req.body.email,
+        phoneNo            : req.body.phoneNo,
+        codechefUsername   : req.body.codechefUsername,
+        codeforcesUsername : req.body.codeforcesUsername
+    }
+    User.findByIdAndUpdate({_id: req.params.id}, updatedUser, function (err, user) {
+        if (err) {
+            console.log(err);
+            req.flash("error", "Error please try again");
+            res.redirect("/userprofile");
+        } else{
+            console.log("User data updated");
+            req.flash("success", "Profile Updated");
+            res.redirect("/userprofile");
+        }
+    })
 });
 
 app.get("/problems", isLoggedIn, function (req, res) {
@@ -211,7 +258,16 @@ app.post("/problems", isLoggedIn, function (req, res) {
 
     process.on('close', (code) => {
         console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
-        dataToSend = dataToSend.split("|");
+        if(dataToSend){
+            dataToSend = dataToSend.split("|");
+            if(dataToSend.length == 3){
+                User.findByIdAndUpdate(req.user._id , {$addToSet:{searchedTags : req.body.tags.split(',')}}, function (err, user) {
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            }
+        }
         res.redirect("/problems");
     });
 });

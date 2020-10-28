@@ -1,4 +1,18 @@
 <%- include('../problems/header') %>
+<div class="container popup">
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+            <a class = "close">X</a>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+            <a class = "close">X</a>
+        </div>
+    <% } %>
+</div>
     <div class="container" style="padding-left: 0px;">
         <h1 class="problems-heading" style="text-align: center; font-size: 50px;">Codeforces Problem Recommender</h1><br>
         <form action="/problems" method="POST">
@@ -49,7 +63,7 @@
         </div>
     <!-- </div> -->
 
-    <h3 style="text-align: center;"> <b>Try out questions from these recent competitions:</b>  </h3>
+    <h1 style="text-align: center;"> <b>Recent Competitions</b>  </h1>
     <div class="container">
         <table id="problems">
             <tr>

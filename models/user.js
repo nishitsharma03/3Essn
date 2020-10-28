@@ -13,6 +13,7 @@ passportLocalMongoose = require("passport-local-mongoose");
     codechefUsername  : String,
     codeforcesUsername: String,
     savedEvents       : [],
+    searchedTags      :[],
     savedProblems     : []
  });
 
