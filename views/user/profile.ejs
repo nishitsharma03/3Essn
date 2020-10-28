@@ -63,7 +63,11 @@
                         <strong>Codechef:</strong> 
                     </td>
                     <td class="detail">
-                        ----
+                        <% if(currentUser.codeforcesUsername){ %>
+                            <%= currentUser.codeforcesUsername %> 
+                        <% } else { %>
+                            ----
+                        <% } %>  
                     </td>
                 </tr>
                 <tr>
@@ -71,7 +75,11 @@
                         <strong>Codeforces:</strong> 
                     </td>
                     <td class="detail">
-                        ----
+                        <% if(currentUser.codechefUsername){ %>
+                            <%= currentUser.codechefUsername %> 
+                        <% } else { %>
+                            ----
+                        <% } %>
                     </td>
                 </tr>
             </table>
