@@ -10,7 +10,7 @@ spawn                 = require("child_process").spawn,
 fs                    = require("fs"),
 nodemailer            = require('nodemailer'),
 User                  = require("./models/user"),
-seedContest           = require("./seedsContest");
+seedContest           = require("./seedsContest"),
 app                   = express();
 
 // ==================================
@@ -19,10 +19,8 @@ app                   = express();
 
 
 
-mongoose.connect("mongodb://127.0.0.1:27017/btpproj2020", {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
-app.use(bodyParser.urlencoded({extended: true}));
-app.set("view engine", "ejs");
-app.use(express.static("public"));
+//! "mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority"
+mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
 app.use(methodOverride('_method'));
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
@@ -303,7 +301,6 @@ function isLoggedOut(req, res, next) {
 
 //************PORT*******************
 
-app.listen("3000", function () {
+app.listen(process.env.PORT, process.env.IP, function () {
     console.log("Server is running!");
-    console.log("http://localhost:3000/");
 });
