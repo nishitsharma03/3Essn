@@ -169,6 +169,7 @@
         <div class="container" style="margin-top: 20px; ">
             <% if(currentUser.searchedTags.length>0){ %>
                 Recently Searched Tags: 
+                <% currentUser.searchedTags.reverse() %> 
                 <% currentUser.searchedTags.forEach(function (tag, i) { %>
                     <% if(i<9) {%>
                         <span class="tags"><%= tag %> </span>
@@ -178,7 +179,7 @@
                 <a class="tags" href="/problems">Search a Problem</a>
             <% } %> 
         </div>
-        <br>
+        <br><br>
         <div class="stats" style="margin: auto; margin-top: 20px;">
             <% if(currentUser.codeforcesUsername){ %> 
                 <h4 class="text-center">Stats</h4>
