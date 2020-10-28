@@ -18,9 +18,11 @@ app                   = express();
 // ==================================
 
 
-
-//! "mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority"
+ 
 mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.use(require("express-session")({
     secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
@@ -68,14 +70,13 @@ function pastContestRefresh() {
 }
 
 //! Timed Functions
-// seedDB();
-// seedContest();
-// pastContestRefresh();
-// contestRefresh();
+seedContest();
+pastContestRefresh();
+contestRefresh();
 var timeGap = 3*60*60*1000; //hours
-// setInterval(contestRefresh, timeGap); //for deployement
-// setInterval(pastContestRefresh, 8*timeGap); //for deployement
-// setInterval(seedContest, 4*timeGap); //for deployement
+setInterval(contestRefresh, 2*timeGap); //for deployement
+setInterval(pastContestRefresh, 8*timeGap); //for deployement
+setInterval(seedContest, 4*timeGap); //for deployement
 
 var dataToSend = null;
 
@@ -126,8 +127,14 @@ app.post("/register",isLoggedOut, function (req, res) {
     });
     User.register(newUser, req.body.password, function (err, user) {
         if(err){
-            req.flash("error", err.message);           
-            return res.render("register/form");
+            if(err.code == 11000){
+                req.flash("error", "Email already in use!");
+                return res.redirect("/register");
+            } else {
+                req.flash("error", err.message);           
+                return res.redirect("/register");
+            }
+            
         }
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
@@ -196,16 +203,11 @@ app.post("/save/contest", function (req, res) {
         data = JSON.parse(data);
         for (let i = 0; i < Object.keys(data).length; i++) {
             if(data[i]["id"] == idEvent){
-                // console.log(data[i]);
                 User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: data[i]}}, function (err, user) {
                     if (err) {
                         console.log(err);
-                        // req.flash("error", "Error please try again");
-                        // res.redirect("/");
                     } else{
                         console.log("Updated Saved Events!");
-                        // req.flash("success", "Successfully Saved Event!");
-                        // res.redirect("/");
                     }
                 });
             }

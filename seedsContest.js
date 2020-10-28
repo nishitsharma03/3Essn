@@ -15,13 +15,11 @@ function seedDBContest() {
                     var endD = new Date(event.end);
                     //TODO: remove old contest from db also add automation to send email if 1 day left.
                     if(now>endD){
-                        // console.log(user.username, event);
                         User.findOneAndUpdate({_id: user._id }, {$pull: { savedEvents: event } }, function (err, msg) {
                             if(err){
                                 console.log(err);
                             } else{
                                 console.log("Deleted event");
-                                // console.log(msg);
                             }
                         });
                     } else if(startD.getTime() - now.getTime() < 24*60*60*1000) {
@@ -29,17 +27,14 @@ function seedDBContest() {
                         function greetUser(contest) {
                             var transporter = nodemailer.createTransport({
                                 service: 'gmail',
-                                auth: {
-                                        user: '3essenn@gmail.com',
-                                        // user: process.env.COMPANYMAIL,
-                                        pass: '3essenn123'
-                                        // pass: process.env.COMANYPASS
-                                    }
+                                auth: {                                        
+                                    user: process.env.COMPANYMAIL,
+                                    pass: process.env.COMANYPASS
+                                }
                             });
                             var start = contest.start.split('T');
-                            // start = new Date(start[0]);
                             const mailOptions = {
-                                from: '3essenn@gmail.com', 
+                                from: process.env.COMPANYMAIL, 
                                 to: user.email,
                                 subject: `Contest Reminder!`,
                                 html: `
@@ -65,11 +60,10 @@ function seedDBContest() {
                                 if(err){
                                     console.log(err)
                                 } else {
-                                    console.log('Email sent :',info);
+                                    console.log('Email sent');
                                 }
                             });
                         }
-                        //! checking time left    
                     }
                 })
             });
