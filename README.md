@@ -1,7 +1,9 @@
-# 3essenn
+<img width=600 height=250 src="https://raw.githubusercontent.com/nishitsharma03/btpproj2020/master/public/images/BTP%20LOGO.jpg?token=AM4WDYSTXHLCYQUWQ3XQXMLAQMWZC" />
+
+# 3ESSENN
 ## A Competitive Coding Website Tool
 
-3essenn is a tool that complies a list of all major programming contests by scraping data or by using API's  of different websites.It simplifies the task of keeping track of contests and choosing practice problems, with a clean and minimalistic UI we try to make this into an experience.  
+3ESSENN is a tool that complies a list of all major programming contests by scraping data or by using API's  of different websites.It simplifies the task of keeping track of contests and choosing practice problems, with a clean and minimalistic UI we try to make this into an experience.  
 
 ## Features
 
@@ -22,7 +24,7 @@
 
 ## Installation
 
-3essenn requires [Node.js](https://nodejs.org/) v10+ ,[Python 3](https://www.python.org/download/releases/3.0/) & [MongoDB](https://www.mongodb.com/) to run.
+3ESSENN requires [Node.js](https://nodejs.org/) v10+ ,[Python 3](https://www.python.org/download/releases/3.0/) & [MongoDB](https://www.mongodb.com/) to run.
 
 Clone the project
 ```
