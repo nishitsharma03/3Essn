@@ -14,8 +14,8 @@
 
 ## Tech
 - [node.js] - evented I/O for the backend
-- [Express] - fast node.js network app framework [@tjholowaychuk]
-- [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/) - awesome web-based text editor
+- [Express] - fast and flexible node.js network app framework
+- [Beautiful Soup 4](https://www.crummy.com/software/BeautifulSoup/) - web scrapper
 - [MongoDB](https://www.mongodb.com/) - No SQL Database for storing Data as well as auth session tokens
 - [Passport](http://www.passportjs.org/) - Secure User Authentication
 - [EJS](https://ejs.co/) - Dynamic SSR HTML web app
@@ -51,8 +51,7 @@ Run
 
 MIT
 
-[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
-
+[//]: # 
    [node.js]: <http://nodejs.org>
    [jQuery]: <http://jquery.com>
    [express]: <http://expressjs.com>
