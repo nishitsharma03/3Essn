@@ -1,3 +1,0 @@
-requests
-datetime
-bs4
