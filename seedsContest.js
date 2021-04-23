@@ -1,45 +1,46 @@
 const mongoose = require("mongoose"),
-User           = require("./models/user"),
-nodemailer     = require('nodemailer');
-const { use } = require("passport");
+    User = require("./models/user"),
+    nodemailer = require("nodemailer");
 
 function seedDBContest() {
-    User.find({} , (err, users) => {
-        if(err){
+    User.find({}, (err, users) => {
+        if (err) {
             console.log(err);
         } else {
-            users.map(user => {
-                user.savedEvents.forEach(function (event,index) {
+            users.map((user) => {
+                user.savedEvents.forEach(function (event, index) {
                     var now = new Date();
                     var startD = new Date(event.start);
                     var endD = new Date(event.end);
                     //TODO: remove old contest from db also add automation to send email if 1 day left.
-                    if(now>endD){
-                        // console.log(user.username, event);
-                        User.findOneAndUpdate({_id: user._id }, {$pull: { savedEvents: event } }, function (err, msg) {
-                            if(err){
-                                console.log(err);
-                            } else{
-                                console.log("Deleted event");
-                                // console.log(msg);
+                    if (now > endD) {
+                        User.findOneAndUpdate(
+                            { _id: user._id },
+                            { $pull: { savedEvents: event } },
+                            function (err, msg) {
+                                if (err) {
+                                    console.log(err);
+                                } else {
+                                    console.log("Deleted event");
+                                }
                             }
-                        });
-                    } else if(startD.getTime() - now.getTime() < 24*60*60*1000) {
+                        );
+                    } else if (
+                        startD.getTime() - now.getTime() <
+                        24 * 60 * 60 * 1000
+                    ) {
                         greetUser(event);
                         function greetUser(contest) {
                             var transporter = nodemailer.createTransport({
-                                service: 'gmail',
+                                service: "gmail",
                                 auth: {
-                                        user: '3essenn@gmail.com',
-                                        // user: process.env.COMPANYMAIL,
-                                        pass: '3essenn123'
-                                        // pass: process.env.COMANYPASS
-                                    }
+                                    user: process.env.COMPANYMAIL,
+                                    pass: process.env.COMANYPASS,
+                                },
                             });
-                            var start = contest.start.split('T');
-                            // start = new Date(start[0]);
+                            var start = contest.start.split("T");
                             const mailOptions = {
-                                from: '3essenn@gmail.com', 
+                                from: process.env.COMPANYMAIL,
                                 to: user.email,
                                 subject: `Contest Reminder!`,
                                 html: `
@@ -59,19 +60,21 @@ function seedDBContest() {
                                         <hr>
                                         <p style="text-align: center;">Visit Us: <strong><a href="https://immense-falls-32098.herokuapp.com/">3ESSENN</a></strong></p>
                                     </body>
-                                </html>`
+                                </html>`,
                             };
-                            transporter.sendMail(mailOptions, function (err, info) {
-                                if(err){
-                                    console.log(err)
-                                } else {
-                                    console.log('Email sent :',info);
+                            transporter.sendMail(
+                                mailOptions,
+                                function (err, info) {
+                                    if (err) {
+                                        console.log(err);
+                                    } else {
+                                        console.log("Email sent");
+                                    }
                                 }
-                            });
+                            );
                         }
-                        //! checking time left    
                     }
-                })
+                });
             });
         }
     });

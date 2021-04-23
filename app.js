@@ -1,32 +1,38 @@
-const express         = require("express"),
-bodyParser            = require("body-parser"),
-mongoose              = require("mongoose"),
-flash                 = require("connect-flash"),
-passport              = require("passport"),
-LocalStrategy         = require("passport-local"),
-passportLocalMongoose = require("passport-local-mongoose"),
-methodOverride        = require('method-override'),
-spawn                 = require("child_process").spawn,
-fs                    = require("fs"),
-nodemailer            = require('nodemailer'),
-User                  = require("./models/user"),
-seedContest           = require("./seedsContest"),
-app                   = express();
+const express = require("express"),
+    dotenv = require("dotenv"),
+    mongoose = require("mongoose"),
+    flash = require("connect-flash"),
+    passport = require("passport"),
+    LocalStrategy = require("passport-local"),
+    methodOverride = require("method-override"),
+    spawn = require("child_process").spawn,
+    fs = require("fs"),
+    User = require("./models/user"),
+    seedContest = require("./seedsContest"),
+    app = express();
 
 // ==================================
 //            APP CONGIG
 // ==================================
 
-
-
-//! "mongodb+srv://admin01:97QnGxY9Au6eUDSc@3essenn.ggkqf.mongodb.net/btpproj2020?retryWrites=true&w=majority"
-mongoose.connect(process.env.DATABASEURL, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false});
-app.use(methodOverride('_method'));
-app.use(require("express-session")({
-    secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
-    resave: false,
-    saveUninitialized: false
-}));
+dotenv.config();
+mongoose.connect(process.env.DATABASEURL, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+});
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.use(
+    require("express-session")({
+        secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
+        resave: false,
+        saveUninitialized: false,
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -46,36 +52,39 @@ app.use(function (req, res, next) {
 // ====================================
 
 function contestRefresh() {
-    var process = spawn('python',["contestretreiverapi.py"] );
-    
-    process.stderr.on('data', (data) => {
+    var process = spawn("python", ["contestretreiverapi.py"]);
+
+    process.stderr.on("data", (data) => {
         console.log(`error:${data}`);
-    }); 
-    process.on('close', (code) => {
-        console.log(`child process (contest) close all stdio with code ${code}`);
-    })
+    });
+    process.on("close", (code) => {
+        console.log(
+            `child process (contest) close all stdio with code ${code}`
+        );
+    });
 }
 
 function pastContestRefresh() {
-    var process = spawn('python',["pastcontests.py"] );
-    
-    process.stderr.on('data', (data) => {
+    var process = spawn("python", ["pastcontests.py"]);
+
+    process.stderr.on("data", (data) => {
         console.log(`error:${data}`);
-    }); 
-    process.on('close', (code) => {
-        console.log(`child process (pastContest) close all stdio with code ${code}`);
-    })
+    });
+    process.on("close", (code) => {
+        console.log(
+            `child process (pastContest) close all stdio with code ${code}`
+        );
+    });
 }
 
 //! Timed Functions
-// seedDB();
-// seedContest();
-// pastContestRefresh();
-// contestRefresh();
-var timeGap = 3*60*60*1000; //hours
-// setInterval(contestRefresh, timeGap); //for deployement
-// setInterval(pastContestRefresh, 8*timeGap); //for deployement
-// setInterval(seedContest, 4*timeGap); //for deployement
+seedContest();
+pastContestRefresh();
+contestRefresh();
+var timeGap = 3 * 60 * 60 * 1000; //hours
+setInterval(contestRefresh, 2 * timeGap); //for deployement
+setInterval(pastContestRefresh, 8 * timeGap); //for deployement
+setInterval(seedContest, 4 * timeGap); //for deployement
 
 var dataToSend = null;
 
@@ -83,16 +92,18 @@ var dataToSend = null;
 //**          Basic ROUTES
 // =====================================
 var logos = {
-    "codechef.com": "https://www.codechef.com/misc/fb-image-icon.png" ,  
-    "hackerearth.com": "https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png" ,  
-    "leetcode.com": "https://leetcode.com/static/images/LeetCode_logo.png" ,  
-    "codeforces.com": "https://image.winudf.com/v2/image/Y29tLlNvZnRUZWNocy5Db2RlRm9yY2VzX2ljb25fMF9jOTA3NjNhMA/icon.png?w=170&fakeurl=1" ,  
-    "atcoder.com": "https://img.atcoder.jp/assets/atcoder.png"
-}; 
+    "codechef.com": "https://www.codechef.com/misc/fb-image-icon.png",
+    "hackerearth.com":
+        "https://upload.wikimedia.org/wikipedia/commons/e/e8/HackerEarth_logo.png",
+    "leetcode.com": "https://leetcode.com/static/images/LeetCode_logo.png",
+    "codeforces.com":
+        "https://image.winudf.com/v2/image/Y29tLlNvZnRUZWNocy5Db2RlRm9yY2VzX2ljb25fMF9jOTA3NjNhMA/icon.png?w=170&fakeurl=1",
+    "atcoder.com": "https://img.atcoder.jp/assets/atcoder.png",
+};
 app.get("/", function (req, res) {
-    fs.readFile("data.json", function(err, data) { 
-        if (err) throw err; 
-        res.render("main/index", {data:JSON.parse(data), logo:logos});  
+    fs.readFile("data.json", function (err, data) {
+        if (err) throw err;
+        res.render("main/index", { data: JSON.parse(data), logo: logos });
     });
 });
 
@@ -116,21 +127,29 @@ app.get("/register", isLoggedOut, function (req, res) {
     res.render("register/form");
 });
 
-app.post("/register",isLoggedOut, function (req, res) {
+app.post("/register", isLoggedOut, function (req, res) {
     var newUser = new User({
         firstName: req.body.firstName,
-        lastName : req.body.lastName,
-        username : req.body.username,
-        email    : req.body.email,
-        phoneNo  : req.body.phoneNo,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        email: req.body.email,
+        phoneNo: req.body.phoneNo,
     });
     User.register(newUser, req.body.password, function (err, user) {
-        if(err){
-            req.flash("error", err.message);           
-            return res.render("register/form");
+        if (err) {
+            if (err.code == 11000) {
+                req.flash("error", "Email already in use!");
+                return res.redirect("/register");
+            } else {
+                req.flash("error", err.message);
+                return res.redirect("/register");
+            }
         }
         passport.authenticate("local")(req, res, function () {
-            req.flash("success", "Welcome " + user.firstName + " " + user.lastName)
+            req.flash(
+                "success",
+                "Welcome " + user.firstName + " " + user.lastName
+            );
             res.redirect("/");
         });
     });
@@ -140,15 +159,18 @@ app.get("/login", isLoggedOut, function (req, res) {
     res.render("login/form");
 });
 
-app.post("/login", isLoggedOut, passport.authenticate("local",
-    {
+app.post(
+    "/login",
+    isLoggedOut,
+    passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/login",
-        successFlash: true,            
+        successFlash: true,
         failureFlash: true,
-        successFlash: 'Successfully Logged in',
-    }), function (req, res) {
-});
+        successFlash: "Successfully Logged in",
+    }),
+    function (req, res) {}
+);
 
 app.get("/logout", isLoggedIn, function (req, res) {
     req.logOut();
@@ -161,117 +183,140 @@ app.get("/logout", isLoggedIn, function (req, res) {
 // =========================================
 
 app.get("/userprofile", isLoggedIn, function (req, res) {
-    if(req.user.codeforcesUsername){
-        var process = spawn('python',["userdatafetchapi.py", req.user.codeforcesUsername]);
+    if (req.user.codeforcesUsername) {
+        var process = spawn("python", [
+            "userdatafetchapi.py",
+            req.user.codeforcesUsername,
+        ]);
 
-        process.stderr.on('data', (data) => {
+        process.stderr.on("data", (data) => {
             console.log(`error:${data}`);
         });
 
-        process.on('close', (code) => {
-            fs.readFile("submissionStatus.json", function(err, data) { 
-                if (err) 
-                {
+        process.on("close", (code) => {
+            fs.readFile("submissionStatus.json", function (err, data) {
+                if (err) {
                     throw err;
                 } else {
                     data = data.toString();
                     fs.readFile("problemPerTag.json", function (err, data2) {
                         data2 = data2.toString();
-                        res.render("user/profile", {pieData:JSON.parse(data), histoData: JSON.parse(data2), logo:logos});
-                    })
+                        res.render("user/profile", {
+                            pieData: JSON.parse(data),
+                            histoData: JSON.parse(data2),
+                            logo: logos,
+                        });
+                    });
                 }
             });
-            console.log(`child process (Profile) close all stdio with code ${code}`);
+            console.log(
+                `child process (Profile) close all stdio with code ${code}`
+            );
         });
     } else {
-        res.render("user/profile", {logo:logos});
+        res.render("user/profile", { logo: logos });
     }
 });
 
 app.post("/save/contest", function (req, res) {
     var ID = req.body.userId;
     var idEvent = req.body.contestId;
-    fs.readFile("data.json", function(err, data) { 
+    fs.readFile("data.json", function (err, data) {
         if (err) throw err;
         data = JSON.parse(data);
         for (let i = 0; i < Object.keys(data).length; i++) {
-            if(data[i]["id"] == idEvent){
-                // console.log(data[i]);
-                User.findOneAndUpdate({_id: ID}, {$addToSet: {savedEvents: data[i]}}, function (err, user) {
-                    if (err) {
-                        console.log(err);
-                        // req.flash("error", "Error please try again");
-                        // res.redirect("/");
-                    } else{
-                        console.log("Updated Saved Events!");
-                        // req.flash("success", "Successfully Saved Event!");
-                        // res.redirect("/");
+            if (data[i]["id"] == idEvent) {
+                User.findOneAndUpdate(
+                    { _id: ID },
+                    { $addToSet: { savedEvents: data[i] } },
+                    function (err, user) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log("Updated Saved Events!");
+                        }
                     }
-                });
+                );
             }
-        };
+        }
     });
-})
+});
 
 app.put("/user/:id/update", function (req, res) {
     var updatedUser = {
-        firstName          : req.body.firstName,
-        lastName           : req.body.lastName,
-        email              : req.body.email,
-        phoneNo            : req.body.phoneNo,
-        codechefUsername   : req.body.codechefUsername,
-        codeforcesUsername : req.body.codeforcesUsername
-    }
-    User.findByIdAndUpdate({_id: req.params.id}, updatedUser, function (err, user) {
-        if (err) {
-            console.log(err);
-            req.flash("error", "Error please try again");
-            res.redirect("/userprofile");
-        } else{
-            console.log("User data updated");
-            req.flash("success", "Profile Updated");
-            res.redirect("/userprofile");
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        phoneNo: req.body.phoneNo,
+        codechefUsername: req.body.codechefUsername,
+        codeforcesUsername: req.body.codeforcesUsername,
+    };
+    User.findByIdAndUpdate(
+        { _id: req.params.id },
+        updatedUser,
+        function (err, user) {
+            if (err) {
+                console.log(err);
+                req.flash("error", "Error please try again");
+                res.redirect("/userprofile");
+            } else {
+                console.log("User data updated");
+                req.flash("success", "Profile Updated");
+                res.redirect("/userprofile");
+            }
         }
-    })
+    );
 });
 
 app.get("/problems", isLoggedIn, function (req, res) {
-    fs.readFile("pastcont.json", function(err, data) { 
-        if (err) throw err; 
-        res.render("problems/problem",{data:dataToSend, contest:JSON.parse(data)});
+    fs.readFile("pastcont.json", function (err, data) {
+        if (err) throw err;
+        res.render("problems/problem", {
+            data: dataToSend,
+            contest: JSON.parse(data),
+        });
         dataToSend = null;
     });
 });
 
 app.post("/problems", isLoggedIn, function (req, res) {
+    var process = spawn("python", [
+        "codeforcesapi.py",
+        req.body.tags,
+        req.body.lrating,
+        req.body.urating,
+    ]);
 
-    var process = spawn('python',["codeforcesapi.py", req.body.tags, req.body.lrating, req.body.urating] );
-    
-    process.stderr.on('data', (data) => {
+    process.stderr.on("data", (data) => {
         console.log(`error:${data}`);
     });
 
-    process.stdout.on('data', function (data) {
-        console.log('Problem retrieved');
-        dataToSend = data.toString()
+    process.stdout.on("data", function (data) {
+        console.log("Problem retrieved");
+        dataToSend = data.toString();
     });
 
-    process.on('close', (code) => {
-        console.log(`child process (QuestionAPI) close all stdio with code ${code}`);
-        if(dataToSend){
+    process.on("close", (code) => {
+        console.log(
+            `child process (QuestionAPI) close all stdio with code ${code}`
+        );
+        if (dataToSend) {
             dataToSend = dataToSend.split("|");
-            if(dataToSend.length == 3){
-                User.findByIdAndUpdate(req.user._id , {$addToSet:{searchedTags : req.body.tags.split(',')}}, function (err, user) {
-                    if(err){
-                        console.log(err);
+            if (dataToSend.length == 3) {
+                User.findByIdAndUpdate(
+                    req.user._id,
+                    { $addToSet: { searchedTags: req.body.tags.split(",") } },
+                    function (err, user) {
+                        if (err) {
+                            console.log(err);
+                        }
                     }
-                });
+                );
             }
         }
         res.redirect("/problems");
     });
 });
-
 
 //**********DEFAULT ROUTE**************
 
@@ -283,7 +328,7 @@ app.get("*", function (req, res) {
 // ***********Middlewares**************
 
 function isLoggedIn(req, res, next) {
-    if(req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         return next();
     }
     req.flash("error", "Please Login First!");
@@ -291,13 +336,12 @@ function isLoggedIn(req, res, next) {
 }
 
 function isLoggedOut(req, res, next) {
-    if(!req.isAuthenticated()){
+    if (!req.isAuthenticated()) {
         return next();
     }
     req.flash("error", "Please Logout First!");
-    res.redirect("/");  
+    res.redirect("/");
 }
-
 
 //************PORT*******************
 
