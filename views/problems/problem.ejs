@@ -1,0 +1,84 @@
+<%- include('../problems/header') %>
+<div class="container popup">
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+            <a class = "close">X</a>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+            <a class = "close">X</a>
+        </div>
+    <% } %>
+</div>
+    <div class="container" style="padding-left: 0px;">
+        <h1 class="problems-heading" style="text-align: center; font-size: 50px;">Codeforces Problem Recommender</h1><br>
+        <form action="/problems" method="POST">
+            <div class="row">
+            <div class="col-sm-1">
+ 
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" placeholder="Enter comma separated tags" name="tags">
+            </div>
+            <div class="col-sm-1">
+ 
+            </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Upperbound" name="urating">
+            </div>
+ 
+            <div class="col-sm-2">
+                <input type="text" class="form-control" placeholder="Lowerbound" name="lrating">
+            </div>
+            <div class="col-sm-2">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+            </div>
+        </form><br>
+        </div>
+        <div class="container">
+            <% if(data){ %>
+                <%  if(data.length ==3){ %> 
+                    <h4 style="text-align: center;"> <b>Try out this Problem</b>   </h4>
+                    <table id="problems">
+                        <tr>
+                            <th style="width: 300px;">Problem</th>
+                            <th>Rating</th>
+                        </tr>
+                        <tr>
+                            <td><a href="<%= data[2] %> "><%= data[0] %></a></td>
+                            <td><%= data[1] %></td>
+                        </tr>
+                    </table>
+                    <input class="btn btn-primary" type="button" value="Reset" onClick="window.location.reload();">
+                <% } else { %>
+                    <br>
+                    <p style="text-align: center;"><%= data[0] %> </p>
+                    <input class="btn btn-primary" type="button" value="Reset" onClick="window.location.reload();">
+                <% } %>
+            <% } %>
+        </div>
+    <!-- </div> -->
+
+    <h1 style="text-align: center;"> <b>Recent Competitions</b>  </h1>
+    <div class="container">
+        <table id="problems">
+            <tr>
+                <th style="width: 300px;">Date Ended</th>
+                <th id="contest-name">Contest Name</th>
+            </tr>
+
+        <% for (let i = 0; i < Object.keys(contest).length; i++) { %>
+            <% var end = contest[i]["end"].split("T") %>
+            <tr>
+                <td> <%= end[0] %> <%= end[1] %> </td>
+                <td><a href=" <%= contest[i]["href"] %>"><%= contest[i]["event"]%></a></td>
+            </tr>
+        <% } %>
+    </table>
+    </div>
+
+<%- include('../problems/footer') %>

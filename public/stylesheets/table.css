@@ -1,0 +1,50 @@
+
+
+#main {
+	padding-top: 20px;
+   margin: 0px;
+   height: 100%;
+   width: 100%;
+   background: linear-gradient(45deg, #4158d0, #c850c0);
+}
+
+#contest {
+	border-collapse: collapse;
+  	width: 100%;
+  	margin-top: 20px;
+  	border: 1px solid #ddd;
+  	border-radius: 5px;
+  	overflow: hidden;
+	  background-color: white;
+	  margin-bottom: 10px;
+  }
+
+#contest td {
+	padding: 5px;
+	text-align: center;
+}
+
+tr:nth-child(odd){
+	background-color: #f2f2f2;
+}
+
+#contest th {
+	font-weight: 150;
+	background-color: #36304a;
+	color: white;
+	text-align: center;
+	padding: 10px;
+	text-decoration: none;
+
+}
+
+#contest i {
+	display: none;
+  }
+
+  #contest tr:hover i {
+	display: inline-block;
+}
+
+
+
