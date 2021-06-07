@@ -43,6 +43,7 @@ Enviroment Setup(in .env)
     DATABASEURL = MongoDB url
     COMPANYMAIL = EMAIL for email service
     COMANYPASS = Password for that Email
+    SECRET = Key for hashing the password
 ```
 Run
 ```
