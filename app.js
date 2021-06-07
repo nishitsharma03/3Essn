@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(
     require("express-session")({
-        secret: "LKLKLK HVGYCU Ghuvggu bhjguhu",
+        secret: process.ev.SECRET,
         resave: false,
         saveUninitialized: false,
     })
