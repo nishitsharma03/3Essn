@@ -262,8 +262,6 @@ app.put("/user/:id/update", function (req, res) {
 });
 
 app.get("/problems", isLoggedIn, function (req, res) {
-  pastContestRefresh();
-
   fs.readFile("pastcont.json", function (err, data) {
     if (err) throw err;
     res.render("problems/problem", {
