@@ -5,7 +5,7 @@ const express = require("express"),
   passport = require("passport"),
   LocalStrategy = require("passport-local"),
   methodOverride = require("method-override"),
-  { spawn, spawnSync } = require("child_process"),
+  { spawn } = require("child_process"),
   fs = require("fs"),
   User = require("./models/user"),
   seedContest = require("./seedsContest"),
@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(
   require("express-session")({
-    secret: process.ev.SECRET,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
   })
