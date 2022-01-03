@@ -1,3 +1,4 @@
 requests
 datetime
 bs4
+python-dateutil
