@@ -81,7 +81,7 @@ pastContestRefresh();
 contestRefresh();
 var timeGap = 3 * 60 * 60 * 1000; //hours
 setInterval(contestRefresh, 2 * timeGap); //for deployement
-setInterval(pastContestRefresh, 8 * timeGap); //for deployement
+setInterval(pastContestRefresh, 4 * timeGap); //for deployement
 setInterval(seedContest, 4 * timeGap); //for deployement
 
 var dataToSend = null;
